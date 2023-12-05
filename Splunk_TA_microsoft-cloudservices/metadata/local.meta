@@ -1,0 +1,31 @@
+[app/install/install_source_checksum]
+version = 8.2.9
+modtime = 1701788190.008488300
+
+[passwords/credential%3A__REST_CREDENTIAL__%23Splunk_TA_microsoft-cloudservices%23configs%2Fconf-mscs_azure_accounts%3Atest50%60%60splunk_cred_sep%60%601%3A]
+owner = admin
+version = 8.2.9
+modtime = 1701788374.194787800
+
+[passwords/credential%3A__REST_CREDENTIAL__%23Splunk_TA_microsoft-cloudservices%23configs%2Fconf-mscs_azure_accounts%3Atest50%60%60splunk_cred_sep%60%602%3A]
+owner = admin
+version = 8.2.9
+modtime = 1701788374.219793600
+
+[mscs_azure_accounts/test50]
+owner = admin
+version = 8.2.9
+modtime = 1701788374.241797800
+
+[splunk_ta_mscs_settings/logging]
+version = 8.2.9
+modtime = 1701788381.563232800
+
+[mscs_azure_resource_inputs/test50vm]
+owner = admin
+version = 8.2.9
+modtime = 1701791138.056295700
+
+[splunk_ta_mscs_settings/proxy]
+version = 8.2.9
+modtime = 1701789894.265295000
