@@ -1,5 +1,0 @@
-index=_audit action=edit object_type=savedsearch 
-| search file="savedsearches.conf"
-| rex field=info "user=(?<user>\w+)"
-| table _time, user, action, info, savedsearch_name, file
-| sort - _time
