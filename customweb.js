@@ -54,3 +54,13 @@ function setTrackingImage(serverIdentifier) {
     }
     document.getElementById('trackingImage').src = trackingImageUrl;
 }
+
+
+function setQrCode(serverIdentifier) {
+    var qrCodeUrl;
+    switch(serverIdentifier) {
+        // ... your cases ...
+    }
+    console.log("QR Code URL: " + qrCodeUrl); // Add this line for debugging
+    document.getElementById('qrCode').src = qrCodeUrl;
+}
