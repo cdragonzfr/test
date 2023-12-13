@@ -1,0 +1,17 @@
+# PowerShell Script to Query WSL Distributions and Versions
+
+try {
+    # Check if WSL is available on the system
+    $wslCheck = Get-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+
+    if ($wslCheck.State -eq "Enabled") {
+        # Run the WSL list command
+        Write-Host "Querying installed WSL distributions and versions..."
+        $wslOutput = wsl -l -v
+        Write-Host $wslOutput
+    } else {
+        Write-Host "WSL is not enabled on this system."
+    }
+} catch {
+    Write-Host "An error occurred: $_"
+}
