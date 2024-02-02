@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .login-container {
+    background: #ffffff;
+    padding: 20px;
+    border: 1px solid #ddd;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+  }
+  .login-form input[type="text"],
+  .login-form input[type="password"] {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  .login-form input[type="submit"] {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #5cb85c;
+    color: white;
+    cursor: pointer;
+  }
+  .login-form input[type="submit"]:hover {
+    background-color: #4cae4c;
+  }
+  .mfa-setup {
+    margin-top: 10px;
+    text-align: center;
+  }
+  .mfa-setup a {
+    color: #5cb85c;
+    text-decoration: none;
+  }
+  .consent {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="login-container">
+  <h2>Login</h2>
+  <form class="login-form">
+    <input type="text" placeholder="Username">
+    <input type="password" placeholder="Password">
+    <input type="submit" value="Login">
+    <div class="mfa-setup">
+      <a href="#">MFA Setup</a>
+    </div>
+  </form>
+  <div class="consent">
+    <p>You are about to access a consent.</p>
+  </div>
+</div>
+
+</body>
+</html>
