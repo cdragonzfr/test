@@ -1,0 +1,51 @@
+Workload,Operation,object_attrs
+AzureActiveDirectory,Reset user password*,password
+AzureActiveDirectory,Start applying group based license to users.,license
+AzureActiveDirectory,Finish applying group based license to users.,license
+AzureActiveDirectory,Add owner to group.,group
+AzureActiveDirectory,Remove member from group.,group
+AzureActiveDirectory,Change user password.,password
+AzureActiveDirectory,Remove owner from group.,group
+AzureActiveDirectory,Add eligible member to role*,role
+AzureActiveDirectory,Remove eligible member from role*,role
+AzureActiveDirectory,Remove member from role*,role
+AzureActiveDirectory,Remove owner from application.,application
+AzureActiveDirectory,Set user manager.,manager
+AzureActiveDirectory,Add EligibleRoleAssignement to RoleDefinition.,RoleDefinition
+OneDrive,AddedToGroup,group
+OneDrive,AnonymousLinkCreated,link
+OneDrive,SiteCollectionQuotaModified,storage
+OneDrive,ShortcutAdded,shortcut
+OneDrive,GroupAdded,group
+SecurityComplianceCenter,New-ProtectionAlert,policy
+SecurityComplianceCenter,Remove-DlpCompliancePolicy,policy
+SecurityComplianceCenter,Remove-DlpComplianceRule,rule
+SecurityComplianceCenter,Set-DlpComplianceRule,rule
+SecurityComplianceCenter,Set-DlpCompliancePolicy,policy
+SecurityComplianceCenter,New-DlpComplianceRule,rule
+SecurityComplianceCenter,New-DlpCompliancePolicy,policy
+SecurityComplianceCenter,Get-DlpSensitiveInformationType,information type
+SharePoint,CommentDeleted,comment
+SharePoint,GroupUpdated,group
+SharePoint,GroupRemoved,group
+SharePoint,GroupAdded,group
+SharePoint,ListViewCreated,list
+SharePoint,SecureLinkUpdated,link
+SharePoint,ListItemCreated,item
+SharePoint,SiteColumnCreated,column
+SharePoint,PermissionLevelAdded,permission
+SharePoint,SharingPolicyChanged,policy
+SharePoint,SiteIBModeSet,site
+SharePoint,WebRequestAccessModified,request_access
+SharePoint,WebAccessRequestApproverModified,user
+SharePoint,ListContentTypeUpdated,list contenttype
+SharePoint,ListContentTypeDeleted,list contenttype
+SharePoint,SiteContentTypeCreated,list contenttype
+SharePoint,ListColumnDeleted,list column
+SharePoint,PermissionLevelRemoved,permission
+Exchange,Remove-RoleGroupMember,member
+Exchange,Set-AdminAuditLogConfig,AuditLogConfig
+SharePoint,SiteCollectionCreated,collection
+SharePoint,SiteCollectionQuotaModified,quota
+OneDrive,PermissionLevelAdded,permission
+OneDrive,SiteCollectionCreated,collection

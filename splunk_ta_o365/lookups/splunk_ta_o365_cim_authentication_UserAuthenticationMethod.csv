@@ -1,0 +1,21 @@
+UserAuthenticationMethod,authentication_method,AuthenticationMethodDescription
+0,Min,The authentication method is a Min.
+1,Password,The authentication method is a password.
+2,Digest,The authentication method is a digest.
+3,ProxyAuth,The authentication method is a ProxyAuth.
+4,InfoCard,The authentication method is an InfoCard
+5,DAToken,The authentication method is a DAToken.
+6,Sha1RememberMyPassword,The authentication method is a Sha1RememberMyPassword.
+7,LMPasswordHash,The authentication method is an LMPasswordHash.
+8,ADFSFederatedToken,The authentication method is an ADFSFederatedToken.
+9,EID,The authentication method is an EID.
+10,DeviceID,The authentication method is a DeviceID.
+11,MD5,The authentication method is MD5.
+12,EncProxyPasswordHash,The authentication method is a EncProxyPasswordHash.
+13,LWAFederation,The authentication method is a LWAFederation.
+14,Sha1HashedPassword,The authentication method is a Sha1HashedPassword.
+15,SecurePin,The authentication method is a secure Pin.
+16,SecurePinReset,The authentication method is a secure PIN reset.
+17,SAML20PostSimpleSign,The authentication method is a SAML20PostSimpleSign.
+18,SAML20Post,The authentication method is a SAML20Post.
+19,OneTimeCode,The authentication method is a one-time code.

@@ -1,0 +1,62 @@
+{
+  "dependencies": null,
+  "incompatibleApps": null,
+  "info": {
+    "author": [
+      {
+        "name": "Splunk, Inc.",
+        "email": null,
+        "company": null
+      }
+    ],
+    "classification": {
+      "categories": [],
+      "developmentStatus": null,
+      "intendedAudience": null
+    },
+    "commonInformationModels": {
+      "Alerts": "==5.1.0",
+      "Authentication": "==5.1.0",
+      "Change": "==5.1.0",
+      "Data Access": "==5.1.0",
+      "Data Loss Prevention": "==5.1.0",
+      "Email": "==5.1.0"
+    },
+    "description": "Splunk Add-on for Microsoft Office 365",
+    "id": {
+      "group": null,
+      "name": "splunk_ta_o365",
+      "version": "4.5.1"
+    },
+    "license": {
+      "name": "Splunk Software License Agreement",
+      "text": "LICENSES/LicenseRef-Splunk-8-2021.txt",
+      "uri": "http://www.splunk.com/view/SP-CAAAAFA"
+    },
+    "privacyPolicy": {
+      "name": null,
+      "text": null,
+      "uri": null
+    },
+    "releaseDate": null,
+    "releaseNotes": {
+      "name": "Splunk Add-on for Microsoft Office 365 Release Notes",
+      "text": "./README.txt",
+      "uri": "https://docs.splunk.com/Documentation/AddOns/released/MSO365/Releasenotes"
+    },
+    "title": "Splunk Add-on for Microsoft Office 365"
+  },
+  "inputGroups": null,
+  "platformRequirements": null,
+  "schemaVersion": "2.0.0",
+  "supportedDeployments": [
+    "_standalone",
+    "_distributed",
+    "_search_head_clustering"
+  ],
+  "targetWorkloads": [
+    "_search_heads",
+    "_forwarders"
+  ],
+  "tasks": null
+}

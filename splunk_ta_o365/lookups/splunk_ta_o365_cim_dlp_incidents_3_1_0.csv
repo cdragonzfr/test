@@ -1,0 +1,4 @@
+Workload,Operation,dataset_name,action,object_category,dlp_type
+OneDrive,DLPRuleUndo,dlp_incidents,undo,file,network
+OneDrive,DLPRuleMatch,dlp_incidents,match,file,network
+SharePoint,DLPRuleMatch,dlp_incidents,NotifyUser,file,network

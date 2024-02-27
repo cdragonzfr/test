@@ -1,0 +1,3 @@
+AzureActiveDirectoryEventType,event_type,AzureActiveDirectoryEventDescription
+0,AccountLogon,The account login event
+1,AzureApplicationAuditEvent,The Azure application security event

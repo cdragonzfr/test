@@ -1,0 +1,1505 @@
+{
+    "pages": {
+        "configuration": {
+            "title": "Configuration",
+            "description": "Configure your O365 Tenant, proxy settings and logging level",
+            "tabs": [
+                {
+                    "title": "Tenant",
+                    "name": "tenants",
+                    "hook": {
+                        "type": "external",
+                        "src": "configuration_hook"
+                    },
+                    "table": {
+                        "actions": [
+                            "edit",
+                            "clone",
+                            "delete"
+                        ],
+                        "header": [
+                            {
+                                "label": "Tenant Name",
+                                "field": "name"
+                            },
+                            {
+                                "label": "Endpoint",
+                                "field": "endpoint"
+                            },
+                            {
+                                "label": "Tenant ID",
+                                "field": "tenant_id"
+                            },
+                            {
+                                "label": "Client ID",
+                                "field": "client_id"
+                            }
+                        ]
+                    },
+                    "entity": [
+                        {
+                            "label": "Name",
+                            "field": "name",
+                            "type": "text",
+                            "help": "Only letters, numbers and underscores are supported",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported.",
+                                    "pattern": "^\\w+$"
+                                },
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Name must be less than 995 characters.",
+                                    "minLength": 1,
+                                    "maxLength": 995
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Endpoint",
+                            "field": "endpoint",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "Worldwide",
+                                        "label": "Worldwide"
+                                    },
+                                    {
+                                        "value": "USGovGCC",
+                                        "label": "USGovGCC"
+                                    },
+                                    {
+                                        "value": "USGovGCCHigh",
+                                        "label": "USGovGCCHigh"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "label": "Tenant ID",
+                            "field": "tenant_id",
+                            "type": "text",
+                            "help": "The Directory ID from Azure Active Directory.",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true
+                            },
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Please provide valid Tenant ID.",
+                                    "pattern": "^[0-9a-fA-F]{8}(\\-[0-9a-fA-F]{4}){3}\\-[0-9a-fA-F]{12}$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Client ID",
+                            "field": "client_id",
+                            "type": "text",
+                            "help": "The Application ID from the registered application within the Azure Active Directory.",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Please provide valid Client ID.",
+                                    "pattern": "^[0-9a-fA-F]{8}(\\-[0-9a-fA-F]{4}){3}\\-[0-9a-fA-F]{12}$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Change Client Secret",
+                            "field": "change_client_secret",
+                            "type": "checkbox",
+                            "defaultValue": 0
+                        },
+                        {
+                            "label": "Client Secret",
+                            "field": "client_secret",
+                            "type": "text",
+                            "help": "The registered application key for the corresponding application.",
+                            "encrypted": true
+                        },
+                        {
+                            "label": "Change CAS Token",
+                            "field": "change_cas_secret",
+                            "help": "Change Cloud App Security Token.",
+                            "type": "checkbox",
+                            "defaultValue": 0
+                        },
+                        {
+                            "label": "Cloud App Security Token",
+                            "field": "cloudappsecuritytoken",
+                            "type": "text",
+                            "help": "The registered application Token for the corresponding tenant.",
+                            "encrypted": true
+                        },
+                        {
+                            "label": "Tenant Subdomain",
+                            "field": "cas_portal_url",
+                            "type": "text",
+                            "help": "The Cloud App Security Portal url: https://<tenant_subdomain>.<tenant_data_center>",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Tenant Subdomain must be less than 63 characters.",
+                                    "minLength": 1,
+                                    "maxLength": 63
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported.",
+                                    "pattern": "^([A-Za-z0-9](?:[A-Za-z0-9\\-]{0,61}[A-Za-z0-9])?)$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Data Center",
+                            "field": "cas_portal_data_center",
+                            "type": "text",
+                            "help": "The Cloud App Security Portal url: https://<tenant_subdomain>.<tenant_data_center>",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Data Center must be less than 63 characters.",
+                                    "minLength": 1,
+                                    "maxLength": 63
+                                },
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported.",
+                                    "pattern": "^([A-Za-z0-9](?:[A-Za-z0-9\\-]{0,61}[A-Za-z0-9])?)$"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "tenant_help_link",
+                            "label": "",
+                            "type": "helpLink",
+                            "options": {
+                                "text": "Learn more",
+                                "link": "https://docs.splunk.com/Documentation/AddOns/released/MSO365/Configuretenant"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "title": "Logging",
+                    "name": "logging",
+                    "entity": [
+                        {
+                            "field": "log_level",
+                            "type": "singleSelect",
+                            "label": "Log Level",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "DEBUG",
+                                        "label": "DEBUG"
+                                    },
+                                    {
+                                        "value": "INFO",
+                                        "label": "INFO"
+                                    },
+                                    {
+                                        "value": "WARNING",
+                                        "label": "WARNING"
+                                    },
+                                    {
+                                        "value": "ERROR",
+                                        "label": "ERROR"
+                                    }
+                                ]
+                            },
+                            "defaultValue": "INFO"
+                        }
+                    ]
+                },
+                {
+                    "title": "Proxy",
+                    "name": "proxy",
+                    "hook": {
+                        "type": "external",
+                        "src": "configuration_hook"
+                    },
+                    "entity": [
+                        {
+                            "label": "Enable Proxy",
+                            "field": "proxy_enabled",
+                            "type": "checkbox",
+                            "defaultValue": 0
+                        },
+                        {
+                            "label": "Host",
+                            "field": "host",
+                            "type": "text",
+                            "required": true,
+                            "help": "<Hostname or IP address> (e.g. www.example.com or 192.0.1.1)",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "maxLength": 4096,
+                                    "minLength": 0,
+                                    "errorMsg": "Maximum length allowed for host is 4096"
+                                },
+                                {
+                                    "type": "regex",
+                                    "pattern": "^(([a-zA-Z0-9]|[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9])\\.)*([A-Za-z0-9]|[A-Za-z0-9][A-Za-z0-9-]*[A-Za-z0-9])$",
+                                    "errorMsg": "The Host field can contain letters, numbers, dots(.) and hyphens(-)"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "port",
+                            "label": "Port",
+                            "type": "text",
+                            "required": true,
+                            "options": {
+                                "placeholder": "Required"
+                            },
+                            "validators": [
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        1,
+                                        65535
+                                    ],
+                                    "errorMsg": "Invalid port number, it should be an integer between 1 and 65535."
+                                },
+                                {
+                                    "type": "regex",
+                                    "pattern": "^[0-9]+$",
+                                    "errorMsg": "Invalid port number, it should be an integer between 1 and 65535."
+                                }
+                            ]
+                        },
+                        {
+                            "field": "username",
+                            "label": "Username",
+                            "type": "text",
+                            "validators": [
+                                {
+                                    "type": "string",
+                                    "maxLength": 50,
+                                    "minLength": 1,
+                                    "errorMsg": "Maximum length allowed for username is 50"
+                                }
+                            ]
+                        },
+                        {
+                            "field": "password",
+                            "label": "Password",
+                            "type": "text",
+                            "encrypted": true
+                        }
+                    ]
+                }
+            ]
+        },
+        "inputs": {
+            "services": [
+                {
+                    "title": "Management Activity",
+                    "name": "mgmt_activity",
+                    "restHandlerName": "splunk_ta_o365_rh_management_activity",
+                    "hook": {
+                        "src": "input_hook",
+                        "type": "external"
+                    },
+                    "entity": [
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported",
+                                    "pattern": "^\\w+$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "label": "Content Type",
+                            "field": "content_type",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "Audit.AzureActiveDirectory",
+                                        "label": "Audit.AzureActiveDirectory"
+                                    },
+                                    {
+                                        "value": "Audit.Exchange",
+                                        "label": "Audit.Exchange"
+                                    },
+                                    {
+                                        "value": "Audit.SharePoint",
+                                        "label": "Audit.SharePoint"
+                                    },
+                                    {
+                                        "value": "Audit.General",
+                                        "label": "Audit.General"
+                                    },
+                                    {
+                                        "value": "DLP.All",
+                                        "label": "DLP.All"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "start_date_time",
+                            "label": "Start date/time",
+                            "type": "text",
+                            "help": "Start date/time should be in 'YYYY-MM-DDTHH:MM:SS' (UTC) format. Default is 4 hours ago.",
+                            "options": {
+                                "disableonEdit": true
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\d+$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        }
+                    ]
+                },
+                {
+                    "title": "Service Health & Communications",
+                    "name": "graph_api_servicehealth_and_communications",
+                    "restHandlerName": "splunk_ta_o365_rh_graph_api_servicehealth_and_communications",
+                    "hook": {
+                        "src": "input_hook",
+                        "type": "external"
+                    },
+                    "entity": [
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported",
+                                    "pattern": "^\\w+$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "label": "Content Type",
+                            "field": "content_type",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "serviceAnnouncement.issues",
+                                        "label": "Service Health"
+                                    },
+                                    {
+                                        "value": "serviceAnnouncement.messages",
+                                        "label": "Service Update Messages"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\d+$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        }
+                    ]
+                },
+                {
+                    "title": "Mailbox",
+                    "name": "graph_api_mailbox",
+                    "restHandlerName": "splunk_ta_o365_rh_graph_api_mailbox",
+                    "hook": {
+                        "src": "input_hook",
+                        "type": "external"
+                    },
+                    "entity": [
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "options": {
+                                "placeholder": "Required"
+                            },
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported",
+                                    "pattern": "^\\w+$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "label": "Content Type",
+                            "field": "content_type",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "MailboxUsageDetail",
+                                        "label": "Mailbox Usage Detail"
+                                    },
+                                    {
+                                        "value": "MailboxUsageMailboxCounts",
+                                        "label": "Mailbox Usage Mailbox Counts"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\d+$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        }
+                    ]
+                },
+                {
+                    "title": "Office 365",
+                    "name": "graph_api_office_365",
+                    "restHandlerName": "splunk_ta_o365_rh_graph_api_office_365",
+                    "hook": {
+                        "src": "input_hook",
+                        "type": "external"
+                    },
+                    "entity": [
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "options": {
+                                "placeholder": "Required"
+                            },
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported",
+                                    "pattern": "^\\w+$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "label": "Content Type",
+                            "field": "content_type",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "Office365GroupsActivityDetail",
+                                        "label": "Office365Groups Activity Detail"
+                                    },
+                                    {
+                                        "value": "Office365ServicesUserCounts",
+                                        "label": "Office365Services User Counts"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\d+$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        }
+                    ]
+                },
+                {
+                    "title": "One Drive",
+                    "name": "graph_api_one_drive",
+                    "restHandlerName": "splunk_ta_o365_rh_graph_api_one_drive",
+                    "hook": {
+                        "src": "input_hook",
+                        "type": "external"
+                    },
+                    "entity": [
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "options": {
+                                "placeholder": "Required"
+                            },
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported",
+                                    "pattern": "^\\w+$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "label": "Content Type",
+                            "field": "content_type",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "OneDriveActivityUserCounts",
+                                        "label": "One Drive Activity User Counts"
+                                    },
+                                    {
+                                        "value": "OneDriveUsageAccountDetail",
+                                        "label": "One Drive Usage Account Detail"
+                                    },
+                                    {
+                                        "value": "OneDriveUsageStorage",
+                                        "label": "One Drive Usage Storage"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\d+$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        }
+                    ]
+                },
+                {
+                    "title": "Share Point",
+                    "name": "graph_api_sharepoint",
+                    "restHandlerName": "splunk_ta_o365_rh_graph_api_sharepoint",
+                    "hook": {
+                        "src": "input_hook",
+                        "type": "external"
+                    },
+                    "entity": [
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "options": {
+                                "placeholder": "Required"
+                            },
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported",
+                                    "pattern": "^\\w+$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "label": "Content Type",
+                            "field": "content_type",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "SharePointSiteUsageDetail",
+                                        "label": "Share Point Site Usage Detail"
+                                    },
+                                    {
+                                        "value": "SharePointSiteUsageFileCounts",
+                                        "label": "Share Point Site Usage File Counts"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\d+$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        }
+                    ]
+                },
+                {
+                    "title": "Teams",
+                    "name": "graph_api_teams",
+                    "restHandlerName": "splunk_ta_o365_rh_graph_api_teams",
+                    "hook": {
+                        "src": "input_hook",
+                        "type": "external"
+                    },
+                    "entity": [
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "options": {
+                                "placeholder": "Required"
+                            },
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported",
+                                    "pattern": "^\\w+$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "label": "Content Type",
+                            "field": "content_type",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "TeamsUserActivityCounts",
+                                        "label": "Teams User Activity Counts"
+                                    },
+                                    {
+                                        "value": "TeamsUserActivityUserDetail",
+                                        "label": "Teams User Activity User Detail"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\d+$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        }
+                    ]
+                },
+                {
+                    "title": "Yammer",
+                    "name": "graph_api_yammer",
+                    "restHandlerName": "splunk_ta_o365_rh_graph_api_yammer",
+                    "hook": {
+                        "src": "input_hook",
+                        "type": "external"
+                    },
+                    "entity": [
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "options": {
+                                "placeholder": "Required"
+                            },
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported",
+                                    "pattern": "^\\w+$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "label": "Content Type",
+                            "field": "content_type",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "YammerGroupsActivityDetail",
+                                        "label": "Yammer Groups Activity Detail"
+                                    },
+                                    {
+                                        "value": "YammerGroupsActivityGroupCounts",
+                                        "label": "Yammer Groups Activity Group Counts"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\d+$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        }
+                    ]
+                },
+                {
+                    "title": "Audit Logs",
+                    "name": "graph_api_audit_logs",
+                    "restHandlerName": "splunk_ta_o365_rh_graph_api_audit_logs",
+                    "groups": [
+                        {
+                            "label": "Advanced Settings",
+                            "options": {
+                                "expand": false,
+                                "isExpandable": true
+                            },
+                            "fields": [
+                                "request_timeout"
+                            ]
+                        }
+                    ],
+                    "entity": [
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "options": {
+                                "placeholder": "Required"
+                            },
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported",
+                                    "pattern": "^\\w+$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "label": "Content Type",
+                            "field": "content_type",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "AuditLogs.SignIns",
+                                        "label": "Audit Logs.Sign Ins"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\d+$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        },
+                        {
+                            "field": "request_timeout",
+                            "label": "Request Timeout",
+                            "type": "text",
+                            "defaultValue": "60",
+                            "required": false,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "pattern": "^[1-9]\\d*$",
+                                    "errorMsg": "Request Timeout must be a non-zero positive integer."
+                                },
+                                {
+                                    "type": "number",
+                                    "range": [
+                                        10,
+                                        600
+                                    ]
+                                }
+                            ],
+                            "help": "Specify the maximum amount of time (in seconds) to wait for a response from API."
+                        }
+                    ]
+                },
+                {
+                    "title": "Cloud Application Security",
+                    "name": "cloud_application_security",
+                    "restHandlerName": "splunk_ta_o365_rh_cloud_application_security",
+                    "hook": {
+                        "src": "input_hook",
+                        "type": "external"
+                    },
+                    "entity": [
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "options": {
+                                "placeholder": "Required"
+                            },
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported",
+                                    "pattern": "^\\w+$"
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "label": "Content Type",
+                            "field": "content_type",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableSearch": true,
+                                "autoCompleteFields": [
+                                    {
+                                        "value": "Policies",
+                                        "label": "Policies"
+                                    },
+                                    {
+                                        "value": "Alerts",
+                                        "label": "Alerts"
+                                    },
+                                    {
+                                        "value": "Cloud Discovery",
+                                        "label": "Cloud Discovery"
+                                    },
+                                    {
+                                        "value": "Entities",
+                                        "label": "Entities"
+                                    },
+                                    {
+                                        "value": "Files",
+                                        "label": "Files"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\d+$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        }
+                    ]
+                },
+                {
+                    "title": "Message Trace",
+                    "name": "msg_trace",
+                    "restHandlerName": "splunk_ta_o365_rh_message_trace",
+                    "hook": {
+                        "src": "input_hook",
+                        "type": "external"
+                    },
+                    "groups": [
+                        {
+                            "label": "Advanced Settings",
+                            "options": {
+                                "expand": false,
+                                "isExpandable": true
+                            },
+                            "fields": [
+                                "query_window_size",
+                                "delay_throttle"
+                            ]
+                        }
+                    ],
+                    "entity": [
+                        {
+                            "field": "message_trace_input_configuration_help_link",
+                            "label": "",
+                            "type": "helpLink",
+                            "options": {
+                                "text": "Learn more",
+                                "link": "https://docs.splunk.com/Documentation/AddOns/released/MSO365/Configureinputmessagetrace"
+                            }
+                        },
+                        {
+                            "label": "Input Name",
+                            "field": "name",
+                            "type": "text",
+                            "required": true,
+                            "help": "Enter a unique name for the data input",
+                            "options": {
+                                "placeholder": "Required"
+                            },
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only letters, numbers and underscores are supported for the Input Name and it should not start with numbers and underscores.",
+                                    "pattern": "^[a-zA-Z]\\w*$"
+                                },
+                                {
+                                    "type": "string",
+                                    "errorMsg": "Length of Input Name should be between 1 and 100.",
+                                    "minLength": 1,
+                                    "maxLength": 100
+                                }
+                            ]
+                        },
+                        {
+                            "label": "Tenant Name",
+                            "field": "tenant_name",
+                            "type": "singleSelect",
+                            "required": true,
+                            "options": {
+                                "disableonEdit": true,
+                                "referenceName": "tenants"
+                            }
+                        },
+                        {
+                            "field": "input_mode",
+                            "label": "Input Mode",
+                            "type": "radio",
+                            "defaultValue": "continuously_monitor",
+                            "required": true,
+                            "options": {
+                                "items": [
+                                    {
+                                        "label": "Continuously Monitor",
+                                        "value": "continuously_monitor"
+                                    },
+                                    {
+                                        "label": "Index Once",
+                                        "value": "index_once"
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "field": "start_date_time",
+                            "label": "Start date/time",
+                            "type": "text",
+                            "help": "Start date/time should be in 'YYYY-MM-DDTHH:MM:SS'(UTC) format.(Default is 5 days ago.).",
+                            "options": {
+                                "placeholder": "YYYY-MM-DDTHH:MM:SS",
+                                "disableonEdit": true
+                            }
+                        },
+                        {
+                            "field": "end_date_time",
+                            "label": "End date/time",
+                            "type": "text",
+                            "help": "End date/time should be in 'YYYY-MM-DDTHH:MM:SS'(UTC) format.",
+                            "options": {
+                                "placeholder": "YYYY-MM-DDTHH:MM:SS",
+                                "disableonEdit": true
+                            }
+                        },
+                        {
+                            "field": "index",
+                            "label": "Index",
+                            "type": "singleSelect",
+                            "required": true,
+                            "defaultValue": "default",
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Index Name may contain only letters, numbers, underscores, or hyphens. It must begin with a letter or number.",
+                                    "pattern": "^^[A-Za-z0-9][\\w-]*$"
+                                }
+                            ],
+                            "options": {
+                                "disableonEdit": true,
+                                "createSearchChoice": true,
+                                "endpointUrl": "data/indexes",
+                                "denyList": "^_.*$"
+                            }
+                        },
+                        {
+                            "label": "Interval (seconds)",
+                            "field": "interval",
+                            "type": "text",
+                            "help": "Time interval of input in seconds.",
+                            "required": true,
+                            "validators": [
+                                {
+                                    "type": "regex",
+                                    "errorMsg": "Only numbers are supported",
+                                    "pattern": "^\\-[1-9]\\d*$|^\\d*$"
+                                }
+                            ],
+                            "defaultValue": "300"
+                        },
+                        {
+                            "label": "Query Window Size (minutes)",
+                            "field": "query_window_size",
+                            "type": "text",
+                            "help": "Specify how many minute's worth of data to query each interval.",
+                            "defaultValue": "60"
+                        },
+                        {
+                            "label": "Delay Throttle (minutes)",
+                            "field": "delay_throttle",
+                            "type": "text",
+                            "help": "Microsoft may delay trace events up to 24 hours. Specify how close to now a query may run (smaller values may introduce data loss for large volumes).",
+                            "defaultValue": "1440"
+                        }
+                    ]
+                }
+            ],
+            "title": "Inputs",
+            "description": "Manage your data inputs",
+            "table": {
+                "actions": [
+                    "edit",
+                    "delete",
+                    "clone"
+                ],
+                "header": [
+                    {
+                        "label": "Input Name",
+                        "field": "name"
+                    },
+                    {
+                        "label": "Input Type",
+                        "field": "serviceName",
+                        "mapping": {
+                            "mgmt_activity": "Management Activity",
+                            "graph_api_servicehealth_and_communications": "Service Health & Communications",
+                            "graph_api_mailbox": "Mailbox",
+                            "graph_api_office_365": "Office 365",
+                            "graph_api_one_drive": "One Drive",
+                            "graph_api_sharepoint": "Share Point",
+                            "graph_api_teams": "Teams",
+                            "graph_api_yammer": "Yammer",
+                            "graph_api_audit_logs": "Audit Logs",
+                            "cloud_application_security": "Cloud Application Security",
+                            "msg_trace": "Message Trace"
+                        }
+                    },
+                    {
+                        "label": "Content Type",
+                        "field": "content_type",
+                        "mapping": {
+                            "Audit.AzureActiveDirectory": "Audit.AzureActiveDirectory",
+                            "Audit.Exchange": "Audit.Exchange",
+                            "Audit.SharePoint": "Audit.SharePoint",
+                            "Audit.General": "Audit.General",
+                            "DLP.All": "DLP.All",
+                            "serviceAnnouncement.issues": "Service Health",
+                            "serviceAnnouncement.messages": "Service Update Messages",
+                            "SharePointSiteUsageDetail": "Share Point Site Usage Detail",
+                            "SharePointSiteUsageFileCounts": "Share Point Site Usage File Counts",
+                            "TeamsUserActivityUserDetail": "Teams User Activity User Detail",
+                            "TeamsUserActivityCounts": "Teams User Activity Counts",
+                            "YammerGroupsActivityDetail": "Yammer Groups Activity Detail",
+                            "YammerGroupsActivityGroupCounts": "Yammer Groups Activity Group Counts",
+                            "MailboxUsageDetail": "Mailbox Usage Detail",
+                            "MailboxUsageMailboxCounts": "Mailbox Usage Mailbox Counts",
+                            "AuditLogs.SignIns": "Audit Logs.Sign Ins",
+                            "Office365GroupsActivityDetail": "Office365Groups Activity Detail",
+                            "Office365ServicesUserCounts": "Office365Services User Counts",
+                            "OneDriveActivityUserCounts": "One Drive Activity User Counts",
+                            "OneDriveUsageAccountDetail": "One Drive Usage Account Detail",
+                            "OneDriveUsageStorage": "One Drive Usage Storage",
+                            "Policies": "Policies",
+                            "Alerts": "Alerts",
+                            "Cloud Discovery": "Cloud Discovery",
+                            "Entities": "Entities",
+                            "Files": "Files"
+                        }
+                    },
+                    {
+                        "label": "Tenant",
+                        "field": "tenant_name"
+                    },
+                    {
+                        "label": "Index",
+                        "field": "index"
+                    },
+                    {
+                        "label": "Interval (seconds)",
+                        "field": "interval"
+                    },
+                    {
+                        "label": "Status",
+                        "field": "disabled"
+                    }
+                ],
+                "moreInfo": [
+                    {
+                        "label": "Name",
+                        "field": "name"
+                    },
+                    {
+                        "label": "Input Type",
+                        "field": "serviceName",
+                        "mapping": {
+                            "mgmt_activity": "Management Activity",
+                            "graph_api_servicehealth_and_communications": "Service Health & Communications",
+                            "graph_api_mailbox": "Mailbox",
+                            "graph_api_office_365": "Office 365",
+                            "graph_api_one_drive": "One Drive",
+                            "graph_api_sharepoint": "Share Point",
+                            "graph_api_teams": "Teams",
+                            "graph_api_yammer": "Yammer",
+                            "graph_api_audit_logs": "Audit Logs",
+                            "cloud_application_security": "Cloud Application Security",
+                            "msg_trace": "Message Trace"
+                        }
+                    },
+                    {
+                        "label": "Content Type",
+                        "field": "content_type",
+                        "mapping": {
+                            "Audit.AzureActiveDirectory": "Audit.AzureActiveDirectory",
+                            "Audit.Exchange": "Audit.Exchange",
+                            "Audit.SharePoint": "Audit.SharePoint",
+                            "Audit.General": "Audit.General",
+                            "DLP.All": "DLP.All",
+                            "serviceAnnouncement.issues": "Service Health",
+                            "serviceAnnouncement.messages": "Service Update Messages",
+                            "SharePointSiteUsageDetail": "Share Point Site Usage Detail",
+                            "SharePointSiteUsageFileCounts": "Share Point Site Usage File Counts",
+                            "TeamsUserActivityUserDetail": "Teams User Activity User Detail",
+                            "TeamsUserActivityCounts": "Teams User Activity Counts",
+                            "YammerGroupsActivityDetail": "Yammer Groups Activity Detail",
+                            "YammerGroupsActivityGroupCounts": "Yammer Groups Activity Group Counts",
+                            "MailboxUsageDetail": "Mailbox Usage Detail",
+                            "MailboxUsageMailboxCounts": "Mailbox Usage Mailbox Counts",
+                            "AuditLogs.SignIns": "Audit Logs.Sign Ins",
+                            "Office365GroupsActivityDetail": "Office365Groups Activity Detail",
+                            "Office365ServicesUserCounts": "Office365Services User Counts",
+                            "OneDriveActivityUserCounts": "One Drive Activity User Counts",
+                            "OneDriveUsageAccountDetail": "One Drive Usage Account Detail",
+                            "OneDriveUsageStorage": "One Drive Usage Storage",
+                            "Policies": "Policies",
+                            "Alerts": "Alerts",
+                            "Cloud Discovery": "Cloud Discovery",
+                            "Entities": "Entities",
+                            "Files": "Files"
+                        }
+                    },
+                    {
+                        "label": "Tenant",
+                        "field": "tenant_name"
+                    },
+                    {
+                        "label": "Index",
+                        "field": "index"
+                    },
+                    {
+                        "label": "Interval (seconds)",
+                        "field": "interval"
+                    }
+                ]
+            }
+        }
+    },
+    "meta": {
+        "name": "splunk_ta_o365",
+        "restRoot": "splunk_ta_o365",
+        "version": "4.5.1",
+        "displayName": "Splunk Add-on for Microsoft Office 365",
+        "schemaVersion": "0.0.3"
+    }
+}
