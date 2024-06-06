@@ -17,7 +17,8 @@ total_size=0
 input_lines=$(aws s3 ls s3://$BUCKET_NAME/$PREFIX --recursive)
 
 # Process each line
-echo "$input_lines" | while read -r line; do
+IFS=$'\n'
+for line in $input_lines; do
   # Extract the filename
   filename=$(echo $line | awk '{print $4}')
   # Extract the size
@@ -38,32 +39,34 @@ echo "$input_lines" | while read -r line; do
   echo "$filename,$start_date,$end_date" >> "$OUTPUT_FILE"
 done
 
-# Convert total size to a human-readable format
-human_readable_size=$(numfmt --to=iec $total_size)
-
 # Function to convert bytes to human-readable format
 function convert_to_human_readable {
   size=$1
   local unit="B"
-  if (( size > 1024 )); then
-    size=$((size / 1024))
+  if (( size >= 1024 )); then
+    size=$(awk "BEGIN {print $size/1024}")
     unit="KB"
   fi
-  if (( size > 1024 )); then
-    size=$((size / 1024))
+  if (( size >= 1024 )); then
+    size=$(awk "BEGIN {print $size/1024}")
     unit="MB"
   fi
-  if (( size > 1024 )); then
-    size=$((size / 1024))
+  if (( size >= 1024 )); then
+    size=$(awk "BEGIN {print $size/1024}")
     unit="GB"
   fi
-  if (( size > 1024 )); then
-    size=$((size / 1024))
+  if (( size >= 1024 )); then
+    size=$(awk "BEGIN {print $size/1024}")
     unit="TB"
   fi
-  echo "${size}${unit}"
+  echo "${size} ${unit}"
 }
+
+# Convert total size to a human-readable format
+human_readable_size=$(convert_to_human_readable $total_size)
+
 # Log the total size
 echo "Total size of all files: $human_readable_size" >> "$OUTPUT_FILE"
 
 echo "CSV file created: $OUTPUT_FILE"
+```
