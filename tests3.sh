@@ -37,12 +37,12 @@ for line in $input_lines; do
   start_epoch=$(echo $filename | grep -oP '(?<=_\d{10}_)\d{10}')
   
   # Check if the start_epoch is within the specified range
-  if [[ $start_epoch -ge $(date -d '90 days ago' +%s) && $start_epoch -le $(date -d '20 days ago' +%s) ]]; then
+  if [[ $start_epoch_file -ge $start_epoch && $start_epoch_file -le $stop_epoch ]]; then
     # Add to total size
     total_size=$((total_size + size))
 
     # Convert epoch to date and time format (MM/DD/YYYY HH:MM:SS)
-    start_date=$(date -d @$start_epoch +'%m/%d/%Y %H:%M:%S')
+    start_date=$(date -d @$start_epoch_file +'%m/%d/%Y %H:%M:%S')
     end_date=$(date -d @$end_epoch +'%m/%d/%Y %H:%M:%S')
 
     # Write to CSV
