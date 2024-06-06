@@ -13,9 +13,13 @@ echo "Filename,Start Date,End Date" > "$OUTPUT_FILE"
 # Initialize total size variable
 total_size=0
 
-# Calculate start and stop epochs
-start_epoch=$(date -d '90 days ago' +%s)
-stop_epoch=$(date -d '20 days ago' +%s)
+# Specify start and stop date and time
+start_date_time="2023-03-01 00:00:00"
+stop_date_time="2023-04-01 00:00:00"
+
+# Convert specified date and time to epoch
+start_epoch=$(date -d "$start_date_time" +%s)
+stop_epoch=$(date -d "$stop_date_time" +%s)
 
 # Get list of files and their sizes
 input_lines=$(aws s3 ls s3://$BUCKET_NAME/$PREFIX --recursive)
