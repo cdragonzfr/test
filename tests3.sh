@@ -41,6 +41,18 @@ done
 # Convert total size to a human-readable format
 human_readable_size=$(numfmt --to=iec $total_size)
 
+human_readable_size=$(awk -v size=$total_size 'BEGIN{
+    split("B KB MB GB TB", units);
+    for (unit in units) {
+        if (size < 1024) {
+            printf "%.2f %s\n", size, units[unit];
+            exit;
+        }
+        size /= 1024;
+    }
+}')
+
+
 # Log the total size
 echo "Total size of all files: $human_readable_size" >> "$OUTPUT_FILE"
 
