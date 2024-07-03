@@ -1,0 +1,16 @@
+| rest /servicesNS/-/-/data/ui/views
+| search isDashboard=1
+| table title eai:data
+| rex field=eai:data "(?:inputlookup\s+|lookup\s+|outputlookup\s+)(?<lookup_name>\w+\.\w+)"
+| rename title as object_title
+| eval object_type="dashboard"
+| table object_type object_title lookup_name
+| append [
+    | rest /servicesNS/-/-/saved/searches
+    | table title search
+    | rex field=search "(?:inputlookup\s+|lookup\s+|outputlookup\s+)(?<lookup_name>\w+\.\w+)"
+    | rename title as object_title
+    | eval object_type="saved_search"
+    | table object_type object_title lookup_name
+  ]
+| stats values(lookup_name) as lookup_names by object_type object_title
