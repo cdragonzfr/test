@@ -29,3 +29,18 @@
 | rex field=search "(?:inputlookup\s+|lookup\s+|outputlookup\s+)(?<lookup_name>\w+\.\w+)"
 | stats values(lookup_name) as lookup_names by title
 
+
+| rest /servicesNS/-/-/data/ui/views
+| search isDashboard=1
+| table title eai:data
+| rex field=eai:data max_match=0 "(?:inputlookup\s+|lookup\s+|outputlookup\s+)(?<lookup_name>\w+\.\w+)"
+| mvexpand lookup_name
+| table title lookup_nam
+
+
+| rest /servicesNS/-/-/saved/searches
+| table title search
+| rex field=search max_match=0 "(?:inputlookup\s+|lookup\s+|outputlookup\s+)(?<lookup_name>\w+\.\w+)"
+| mvexpand lookup_name
+| table title lookup_name
+
