@@ -1,19 +1,15 @@
-CMake Error: Could not find CMAKE_ROOT !!!
-CMake has most likely not been installed correctly.
-Modules directory not found in
-/usr/share/cmake-3.29
-CMake Error: Error executing cmake::LoadCache(). Aborting.
+-- The C compiler identification is GNU 4.8.5
+-- The CXX compiler identification is unknown
+-- The ASM compiler identification is GNU
+-- Found assembler: /usr/bin/cc
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+CMake Error at CMakeLists.txt:20 (project):
+  No CMAKE_CXX_COMPILER could be found.
 
-Traceback (most recent call last):
-  File "/home/home/stage/onnxruntime/tools/ci_build/build.py", line 2971, in <module>
-    sys.exit(main())
-  File "/home/home/stage/onnxruntime/tools/ci_build/build.py", line 2826, in main
-    generate_build_tree(
-  File "/home/home/stage/onnxruntime/tools/ci_build/build.py", line 1664, in generate_build_tree
-    run_subprocess(
-  File "/home/home/stage/onnxruntime/tools/ci_build/build.py", line 860, in run_subprocess
-    return run(*args, cwd=cwd, capture_stdout=capture_stdout, shell=shell, env=my_env)
-  File "/home/home/stage/onnxruntime/tools/python/util/run.py", line 49, in run
-    completed_process = subprocess.run(
-  File "/usr/local/lib/python3.8/subprocess.py", line 516, in run
-    raise CalledProcessError(retcode, process.args,
+  Tell CMake where to find the compiler by setting either the environment
+  variable "CXX" or the CMake cache entry CMAKE_CXX_COMPILER to the full path
+  to the compiler, or to the compiler name if it is in the PATH.
