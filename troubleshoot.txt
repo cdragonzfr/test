@@ -1,24 +1,19 @@
-./build.sh --config=Release --build_shared_lib --disable_ml_ops --build_wheel --enable_reduced_operator_type_support --skip_tests
-2024-07-26 12:32:10,526 tools_python_utils [INFO] - flatbuffers module is not installed. parse_config will not be available
-2024-07-26 12:32:10,543 build [DEBUG] - Command line arguments:
-  --build_dir /home/seceng/stage/onnxruntime-1.18.0/build/Linux --config=Release --build_shared_lib --disable_ml_ops --build_wheel --enable_reduced_operator_type_support --skip_tests
-Namespace(acl_home=None, acl_libs=None, allow_running_as_root=False, android=False, android_abi='arm64-v8a', android_api=27, android_cpp_shared=False, android_ndk_path='', android_run_emulator=False, android_sdk_path='', apple_deploy_target=None, apple_sysroot='', arm=False, arm64=False, arm64ec=False, armnn_bn=False, armnn_home=None, armnn_libs=None, armnn_relu=False, build=False, build_apple_framework=False, build_csharp=False, build_dir='/home/seceng/stage/onnxruntime-1.18.0/build/Linux', build_java=False, build_micro_benchmarks=False, build_nodejs=False, build_nuget=False, build_objc=False, build_shared_lib=True, build_wasm=False, build_wasm_static_lib=False, build_wheel=True, buildasx=False, cann_home=None, clean=False, cmake_extra_defines=None, cmake_generator=None, cmake_path='cmake', code_coverage=False, compile_no_warning_as_error=False, config=['Release'], ctest_path='ctest', cuda_home=None, cuda_version=None, cudnn_home=None, disable_contrib_ops=False, disable_exceptions=False, disable_memleak_checker=False, disable_ml_ops=True, disable_rtti=False, disable_types=[], disable_wasm_exception_catching=False, dml_external_project=False, dml_path='', dnnl_aarch64_runtime='', dnnl_acl_root='', dnnl_gpu_runtime='', dnnl_opencl_root='', eigen_path=None, emscripten_settings=None, emsdk_version='3.1.57', enable_address_sanitizer=False, enable_cuda_line_info=False, enable_cuda_nhwc_ops=False, enable_cuda_profiling=False, enable_external_custom_op_schemas=False, enable_language_interop_ops=False, enable_lazy_tensor=False, enable_lto=False, enable_memory_profile=False, enable_msinternal=False, enable_msvc_static_runtime=False, enable_nccl=False, enable_nvtx_profile=False, enable_onnx_tests=False, enable_pybind=False, enable_reduced_operator_type_support=True, enable_rocm_profiling=False, enable_symbolic_shape_infer_tests=False, enable_training=False, enable_training_apis=False, enable_training_ops=False, enable_transformers_tool_test=False, enable_wasm_api_exception_catching=False, enable_wasm_debug_info=False, enable_wasm_exception_throwing_override=True, enable_wasm_profiling=False, enable_wasm_simd=False, enable_wasm_threads=False, enable_wcos=False, extensions_overridden_path=None, external_graph_transformer_path=None, fuzz_testing=False, gdk_edition='.', gdk_platform='Scarlett', gen_api_doc=False, gen_doc=None, include_ops_by_config=None, ios=False, ios_toolchain_file='', llvm_config='', llvm_path=None, macos=None, migraphx_home=None, minimal_build=None, mpi_home=None, ms_experimental=False, msbuild_extra_options=None, msvc_toolset=None, nccl_home=None, nnapi_min_api=None, numpy_version=None, nvcc_threads=-1, osx_arch='x86_64', parallel=1, path_to_protoc_exe=None, qnn_home=None, riscv_qemu_path='', riscv_toolchain_root='', rocm_home=None, rocm_version=None, rv64=False, skip_keras_test=False, skip_nodejs_tests=False, skip_onnx_tests=False, skip_submodule_sync=False, skip_tests=True, skip_winml_tests=False, snpe_root=None, target=None, tensorrt_home=None, test=False, test_all_timeout='10800', tvm_cuda_runtime=False, update=False, use_acl=None, use_armnn=False, use_azure=False, use_binskim_compliant_compile_flags=False, use_cache=False, use_cann=False, use_coreml=False, use_cuda=False, use_dml=False, use_dnnl=False, use_extensions=False, use_full_protobuf=False, use_gdk=False, use_jsep=False, use_lock_free_queue=False, use_migraphx=False, use_mimalloc=False, use_mpi=False, use_nnapi=False, use_openvino=None, use_preinstalled_eigen=False, use_qnn=False, use_rknpu=False, use_rocm=False, use_snpe=False, use_telemetry=False, use_tensorrt=False, use_tensorrt_builtin_parser=True, use_tensorrt_oss_parser=False, use_triton_kernel=False, use_tvm=False, use_tvm_hash=False, use_vitisai=False, use_webnn=False, use_winml=False, use_xnnpack=False, visionos=False, visionos_toolchain_file='', wasm_malloc=None, wasm_run_tests_in_browser=False, wheel_name_suffix=None, windows_sdk_version=None, winml_root_namespace_override=None, x86=False, xcode_code_signing_identity='', xcode_code_signing_team_id='')
-2024-07-26 12:32:10,556 build [DEBUG] - Defaulting to running update, build [and test for native builds].
-2024-07-26 12:32:10,556 build [INFO] - Build started
-2024-07-26 12:32:10,557 build [INFO] - git submodule sync --recursive
-fatal: Not a git repository (or any parent up to mount point /home)
-Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).
+CMake Error: Could not find CMAKE_ROOT !!!
+CMake has most likely not been installed correctly.
+Modules directory not found in
+/usr/share/cmake-3.29
+CMake Error: Error executing cmake::LoadCache(). Aborting.
+
 Traceback (most recent call last):
-  File "/home/home/stage/onnxruntime-1.18.0/tools/ci_build/build.py", line 2950, in <module>
+  File "/home/home/stage/onnxruntime/tools/ci_build/build.py", line 2971, in <module>
     sys.exit(main())
-  File "/home/home/stage/onnxruntime-1.18.0/tools/ci_build/build.py", line 2712, in main
-    update_submodules(source_dir)
-  File "/home/home/stage/onnxruntime-1.18.0/tools/ci_build/build.py", line 865, in update_submodules
-    run_subprocess(["git", "submodule", "sync", "--recursive"], cwd=source_dir)
-  File "/home/home/stage/onnxruntime-1.18.0/tools/ci_build/build.py", line 861, in run_subprocess
+  File "/home/home/stage/onnxruntime/tools/ci_build/build.py", line 2826, in main
+    generate_build_tree(
+  File "/home/home/stage/onnxruntime/tools/ci_build/build.py", line 1664, in generate_build_tree
+    run_subprocess(
+  File "/home/home/stage/onnxruntime/tools/ci_build/build.py", line 860, in run_subprocess
     return run(*args, cwd=cwd, capture_stdout=capture_stdout, shell=shell, env=my_env)
-  File "/home/home/stage/onnxruntime-1.18.0/tools/python/util/run.py", line 49, in run
+  File "/home/home/stage/onnxruntime/tools/python/util/run.py", line 49, in run
     completed_process = subprocess.run(
   File "/usr/local/lib/python3.8/subprocess.py", line 516, in run
     raise CalledProcessError(retcode, process.args,
-subprocess.CalledProcessError: Command '['git', 'submodule', 'sync', '--recursive']' returned non-zero exit status 128.
