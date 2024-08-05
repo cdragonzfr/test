@@ -1,31 +1,5 @@
-1722271548.757604 PID 17248 2024-07-29 12:45:48,757 DEBUG [mlspl.util.mlspl_loader] [load_stanza_mapping] Loading mlspl.conf from REST.
-1722271549.297857 PID 17248 2024-07-29 12:45:49,297 INFO [mlspl.util.onnx_util] [validate_model_and_upload] User validated for upload access.
-1722271549.305894 PID 17248 2024-07-29 12:45:49,305 INFO [mlspl.util.exec_anaconda_for_model_upload] [exec_anaconda] Found correct PSC version, executing model validation
-1722271549.919577 PID 17248 2024-07-29 12:45:49,919 DEBUG [mlspl.telemetry_logger] [log_onnx_app_algo_details] app_context=Splunk_ML_Toolkit, algo_name=onnx, params={null}
-1722271549.920212 PID 17248 2024-07-29 12:45:49,920 INFO [mlspl.util.onnx_util] [create_onnx_model_lookup_entry] Model file encoded successfully to create lookup
-1722271549.920349 PID 17248 2024-07-29 12:45:49,920 DEBUG [mlspl.telemetry_logger] [log_onnx_model_upload_size_on_disk] command=apply, metrics_type=onnx_upload, onnx_model_size_on_disk_mb=0.103700
-1722271550.303644 PID 17248 2024-07-29 12:45:50,303 DEBUG [mlspl.util.onnx_util] [validate_model_and_upload] Lookup entry successfully created for model file: clf_url_test_small
-1722271550.303997 PID 17248 2024-07-29 12:45:50,303 DEBUG [mlspl.telemetry_logger] [log_onnx_upload_uuid] UUID=4be79e1b-17b5-4de6-942a-99dffa37341a
-1722271550.304079 PID 17248 2024-07-29 12:45:50,304 DEBUG [mlspl.telemetry_logger] [log_onnx_model_upload_time] command=apply, metrics_type=onnx_upload, onnx_model_validate_and_upload_time=1.183292
-1722271599.891418 PID 17651 2024-07-29 12:46:39,891 DEBUG [mlspl.apply] [<module>] Starting apply.py.
-1722271599.891406 PID 17620 2024-07-29 12:46:39,891 DEBUG [mlspl.apply] [<module>] Starting apply.py.
-1722271599.892115 PID 17620 2024-07-29 12:46:39,892 DEBUG [mlspl.util.command_util] [should_early_return] Returning early from getinfo invocation. sid:
-1722271599.892276 PID 17651 2024-07-29 12:46:39,892 DEBUG [mlspl.telemetry_logger] [log_model_id] modelId=216daa3f676111cd9c46f160b0cf8a105c6e961026910bc6129fc2d215c62e15
-1722271599.892759 PID 17651 2024-07-29 12:46:39,892 DEBUG [mlspl.util.mlspl_loader] [load_stanza_mapping] Loading mlspl.conf from REST.
-1722271599.893972 PID 17620 2024-07-29 12:46:39,893 DEBUG [mlspl.telemetry_logger] [log_uuid] UUID=dd7835c4-6d61-47f9-abee-9af0d8183c9e
-1722271599.894099 PID 17620 2024-07-29 12:46:39,894 DEBUG [mlspl.telemetry_logger] [log_apply_time] command=apply, apply_time=0.002237
-1722271599.894179 PID 17620 2024-07-29 12:46:39,894 DEBUG [mlspl.apply] [<module>] Exiting gracefully. Byee!!
-1722271600.535993 PID 17651 2024-07-29 12:46:40,535 DEBUG [mlspl.telemetry_logger] [log_onnx_app_algo_details] app_context=Splunk_ML_Toolkit, algo_name=onnx, params={null}
-1722271600.537756 PID 17651 2024-07-29 12:46:40,537 DEBUG [mlspl.telemetry_logger] [log_uuid] UUID=153c3af1-75b4-4ae1-8ee7-f95ee6380057
-1722271600.537902 PID 17651 2024-07-29 12:46:40,537 DEBUG [mlspl.telemetry_logger] [log_apply_time] command=apply, apply_time=0.646004
-1722271600.537999 PID 17651 2024-07-29 12:46:40,537 DEBUG [mlspl.apply] [<module>] Exiting gracefully. Byee!!
-1722271601.310759 PID 17689 2024-07-29 12:46:41,310 DEBUG [mlspl.apply] [<module>] Starting apply.py.
-1722271601.311590 PID 17689 2024-07-29 12:46:41,311 DEBUG [mlspl.telemetry_logger] [log_model_id] modelId=216daa3f676111cd9c46f160b0cf8a105c6e961026910bc6129fc2d215c62e15
-1722271601.312042 PID 17689 2024-07-29 12:46:41,312 DEBUG [mlspl.util.mlspl_loader] [load_stanza_mapping] Loading mlspl.conf from REST.
-1722271601.926277 PID 17689 2024-07-29 12:46:41,926 DEBUG [mlspl.telemetry_logger] [log_onnx_app_algo_details] app_context=Splunk_ML_Toolkit, algo_name=onnx, params={null}
-1722271603.394059 PID 17718 2024-07-29 12:46:43,394 DEBUG [mlspl.apply] [<module>] Starting apply.py.
-1722271603.394732 PID 17718 2024-07-29 12:46:43,394 DEBUG [mlspl.util.command_util] [should_early_return] Returning early from getinfo invocation. sid: searchparsetmp_16697_263615110
-1722271603.395651 PID 17718 2024-07-29 12:46:43,395 DEBUG [mlspl.telemetry_logger] [log_uuid] UUID=45495ba2-11c4-45bd-a880-78a92fce8079
-1722271603.395773 PID 17718 2024-07-29 12:46:43,395 DEBUG [mlspl.telemetry_logger] [log_apply_time] command=apply, apply_time=0.001283
-1722271637.297940 PID 17689 2024-07-29 12:47:17,297 DEBUG [mlspl.chunked_controller] [load_data] chunk body=1039064 bytes, rows=50000, columns=12, csv_read_time=0.043103
-1722271637.521993 PID 17689 2024-07-29 12:47:17,521 DEBUG [mlspl.telemetry_logger] [log_onnx_model_input_shape] metrics_type=onnx_infer, col_dimension=Single column multi-dim input, onnx_input_shape=[None, 3], dataframe_shape=(50000, 3)
+08-05-2024 15:51:03.265 +0000 ERROR ExecProcessor [13156 ExecProcessorSchedulerThread] - message from ""C:\Program Files\Splunk\etc\apps\splunk_app_db_connect\windows_x86_64\bin\dbxquery.exe"" action=dbxquery_server_start_failed error=java.lang.ArrayIndexOutOfBoundsException: arraycopy: length -16 is negative stack=java.base/java.lang.System.arraycopy(Native Method)\\java.base/java.util.Arrays.copyOfRange(Arrays.java:3823)\\com.splunk.dbx.crypto.AesGcmEncryptor.decrypt(AesGcmEncryptor.java:49)\\com.splunk.dbx.crypto.EncryptionManager.decrypt(EncryptionManager.java:44)\\com.splunk.dbx.utils.SecurityFilesGenerator.getPlainKeystorePassword(SecurityFilesGenerator.java:216)\\com.splunk.DefaultServerStart.initialiseKeyManager(DefaultServerStart.java:93)\\com.splunk.dbx.command.DbxQueryServerStart.startServer(DbxQueryServerStart.java:62)\\com.splunk.DefaultServerStart.streamEvents(DefaultServerStart.java:60)\\com.splunk.modularinput.Script.run(Script.java:66)\\com.splunk.modularinput.Script.run(Script.java:44)\\com.splunk.dbx.command.DbxQueryServerStart.main(DbxQueryServerStart.java:28)\\
+
+08-05-2024 15:51:03.265 +0000 WARN  ExecProcessor [13156 ExecProcessorSchedulerThread] - message from ""C:\Program Files\Splunk\etc\apps\splunk_app_db_connect\windows_x86_64\bin\dbxquery.exe"" com.splunk.modularinput.MalformedDataException: Events must have at least the data field set to be written to XML.
+
+08-05-2024 15:51:03.265 +0000 ERROR ExecProcessor [13156 ExecProcessorSchedulerThread] - message from ""C:\Program Files\Splunk\etc\apps\splunk_app_db_connect\windows_x86_64\bin\dbxquery.exe"" com.splunk.modularinput.Event.writeTo(Event.java:65)\\com.splunk.modularinput.EventWriter.writeEvent(EventWriter.java:137)\\com.splunk.DefaultServerStart.streamEvents(DefaultServerStart.java:66)\\com.splunk.modularinput.Script.run(Script.java:66)\\com.splunk.modularinput.Script.run(Script.java:44)\\com.splunk.dbx.command.DbxQueryServerStart.main(DbxQueryServerStart.java:28)\\
