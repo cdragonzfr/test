@@ -1,5 +1,64 @@
-08-05-2024 15:51:03.265 +0000 ERROR ExecProcessor [13156 ExecProcessorSchedulerThread] - message from ""C:\Program Files\Splunk\etc\apps\splunk_app_db_connect\windows_x86_64\bin\dbxquery.exe"" action=dbxquery_server_start_failed error=java.lang.ArrayIndexOutOfBoundsException: arraycopy: length -16 is negative stack=java.base/java.lang.System.arraycopy(Native Method)\\java.base/java.util.Arrays.copyOfRange(Arrays.java:3823)\\com.splunk.dbx.crypto.AesGcmEncryptor.decrypt(AesGcmEncryptor.java:49)\\com.splunk.dbx.crypto.EncryptionManager.decrypt(EncryptionManager.java:44)\\com.splunk.dbx.utils.SecurityFilesGenerator.getPlainKeystorePassword(SecurityFilesGenerator.java:216)\\com.splunk.DefaultServerStart.initialiseKeyManager(DefaultServerStart.java:93)\\com.splunk.dbx.command.DbxQueryServerStart.startServer(DbxQueryServerStart.java:62)\\com.splunk.DefaultServerStart.streamEvents(DefaultServerStart.java:60)\\com.splunk.modularinput.Script.run(Script.java:66)\\com.splunk.modularinput.Script.run(Script.java:44)\\com.splunk.dbx.command.DbxQueryServerStart.main(DbxQueryServerStart.java:28)\\
+Local
 
-08-05-2024 15:51:03.265 +0000 WARN  ExecProcessor [13156 ExecProcessorSchedulerThread] - message from ""C:\Program Files\Splunk\etc\apps\splunk_app_db_connect\windows_x86_64\bin\dbxquery.exe"" com.splunk.modularinput.MalformedDataException: Events must have at least the data field set to be written to XML.
+$time_filter$ (`get_notable_index` OR `get_sequenced_index`) host="hostnamevalue*" $source_filter$ 
+| eval `get_event_id_meval`,rule_id=event_id 
+| search $event_id_filter$ 
+| fields - host_* 
+| tags outputfield=tag 
+| `mvappend_field(tag,orig_tag)` 
+| dedup rule_id 
+| `notable_xref_lookup` 
+| `get_correlations` 
+| search $security_domain_filter$ 
+| `get_current_status` 
+| search $status_filter$ 
+| `get_owner` 
+| search $owner_filter$ 
+| `get_urgency` 
+| search $urgency_filter$ 
+| typer 
+| tags outputfield=tag 
+| `mvappend_field(tag,orig_tag)` 
+| search $tag_filter$ 
+| `suppression_extract` 
+| search NOT suppression=* 
+| `risk_correlation`
+| `get_notable_type`
+| `get_orig_source`
+| `get_swimlane_record`
+| eval xref_name="short_id" 
+| lookup notable_xref_lookup event_id, xref_name OUTPUTNEW xref_id as short_id
+| search $type_filter$
 
-08-05-2024 15:51:03.265 +0000 ERROR ExecProcessor [13156 ExecProcessorSchedulerThread] - message from ""C:\Program Files\Splunk\etc\apps\splunk_app_db_connect\windows_x86_64\bin\dbxquery.exe"" com.splunk.modularinput.Event.writeTo(Event.java:65)\\com.splunk.modularinput.EventWriter.writeEvent(EventWriter.java:137)\\com.splunk.DefaultServerStart.streamEvents(DefaultServerStart.java:66)\\com.splunk.modularinput.Script.run(Script.java:66)\\com.splunk.modularinput.Script.run(Script.java:44)\\com.splunk.dbx.command.DbxQueryServerStart.main(DbxQueryServerStart.java:28)\\
+
+default
+
+search = $time_filter$ (`get_notable_index` OR `get_sequenced_index`) $source_filter$ 
+| eval `get_event_id_meval`,rule_id=event_id 
+| search $event_id_filter$ 
+| dedup rule_id 
+| fields - host_* 
+| tags outputfield=tag 
+| `mvappend_field(tag,orig_tag)` 
+| `notable_xref_lookup` 
+| `get_correlations_performant` 
+| search $security_domain_filter$ 
+| `get_current_status` 
+| search $status_filter$ 
+| `get_owner` 
+| search $owner_filter$ 
+| `get_urgency` 
+| search $urgency_filter$ 
+| typer 
+| tags outputfield=tag 
+| `mvappend_field(tag,orig_tag)` 
+| search $tag_filter$ 
+| `suppression_extract` 
+| search NOT suppression=* 
+| `risk_correlation` 
+| `get_mitre_annotations` 
+| `get_notable_type` 
+| `get_orig_source` 
+| search $type_filter$ 
+| search $disposition_filter$ 
+| `add_normalized_risk_object`
