@@ -1,0 +1,1 @@
+Get-ADObject -Identity "CN=Default Query Policy,CN=Query-Policies,CN=Directory Service,CN=Windows NT,CN=Services,CN=Configuration,DC=YourDomain,DC=com" -Properties *
