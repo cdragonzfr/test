@@ -2,3 +2,20 @@ wmic path SoftwareLicensingProduct where "ProductKeyID is not null" get Name, De
 
 
 Get-WmiObject -Query "Select Name, Description, LicenseStatus from SoftwareLicensingProduct Where ProductKeyID is not null" | Select-Object Name, Description, LicenseStatus
+
+# Define the domain admin username and password
+$domainUser = "yourdomain\username"
+$domainPassword = ConvertTo-SecureString "YourPasswordHere" -AsPlainText -Force
+
+# Create the credential object using [PSCredential]::new()
+$credential = [PSCredential]::new($domainUser, $domainPassword)
+
+# Remove the server from the domain and add to a workgroup
+Remove-Computer -UnjoinDomainCredential $credential -WorkgroupName "WORKGROUP" -Force -Restart
+
+# Rejoin the server to the domain after restart
+Start-Sleep -Seconds 60 # Optional: Add delay to wait for the server to restart
+
+# Rejoin the domain
+Add-Computer -DomainName "yourdomain.local" -Credential $credential -Force -Restart
+
