@@ -19,3 +19,12 @@ Start-Sleep -Seconds 60 # Optional: Add delay to wait for the server to restart
 # Rejoin the domain
 Add-Computer -DomainName "yourdomain.local" -Credential $credential -Force -Restart
 
+# Create a new local user account
+$userPassword = ConvertTo-SecureString "password" -AsPlainText -Force
+New-LocalUser -Name "username" -Password $userPassword -FullName "User Full Name" -Description "Local user account" -PasswordNeverExpires
+
+# Add the user to the Administrators group
+Add-LocalGroupMember -Group "Administrators" -Member "username"
+
+# Add the user to the Remote Desktop Users group
+Add-LocalGroupMember -Group "Remote Desktop Users" -Member "username"
