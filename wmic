@@ -1,0 +1,1 @@
+wmic path SoftwareLicensingProduct where "ProductKeyID is not null" get Name, Description, LicenseStatus
