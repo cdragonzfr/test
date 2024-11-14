@@ -28,3 +28,6 @@ Add-LocalGroupMember -Group "Administrators" -Member "username"
 
 # Add the user to the Remote Desktop Users group
 Add-LocalGroupMember -Group "Remote Desktop Users" -Member "username"
+
+
+netdom remove %COMPUTERNAME% /Domain:yourdomain.local /UserD:yourdomain\username /PasswordD:yourpassword /Force /Reboot:5
