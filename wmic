@@ -1,1 +1,4 @@
 wmic path SoftwareLicensingProduct where "ProductKeyID is not null" get Name, Description, LicenseStatus
+
+
+Get-WmiObject -Query "Select Name, Description, LicenseStatus from SoftwareLicensingProduct Where ProductKeyID is not null" | Select-Object Name, Description, LicenseStatus
