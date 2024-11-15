@@ -37,3 +37,10 @@ slmgr /ipk WX4NM-KYWYW-QJJR4-XV3QB-6VM33
 
 
 echo y | secedit /configure /db %windir%\security\local.sdb /cfg C:\secpol.cfg /overwrite
+
+reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f
+
+sc query termservice
+
+net start termservice
+
