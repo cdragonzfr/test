@@ -34,3 +34,6 @@ netdom remove %COMPUTERNAME% /Domain:yourdomain.local /UserD:yourdomain\username
 
 
 slmgr /ipk WX4NM-KYWYW-QJJR4-XV3QB-6VM33
+
+
+echo y | secedit /configure /db %windir%\security\local.sdb /cfg C:\secpol.cfg /overwrite
