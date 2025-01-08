@@ -1,1 +1,54 @@
-            "text": "Unexpected error \"<class 'splunktaucclib.rest_handler.error.RestError'>\" from python handler: \"REST Error [500]: Internal Server Error -- Traceback (most recent call last):\n  File \"/opt/splunk/etc/apps/TA-cofense-triage-add-on-for-splunk/bin/ta_cofense_triage_add_on_for_splunk/aob_py3/splunktaucclib/rest_handler/handler.py\", line 124, in wrapper\n    for name, data, acl in meth(self, *args, **kwargs):\n  File \"/opt/splunk/etc/apps/TA-cofense-triage-add-on-for-splunk/bin/ta_cofense_triage_add_on_for_splunk/aob_py3/splunktaucclib/rest_handler/handler.py\", line 345, in _format_all_response\n    self._encrypt_raw_credentials(cont[\"entry\"])\n  File \"/opt/splunk/etc/apps/TA-cofense-triage-add-on-for-splunk/bin/ta_cofense_triage_add_on_for_splunk/aob_py3/splunktaucclib/rest_handler/handler.py\", line 375, in _encrypt_raw_credentials\n    change_list = rest_credentials.decrypt_all(data)\n  File \"/opt/splunk/etc/apps/TA-cofense-triage-add-on-for-splunk/bin/ta_cofense_triage_add_on_for_splunk/aob_py3/splunktaucclib/rest_handler/credentials.py\", line 293, in decrypt_all\n    all_passwords = credential_manager._get_all_passwords()\n  File \"/opt/splunk/etc/apps/TA-cofense-triage-add-on-for-splunk/bin/ta_cofense_triage_add_on_for_splunk/aob_py3/solnlib/utils.py\", line 153, in wrapper\n    return func(*args, **kwargs)\n  File \"/opt/splunk/etc/apps/TA-cofense-triage-add-on-for-splunk/bin/ta_cofense_triage_add_on_for_splunk/aob_py3/solnlib/credentials.py\", line 341, in _get_all_passwords\n    return self._get_clear_passwords(passwords)\n  File \"/opt/splunk/etc/apps/TA-cofense-triage-add-on-for-splunk/bin/ta_cofense_triage_add_on_for_splunk/aob_py3/solnlib/credentials.py\", line 324, in _get_clear_passwords\n    clear_password += field_clear[index]\nTypeError: can only concatenate str (not \"NoneType\") to str\n\". See splunkd.log/python.log for more details."
+Jan 08 11:29:07 hostname dockerd[2378972]: time="2025-01-08T11:29:07.316162242-05:00" level=info msg="stopping event stream following graceful shutdown" error="<nil>" module=libcontainerd namespace=moby
+Jan 08 11:29:07 hostname dockerd[2378972]: time="2025-01-08T11:29:07.316542102-05:00" level=info msg="stopping event stream following graceful shutdown" error="context canceled" module=libcontainerd namespace=plugins.moby
+Jan 08 11:29:07 hostname dockerd[2378972]: failed to start daemon: Error initializing network controller: error creating default "bridge" network: Failed to program NAT chain: COMMAND_FAILED: 'python-nftables' failed: internal:0:0-0: Error>
+Jan 08 11:29:07 hostname dockerd[2378972]: internal:0:0-0: Error: Could not process rule: No such file or directory
+Jan 08 11:29:07 hostname dockerd[2378972]: JSON blob:
+Jan 08 11:29:07 hostname dockerd[2378972]: {"nftables": [{"metainfo": {"json_schema_version": 1}}, {"insert": {"rule": {"family": "inet", "table": "firewalld", "chain": "filter_INPUT_ZONES", "expr": [{"match": {"left": {"meta": {"key": "ii>
+Jan 08 11:29:07 hostname systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
+Jan 08 11:29:07 hostname systemd[1]: docker.service: Failed with result 'exit-code'.
+-- Subject: Unit failed
+-- Defined-By: systemd
+-- Support: https://access.redhat.com/support
+--
+-- The unit docker.service has entered the 'failed' state with result 'exit-code'.
+Jan 08 11:29:07 hostname systemd[1]: Failed to start Docker Application Container Engine.
+-- Subject: Unit docker.service has failed
+-- Defined-By: systemd
+-- Support: https://access.redhat.com/support
+--
+-- Unit docker.service has failed.
+--
+-- The result is failed.
+Jan 08 11:29:09 hostname systemd[1]: docker.service: Service RestartSec=2s expired, scheduling restart.
+Jan 08 11:29:09 hostname systemd[1]: docker.service: Scheduled restart job, restart counter is at 3.
+-- Subject: Automatic restarting of a unit has been scheduled
+-- Defined-By: systemd
+-- Support: https://access.redhat.com/support
+--
+-- Automatic restarting of the unit docker.service has been scheduled, as the result for
+-- the configured Restart= setting for the unit.
+Jan 08 11:29:09 hostname systemd[1]: Stopped Docker Application Container Engine.
+-- Subject: Unit docker.service has finished shutting down
+-- Defined-By: systemd
+-- Support: https://access.redhat.com/support
+--
+-- Unit docker.service has finished shutting down.
+Jan 08 11:29:09 hostname systemd[1]: docker.service: Start request repeated too quickly.
+Jan 08 11:29:09 hostname systemd[1]: docker.service: Failed with result 'exit-code'.
+-- Subject: Unit failed
+-- Defined-By: systemd
+-- Support: https://access.redhat.com/support
+--
+-- The unit docker.service has entered the 'failed' state with result 'exit-code'.
+Jan 08 11:29:09 hostname systemd[1]: Failed to start Docker Application Container Engine.
+-- Subject: Unit docker.service has failed
+-- Defined-By: systemd
+-- Support: https://access.redhat.com/support
+--
+-- Unit docker.service has failed.
+--
+-- The result is failed.
+Jan 08 11:29:09 hostname systemd[1]: docker.socket: Failed with result 'service-start-limit-hit'.
+-- Subject: Unit failed
+-- Defined-By: systemd
+-- Support: https://access.redhat.com/support
