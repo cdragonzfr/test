@@ -1,54 +1,19 @@
-Jan 08 11:29:07 hostname dockerd[2378972]: time="2025-01-08T11:29:07.316162242-05:00" level=info msg="stopping event stream following graceful shutdown" error="<nil>" module=libcontainerd namespace=moby
-Jan 08 11:29:07 hostname dockerd[2378972]: time="2025-01-08T11:29:07.316542102-05:00" level=info msg="stopping event stream following graceful shutdown" error="context canceled" module=libcontainerd namespace=plugins.moby
-Jan 08 11:29:07 hostname dockerd[2378972]: failed to start daemon: Error initializing network controller: error creating default "bridge" network: Failed to program NAT chain: COMMAND_FAILED: 'python-nftables' failed: internal:0:0-0: Error>
-Jan 08 11:29:07 hostname dockerd[2378972]: internal:0:0-0: Error: Could not process rule: No such file or directory
-Jan 08 11:29:07 hostname dockerd[2378972]: JSON blob:
-Jan 08 11:29:07 hostname dockerd[2378972]: {"nftables": [{"metainfo": {"json_schema_version": 1}}, {"insert": {"rule": {"family": "inet", "table": "firewalld", "chain": "filter_INPUT_ZONES", "expr": [{"match": {"left": {"meta": {"key": "ii>
-Jan 08 11:29:07 hostname systemd[1]: docker.service: Main process exited, code=exited, status=1/FAILURE
-Jan 08 11:29:07 hostname systemd[1]: docker.service: Failed with result 'exit-code'.
--- Subject: Unit failed
--- Defined-By: systemd
--- Support: https://access.redhat.com/support
---
--- The unit docker.service has entered the 'failed' state with result 'exit-code'.
-Jan 08 11:29:07 hostname systemd[1]: Failed to start Docker Application Container Engine.
--- Subject: Unit docker.service has failed
--- Defined-By: systemd
--- Support: https://access.redhat.com/support
---
--- Unit docker.service has failed.
---
--- The result is failed.
-Jan 08 11:29:09 hostname systemd[1]: docker.service: Service RestartSec=2s expired, scheduling restart.
-Jan 08 11:29:09 hostname systemd[1]: docker.service: Scheduled restart job, restart counter is at 3.
--- Subject: Automatic restarting of a unit has been scheduled
--- Defined-By: systemd
--- Support: https://access.redhat.com/support
---
--- Automatic restarting of the unit docker.service has been scheduled, as the result for
--- the configured Restart= setting for the unit.
-Jan 08 11:29:09 hostname systemd[1]: Stopped Docker Application Container Engine.
--- Subject: Unit docker.service has finished shutting down
--- Defined-By: systemd
--- Support: https://access.redhat.com/support
---
--- Unit docker.service has finished shutting down.
-Jan 08 11:29:09 hostname systemd[1]: docker.service: Start request repeated too quickly.
-Jan 08 11:29:09 hostname systemd[1]: docker.service: Failed with result 'exit-code'.
--- Subject: Unit failed
--- Defined-By: systemd
--- Support: https://access.redhat.com/support
---
--- The unit docker.service has entered the 'failed' state with result 'exit-code'.
-Jan 08 11:29:09 hostname systemd[1]: Failed to start Docker Application Container Engine.
--- Subject: Unit docker.service has failed
--- Defined-By: systemd
--- Support: https://access.redhat.com/support
---
--- Unit docker.service has failed.
---
--- The result is failed.
-Jan 08 11:29:09 hostname systemd[1]: docker.socket: Failed with result 'service-start-limit-hit'.
--- Subject: Unit failed
--- Defined-By: systemd
--- Support: https://access.redhat.com/support
+Installing collected packages: altgraph, pyinstaller-hooks-contrib, zipp, typing-extensions, importlib-metadata, pyinstaller
+  Running setup.py install for pyinstaller ... error
+    Complete output from command /usr/bin/python3.6 -u -c "import setuptools, tokenize;__file__='/tmp/pip-build-1jyeuhh2/pyinstaller/setup.py';f=getattr(tokenize, 'open', open)(__file__);code=f.read().replace('\r\n', '\n');f.close();exec(compile(code, __file__, 'exec'))" install --record /tmp/pip-b0jr8ci0-record/install-record.txt --single-version-externally-managed --compile:
+    running install
+    running build
+    running build_bootloader
+    No precompiled bootloader found or compile forced. Trying to compile the bootloader for you ...
+    Setting top to                           : /tmp/pip-build-1jyeuhh2/pyinstaller/bootloader
+    Setting out to                           : /tmp/pip-build-1jyeuhh2/pyinstaller/bootloader/build
+    Python Version                           : 3.6.8 (default, Nov 15 2024, 08:11:39) [GCC 8.5.0 20210514 (Red Hat 8.5.0-22)]
+    Checking for 'gcc' (C compiler)          : not found
+    Checking for 'clang' (C compiler)        : not found
+    Checking for 'icc' (C compiler)          : not found
+    could not configure a C compiler!
+    (complete log in /tmp/pip-build-1jyeuhh2/pyinstaller/bootloader/build/config.log)
+    ERROR: Failed compiling the bootloader. Please compile manually and rerun setup.py
+
+    ----------------------------------------
+Command "/usr/bin/python3.6 -u -c "import setuptools, tokenize;__file__='/tmp/pip-build-1jyeuhh2/pyinstaller/setup.py';f=getattr(tokenize, 'open', open)(__file__);code=f.read().replace('\r\n', '\n');f.close();exec(compile(code, __file__, 'exec'))" install --record /tmp/pip-b0jr8ci0-record/install-record.txt --single-version-externally-managed --compile" failed with error code 1 in /tmp/pip-build-1jyeuhh2/pyinstaller/
