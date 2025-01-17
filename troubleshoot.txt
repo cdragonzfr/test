@@ -1,2 +1,6 @@
 ERROR: Could not find a version that satisfies the requirement pyinstaller-hooks-contrib>=2024.9 (from pyinstaller) (from versions: 0.0.0, 2020.4, 2020.5, 2020.6, 2020.7, 2020.8, 2020.9, 2020.10, 2020.11, 2021.1, 2021.2, 2021.3, 2021.4, 2021.5, 2022.0)
 ERROR: No matching distribution found for pyinstaller-hooks-contrib>=2024.9
+
+ERROR: Could not find a version that satisfies the requirement packaging>=22.0 (from pyinstaller) (from versions: 14.0, 14.1, 14.2, 14.3, 14.4, 14.5, 15.0, 15.1, 15.2, 15.3, 16.0, 16.1, 16.2, 16.3, 16.4, 16.5, 16.6, 16.7, 16.8, 17.0, 17.1, 18.0,
+19.0, 19.1, 19.2, 20.0, 20.1, 20.2, 20.3, 20.4, 20.5, 20.6, 20.7, 20.8, 20.9, 21.0, 21.1, 21.2, 21.3)
+ERROR: No matching distribution found for packaging>=22.0
