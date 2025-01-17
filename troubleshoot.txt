@@ -1,19 +1,2 @@
-Installing collected packages: altgraph, pyinstaller-hooks-contrib, zipp, typing-extensions, importlib-metadata, pyinstaller
-  Running setup.py install for pyinstaller ... error
-    Complete output from command /usr/bin/python3.6 -u -c "import setuptools, tokenize;__file__='/tmp/pip-build-1jyeuhh2/pyinstaller/setup.py';f=getattr(tokenize, 'open', open)(__file__);code=f.read().replace('\r\n', '\n');f.close();exec(compile(code, __file__, 'exec'))" install --record /tmp/pip-b0jr8ci0-record/install-record.txt --single-version-externally-managed --compile:
-    running install
-    running build
-    running build_bootloader
-    No precompiled bootloader found or compile forced. Trying to compile the bootloader for you ...
-    Setting top to                           : /tmp/pip-build-1jyeuhh2/pyinstaller/bootloader
-    Setting out to                           : /tmp/pip-build-1jyeuhh2/pyinstaller/bootloader/build
-    Python Version                           : 3.6.8 (default, Nov 15 2024, 08:11:39) [GCC 8.5.0 20210514 (Red Hat 8.5.0-22)]
-    Checking for 'gcc' (C compiler)          : not found
-    Checking for 'clang' (C compiler)        : not found
-    Checking for 'icc' (C compiler)          : not found
-    could not configure a C compiler!
-    (complete log in /tmp/pip-build-1jyeuhh2/pyinstaller/bootloader/build/config.log)
-    ERROR: Failed compiling the bootloader. Please compile manually and rerun setup.py
-
-    ----------------------------------------
-Command "/usr/bin/python3.6 -u -c "import setuptools, tokenize;__file__='/tmp/pip-build-1jyeuhh2/pyinstaller/setup.py';f=getattr(tokenize, 'open', open)(__file__);code=f.read().replace('\r\n', '\n');f.close();exec(compile(code, __file__, 'exec'))" install --record /tmp/pip-b0jr8ci0-record/install-record.txt --single-version-externally-managed --compile" failed with error code 1 in /tmp/pip-build-1jyeuhh2/pyinstaller/
+ERROR: Could not find a version that satisfies the requirement pyinstaller-hooks-contrib>=2024.9 (from pyinstaller) (from versions: 0.0.0, 2020.4, 2020.5, 2020.6, 2020.7, 2020.8, 2020.9, 2020.10, 2020.11, 2021.1, 2021.2, 2021.3, 2021.4, 2021.5, 2022.0)
+ERROR: No matching distribution found for pyinstaller-hooks-contrib>=2024.9
