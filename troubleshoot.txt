@@ -4,3 +4,10 @@ ERROR: No matching distribution found for pyinstaller-hooks-contrib>=2024.9
 ERROR: Could not find a version that satisfies the requirement packaging>=22.0 (from pyinstaller) (from versions: 14.0, 14.1, 14.2, 14.3, 14.4, 14.5, 15.0, 15.1, 15.2, 15.3, 16.0, 16.1, 16.2, 16.3, 16.4, 16.5, 16.6, 16.7, 16.8, 17.0, 17.1, 18.0,
 19.0, 19.1, 19.2, 20.0, 20.1, 20.2, 20.3, 20.4, 20.5, 20.6, 20.7, 20.8, 20.9, 21.0, 21.1, 21.2, 21.3)
 ERROR: No matching distribution found for packaging>=22.0
+
+        linux-vdso.so.1 (0x00007ffdfbcd7000)
+        libdl.so.2 => /lib64/libdl.so.2 (0x00007f80f64db000)
+        libz.so.1 => /lib64/libz.so.1 (0x00007f80f62c3000)
+        libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f80f60a3000)
+        libc.so.6 => /lib64/libc.so.6 (0x00007f80f5ccd000)
+        /lib64/ld-linux-x86-64.so.2 (0x00007f80f66df000)
