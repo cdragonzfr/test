@@ -1,3 +1,13 @@
+# Process the CSV file, removing any Windows-style carriage returns
+while IFS=',' read -r target_path token_name owner permissions; do
+    # Remove potential carriage return characters (\r)
+    target_path=$(echo "$target_path" | tr -d '\r')
+    token_name=$(echo "$token_name" | tr -d '\r')
+    owner=$(echo "$owner" | tr -d '\r')
+    permissions=$(echo "$permissions" | tr -d '\r')
+
+    log "Processing token: $token_name"
+
 #!/bin/bash
 
 # Define log file location
