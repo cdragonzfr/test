@@ -40,3 +40,21 @@ usage: pyinstaller [-h] [-v] [-D] [-F] [--specpath DIR] [-n NAME]
                    [--workpath WORKPATH] [-y] [--upx-dir UPX_DIR] [-a]
                    [--clean] [--log-level LEVEL]
                    scriptname [scriptname ...]
+
+
+Psuedo Flow
+
+	Detect Tar GZ File in current directory (Tanium's Download Action ID Folder) and extract name
+	
+	Untar Tar File in current directory
+	
+		Make sure untar was successful, if not drop out of the script and fail
+	
+	Check existence of CSV needed to perform placement and permission changes
+		If exists continue if it does not exist…. Exit script and fail
+		
+	Use CSV file to iterate through each line.  Each line will have the first column that contains where the token will be placed (linux directory path), second column that contains the name of the token, third column containing the owner permission that the token will have on the operation system, fourth column containing the file system permissions for owner:group:everyone for that token. 
+	
+	Each iteration will perform the chown on the token based on the third column first, then perform chmod on the token based on the fourth column file system permissions.  Lastly the token will then be moved out of the current directory to the linux directory path in the first column.   Lastly, it will need to perform a check to verify that the token is in the location it was moved to and show the owner and permissions it has.  
+	
+All of these operations will be logged and will be placed in the /tmp folder.  Pull back with Tanium the log file for review 
