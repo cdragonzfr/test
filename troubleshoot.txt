@@ -58,3 +58,58 @@ Psuedo Flow
 	Each iteration will perform the chown on the token based on the third column first, then perform chmod on the token based on the fourth column file system permissions.  Lastly the token will then be moved out of the current directory to the linux directory path in the first column.   Lastly, it will need to perform a check to verify that the token is in the location it was moved to and show the owner and permissions it has.  
 	
 All of these operations will be logged and will be placed in the /tmp folder.  Pull back with Tanium the log file for review 
+
+
+
+Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t nat -D PREROUTING -m addrtype --dst-type LOCAL -j DOCKER' failed: iptables: Bad rule (does a matching rule exist in that chain?).
+Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t nat -D OUTPUT -m addrtype --dst-type LOCAL ! --dst 127.0.0.0/8 -j DOCKER' failed: iptables: Bad rule (does a matching rule exist in that chain?>
+Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t nat -D OUTPUT -m addrtype --dst-type LOCAL -j DOCKER' failed: iptables: Bad rule (does a matching rule exist in that chain?).
+Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t nat -D PREROUTING' failed: iptables: Bad rule (does a matching rule exist in that chain?).
+Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t nat -D OUTPUT' failed: iptables: Bad rule (does a matching rule exist in that chain?).
+Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t filter -F DOCKER-ISOLATION' failed: iptables: No chain/target/match by that name.
+Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t filter -X DOCKER-ISOLATION' failed: iptables: No chain/target/match by that name.
+Feb 06 12:51:54 hostname dockerd[228419]: time="2025-02-06T12:51:54.713457722-05:00" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Daemon option --bip can be used to set a preferred IP address"
+Feb 06 12:51:54 hostname firewalld[42434]: ERROR: 'python-nftables' failed: internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+
+                                                 JSON blob:
+                                                 {"nftables": [{"metainfo": {"json_schema_version": 1}}, {"insert": {"rule": {"family": "inet", "table": "firewalld", "chain": "filter_INPUT_ZONES", "expr": [{"match": {"left": {"meta": {"key": "ii>
+Feb 06 12:51:54 hostname firewalld[42434]: ERROR: COMMAND_FAILED: 'python-nftables' failed: internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+
+
+                                                 JSON blob:
+                                                 {"nftables": [{"metainfo": {"json_schema_version": 1}}, {"insert": {"rule": {"family": "inet", "table": "firewalld", "chain": "filter_INPUT_ZONES", "expr": [{"match": {"left": {"meta": {"key": "ii>
+Feb 06 12:51:54 hostname dockerd[228419]: time="2025-02-06T12:51:54.791760799-05:00" level=info msg="stopping event stream following graceful shutdown" error="<nil>" module=libcontainerd namespace=moby
+Feb 06 12:51:54 hostname dockerd[228419]: time="2025-02-06T12:51:54.792104743-05:00" level=info msg="stopping event stream following graceful shutdown" error="context canceled" module=libcontainerd namespace=plugins.moby
+Feb 06 12:51:54 hostname dockerd[228419]: failed to start daemon: Error initializing network controller: error creating default "bridge" network: Failed to program NAT chain: COMMAND_FAILED: 'python-nftables' failed: internal:0:0-0: Error:>
+Feb 06 12:51:54 hostname dockerd[228419]: internal:0:0-0: Error: Could not process rule: No such file or directory
+Feb 06 12:51:54 hostname dockerd[228419]: JSON blob:
+Feb 06 12:51:54 hostname dockerd[228419]: {"nftables": [{"metainfo": {"json_schema_version": 1}}, {"insert": {"rule": {"family": "inet", "table": "firewalld", "chain": "filter_INPUT_ZONES", "expr": [{"match": {"left": {"meta": {
