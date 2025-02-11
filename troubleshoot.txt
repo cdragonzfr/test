@@ -126,3 +126,20 @@ AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836746723070000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836758767370000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836767600630000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836780643770000.sqlaudit
+
+
+$registryPath = "HKCU:\Software\Microsoft\Office\16.0\Outlook\Profiles\Outlook\9375CFF0413111d3B88A00104B2A6676"
+
+# Get all profile keys
+$profileKeys = Get-ChildItem -Path $registryPath
+
+foreach ($key in $profileKeys) {
+    $subKeyPath = $key.PSPath
+    $hexData = Get-ItemProperty -Path $subKeyPath | Select-Object -ExpandProperty "01023d0d" -ErrorAction SilentlyContinue
+
+    if ($hexData) {
+        # Convert the hex binary data to readable text
+        $emailAddress = -join ($hexData | ForEach-Object { [char]$_ })
+        Write-Output "Email Account Found: $emailAddress"
+    }
+}
