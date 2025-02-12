@@ -127,9 +127,8 @@ AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836758767370000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836767600630000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836780643770000.sqlaudit
 
-
-# Get all user SIDs from HKEY_USERS
-$users = Get-ChildItem -Path "Registry::HKEY_USERS" | Where-Object { $_.Name -match 'S-\d-\d+-\d+-\d+-\d+-\d+-\d+$' }
+# Output the header row for Tanium Sensor
+Write-Output "AccountName|AccountType"
 
 # Get all user SIDs from HKEY_USERS
 $users = Get-ChildItem -Path "Registry::HKEY_USERS" | Where-Object { $_.Name -match 'S-\d-\d+-\d+-\d+-\d+-\d+-\d+$' }
@@ -140,8 +139,6 @@ foreach ($user in $users) {
 
     # Check if the Outlook profile registry path exists
     if (Test-Path $outlookProfilePath) {
-        Write-Output "Checking Outlook Profile for User SID: $sid"
-
         # Enumerate profile keys (subkeys under 9375CFF0413111d3B88A00104B2A6676)
         $profileKeys = Get-ChildItem -Path $outlookProfilePath -ErrorAction SilentlyContinue
         foreach ($profile in $profileKeys) {
@@ -149,21 +146,24 @@ foreach ($user in $users) {
             $serviceName = Get-ItemProperty -Path $profilePath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Service Name" -ErrorAction SilentlyContinue
             $accountName = Get-ItemProperty -Path $profilePath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Account Name" -ErrorAction SilentlyContinue
 
-            if ($serviceName) {
-                Write-Output "  - Found Service Name: $serviceName in Profile: $profile"
-                Write-Output "    -> Account Name: $accountName"
-
-                # Identify account type
-                switch ($serviceName) {
-                    "MSEMS" { Write-Output "    -> Exchange (Corporate Email)" }
-                    "IMAP" { Write-Output "    -> IMAP (Personal Email Possible)" }
-                    "POP3" { Write-Output "    -> POP3 (Personal Email Possible)" }
-                    "SMTP" { Write-Output "    -> SMTP (Usually Paired with IMAP or POP3)" }
-                    "Google" { Write-Output "    -> Google OAuth Account (Gmail)" }
-                    default { Write-Output "    -> Unknown Account Type: $serviceName" }
-                }
+            # Determine Account Type
+            $accountType = switch ($serviceName) {
+                "MSEMS" { "Exchange (Corporate Email)" }
+                "IMAP" { "IMAP (Possible Personal Email)" }
+                "POP3" { "POP3 (Possible Personal Email)" }
+                "SMTP" { "SMTP (Usually Paired with IMAP/POP3)" }
+                "Google" { "Google OAuth (Gmail)" }
+                default { "Unknown Type" }
             }
+
+            # Ensure blank values are handled properly to avoid errors in Tanium
+            if (-not $accountName) { $accountName = "Unknown" }
+            if (-not $accountType) { $accountType = "Unknown Type" }
+
+            # Output formatted result for Tanium Sensor
+            Write-Output "$accountName|$accountType"
         }
     }
 }
+
 
