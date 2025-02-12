@@ -128,27 +128,35 @@ AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836767600630000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836780643770000.sqlaudit
 
 
-$registryPath = "HKCU:\Software\Microsoft\Office\16.0\Outlook\Profiles\Outlook\9375CFF0413111d3B88A00104B2A6676"
+# Get all user SIDs from HKEY_USERS
+$users = Get-ChildItem -Path "Registry::HKEY_USERS" | Where-Object { $_.Name -match 'S-\d-\d+-\d+-\d+-\d+-\d+-\d+$' }
 
-# Get all profile keys
-$profileKeys = Get-ChildItem -Path $registryPath
+foreach ($user in $users) {
+    $sid = $user.PSChildName
+    $outlookProfilePath = "Registry::HKEY_USERS\$sid\Software\Microsoft\Office\16.0\Outlook\Profiles\Outlook"
 
-foreach ($key in $profileKeys) {
-    $subKeyPath = $key.PSPath
-    $hexData = Get-ItemProperty -Path $subKeyPath | Select-Object -ExpandProperty "01023d0d" -ErrorAction SilentlyContinue
+    # Check if the Outlook profile registry path exists
+    if (Test-Path $outlookProfilePath) {
+        Write-Output "Checking Outlook Profile for User SID: $sid"
 
-    if ($hexData) {
-        # Convert the hex binary data to readable text
-        $emailAddress = -join ($hexData | ForEach-Object { [char]$_ })
-        Write-Output "Email Account Found: $emailAddress"
-    }
-}
+        # Enumerate profile keys
+        $profileKeys = Get-ChildItem -Path $outlookProfilePath -ErrorAction SilentlyContinue
+        foreach ($profile in $profileKeys) {
+            $serviceName = Get-ItemProperty -Path $profile.PSPath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Service Name" -ErrorAction SilentlyContinue
 
-$registryPath = "Registry::HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Outlook\Profiles\Outlook\9375CFF0413111d3B88A00104B2A6676"
-
-Get-ChildItem -Path $registryPath | ForEach-Object {
-    $serviceName = Get-ItemProperty -Path $_.PSPath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Service Name" -ErrorAction SilentlyContinue
-    if ($serviceName) {
-        Write-Output "Account Type Found: $serviceName"
+            if ($serviceName) {
+                Write-Output "  - Found Service Name: $serviceName in Profile: $profile"
+                
+                # Identify account type
+                switch ($serviceName) {
+                    "MSEMS" { Write-Output "    -> Exchange (Corporate Email)" }
+                    "IMAP" { Write-Output "    -> IMAP (Personal Email Possible)" }
+                    "POP3" { Write-Output "    -> POP3 (Personal Email Possible)" }
+                    "SMTP" { Write-Output "    -> SMTP (Usually Paired with IMAP or POP3)" }
+                    "Google" { Write-Output "    -> Google OAuth Account (Gmail)" }
+                    default { Write-Output "    -> Unknown Account Type: $serviceName" }
+                }
+            }
+        }
     }
 }
