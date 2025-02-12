@@ -143,3 +143,12 @@ foreach ($key in $profileKeys) {
         Write-Output "Email Account Found: $emailAddress"
     }
 }
+
+$registryPath = "Registry::HKEY_CURRENT_USER\Software\Microsoft\Office\16.0\Outlook\Profiles\Outlook\9375CFF0413111d3B88A00104B2A6676"
+
+Get-ChildItem -Path $registryPath | ForEach-Object {
+    $serviceName = Get-ItemProperty -Path $_.PSPath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Service Name" -ErrorAction SilentlyContinue
+    if ($serviceName) {
+        Write-Output "Account Type Found: $serviceName"
+    }
+}
