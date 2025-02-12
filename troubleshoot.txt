@@ -131,22 +131,28 @@ AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836780643770000.sqlaudit
 # Get all user SIDs from HKEY_USERS
 $users = Get-ChildItem -Path "Registry::HKEY_USERS" | Where-Object { $_.Name -match 'S-\d-\d+-\d+-\d+-\d+-\d+-\d+$' }
 
+# Get all user SIDs from HKEY_USERS
+$users = Get-ChildItem -Path "Registry::HKEY_USERS" | Where-Object { $_.Name -match 'S-\d-\d+-\d+-\d+-\d+-\d+-\d+$' }
+
 foreach ($user in $users) {
     $sid = $user.PSChildName
-    $outlookProfilePath = "Registry::HKEY_USERS\$sid\Software\Microsoft\Office\16.0\Outlook\Profiles\Outlook"
+    $outlookProfilePath = "Registry::HKEY_USERS\$sid\Software\Microsoft\Office\16.0\Outlook\Profiles\Outlook\9375CFF0413111d3B88A00104B2A6676"
 
     # Check if the Outlook profile registry path exists
     if (Test-Path $outlookProfilePath) {
         Write-Output "Checking Outlook Profile for User SID: $sid"
 
-        # Enumerate profile keys
+        # Enumerate profile keys (subkeys under 9375CFF0413111d3B88A00104B2A6676)
         $profileKeys = Get-ChildItem -Path $outlookProfilePath -ErrorAction SilentlyContinue
         foreach ($profile in $profileKeys) {
-            $serviceName = Get-ItemProperty -Path $profile.PSPath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Service Name" -ErrorAction SilentlyContinue
+            $profilePath = $profile.PSPath
+            $serviceName = Get-ItemProperty -Path $profilePath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Service Name" -ErrorAction SilentlyContinue
+            $accountName = Get-ItemProperty -Path $profilePath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Account Name" -ErrorAction SilentlyContinue
 
             if ($serviceName) {
                 Write-Output "  - Found Service Name: $serviceName in Profile: $profile"
-                
+                Write-Output "    -> Account Name: $accountName"
+
                 # Identify account type
                 switch ($serviceName) {
                     "MSEMS" { Write-Output "    -> Exchange (Corporate Email)" }
@@ -160,3 +166,4 @@ foreach ($user in $users) {
         }
     }
 }
+
