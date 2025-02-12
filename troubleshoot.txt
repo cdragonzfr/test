@@ -128,7 +128,7 @@ AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836767600630000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836780643770000.sqlaudit
 
 # Output the header row for Tanium Sensor
-Write-Output "AccountName|AccountType"
+Write-Output "UserSID|ProfileKey|ServiceName|AccountName|AccountType"
 
 # Get all user SIDs from HKEY_USERS
 $users = Get-ChildItem -Path "Registry::HKEY_USERS" | Where-Object { $_.Name -match 'S-\d-\d+-\d+-\d+-\d+-\d+-\d+$' }
@@ -142,6 +142,7 @@ foreach ($user in $users) {
         # Enumerate profile keys (subkeys under 9375CFF0413111d3B88A00104B2A6676)
         $profileKeys = Get-ChildItem -Path $outlookProfilePath -ErrorAction SilentlyContinue
         foreach ($profile in $profileKeys) {
+            $profileKey = $profile.PSChildName  # Get the profile key name (e.g., 00000002, 00000003)
             $profilePath = $profile.PSPath
             $serviceName = Get-ItemProperty -Path $profilePath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Service Name" -ErrorAction SilentlyContinue
             $accountName = Get-ItemProperty -Path $profilePath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Account Name" -ErrorAction SilentlyContinue
@@ -157,11 +158,13 @@ foreach ($user in $users) {
             }
 
             # Ensure blank values are handled properly to avoid errors in Tanium
+            if (-not $profileKey) { $profileKey = "Unknown" }
+            if (-not $serviceName) { $serviceName = "Unknown" }
             if (-not $accountName) { $accountName = "Unknown" }
             if (-not $accountType) { $accountType = "Unknown Type" }
 
             # Output formatted result for Tanium Sensor
-            Write-Output "$accountName|$accountType"
+            Write-Output "$sid|$profileKey|$serviceName|$accountName|$accountType"
         }
     }
 }
