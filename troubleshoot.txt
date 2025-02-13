@@ -127,46 +127,53 @@ AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836758767370000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836767600630000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836780643770000.sqlaudit
 
-# Output the header row for Tanium Sensor
-Write-Output "UserSID|ProfileKey|ServiceName|AccountName|AccountType"
+# Define the path to the master list file
+masterListPath="master_list.csv"
 
-# Get all user SIDs from HKEY_USERS
-$users = Get-ChildItem -Path "Registry::HKEY_USERS" | Where-Object { $_.Name -match 'S-\d-\d+-\d+-\d+-\d+-\d+-\d+$' }
+# Define the path for the output CSV file
+outputCsvPath="/tmp/output.csv"
 
-foreach ($user in $users) {
-    $sid = $user.PSChildName
-    $outlookProfilePath = "Registry::HKEY_USERS\$sid\Software\Microsoft\Office\16.0\Outlook\Profiles\Outlook\9375CFF0413111d3B88A00104B2A6676"
+if [ -f "$outputCsvPath" ]; then
+    rm "$outputCsvPath"
+fi
 
-    # Check if the Outlook profile registry path exists
-    if (Test-Path $outlookProfilePath) {
-        # Enumerate profile keys (subkeys under 9375CFF0413111d3B88A00104B2A6676)
-        $profileKeys = Get-ChildItem -Path $outlookProfilePath -ErrorAction SilentlyContinue
-        foreach ($profile in $profileKeys) {
-            $profileKey = $profile.PSChildName  # Get the profile key name (e.g., 00000002, 00000003)
-            $profilePath = $profile.PSPath
-            $serviceName = Get-ItemProperty -Path $profilePath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Service Name" -ErrorAction SilentlyContinue
-            $accountName = Get-ItemProperty -Path $profilePath -ErrorAction SilentlyContinue | Select-Object -ExpandProperty "Account Name" -ErrorAction SilentlyContinue
+# Get the current system's hostname
+currentHostname=$(hostname | tr '[:lower:]' '[:upper:]')
 
-            # Determine Account Type
-            $accountType = switch ($serviceName) {
-                "MSEMS" { "Exchange (Corporate Email)" }
-                "IMAP" { "IMAP (Possible Personal Email)" }
-                "POP3" { "POP3 (Possible Personal Email)" }
-                "SMTP" { "SMTP (Usually Paired with IMAP/POP3)" }
-                "Google" { "Google OAuth (Gmail)" }
-                default { "Unknown Type" }
-            }
+# Read the master list file and filter the records
+# Assuming the CSV file has headers with 'Hostname' and 'DirectoryPath'
+filteredRecords=$(awk -F, -v host="$currentHostname" 'toupper($1) == host {print $0}' "$masterListPath")
 
-            # Ensure blank values are handled properly to avoid errors in Tanium
-            if (-not $profileKey) { $profileKey = "Unknown" }
-            if (-not $serviceName) { $serviceName = "Unknown" }
-            if (-not $accountName) { $accountName = "Unknown" }
-            if (-not $accountType) { $accountType = "Unknown Type" }
 
-            # Output formatted result for Tanium Sensor
-            Write-Output "$sid|$profileKey|$serviceName|$accountName|$accountType"
-        }
-    }
-}
+# Initialize the output CSV file and write the headers
+echo "Hostname,FilePath,Presence" > "$outputCsvPath"
+
+# Set IFS to comma and newline
+IFS=$',\n'
+
+# Iterate through each filtered record
+
+echo "$filteredRecords" | while read -r line; do
+    # Read hostname and directoryPath from the line
+    hostname=$(echo "$line" | cut -d, -f1)
+    directoryPath=$(echo "$line" | cut -d, -f2)
+
+    # Remove potential carriage return characters
+    directoryPath=$(echo "$directoryPath" | tr -d '\r')
+
+    presence=0
+
+
+    # Check if the directory path exists
+    if [ -f "$directoryPath" ]; then
+        presence=1
+    fi
+
+    # Write the data to the output CSV file
+    echo "$currentHostname,$directoryPath,$presence" >> "$outputCsvPath"
+done
+
+# Optional: Display a message when done
+echo "Output written to $outputCsvPath"
 
 
