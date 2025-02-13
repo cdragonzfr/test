@@ -127,23 +127,25 @@ AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836758767370000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836767600630000.sqlaudit
 AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836780643770000.sqlaudit
 
+#!/bin/bash
+
 # Define the path to the master list file
 masterListPath="master_list.csv"
 
 # Define the path for the output CSV file
 outputCsvPath="/tmp/output.csv"
 
+# Check if the output CSV file already exists and remove it if it does
 if [ -f "$outputCsvPath" ]; then
     rm "$outputCsvPath"
 fi
 
-# Get the current system's hostname
-currentHostname=$(hostname | tr '[:lower:]' '[:upper:]')
+# Get the current system's hostname and strip the domain if present, then convert to uppercase
+currentHostname=$(hostname | cut -d. -f1 | tr '[:lower:]' '[:upper:]')
 
 # Read the master list file and filter the records
 # Assuming the CSV file has headers with 'Hostname' and 'DirectoryPath'
 filteredRecords=$(awk -F, -v host="$currentHostname" 'toupper($1) == host {print $0}' "$masterListPath")
-
 
 # Initialize the output CSV file and write the headers
 echo "Hostname,FilePath,Presence" > "$outputCsvPath"
@@ -152,7 +154,6 @@ echo "Hostname,FilePath,Presence" > "$outputCsvPath"
 IFS=$',\n'
 
 # Iterate through each filtered record
-
 echo "$filteredRecords" | while read -r line; do
     # Read hostname and directoryPath from the line
     hostname=$(echo "$line" | cut -d, -f1)
@@ -163,8 +164,7 @@ echo "$filteredRecords" | while read -r line; do
 
     presence=0
 
-
-    # Check if the directory path exists
+    # Check if the file exists (using -f for files)
     if [ -f "$directoryPath" ]; then
         presence=1
     fi
@@ -173,7 +173,8 @@ echo "$filteredRecords" | while read -r line; do
     echo "$currentHostname,$directoryPath,$presence" >> "$outputCsvPath"
 done
 
+# Reset IFS to default
+unset IFS
+
 # Optional: Display a message when done
 echo "Output written to $outputCsvPath"
-
-
