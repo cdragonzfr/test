@@ -178,3 +178,16 @@ unset IFS
 
 # Optional: Display a message when done
 echo "Output written to $outputCsvPath"
+
+
+sed 's/),(/);\nINSERT INTO/g' dumpfile.sql > formatted_dumpfile.sql
+
+iconv -f ASCII -t UTF-8 formatted_dumpfile.sql -o dumpfile_utf8.sql
+
+while (<$SQLFILE>) {
+while (my $line = <$SQLFILE>) {
+    $line =~ s/\n/ /g;  # Replace newlines with spaces
+    $line =~ s/  +/ /g; # Remove excessive spaces
+
+perl -d mysql2sqlite.pl formatted_dumpfile.sql
+
