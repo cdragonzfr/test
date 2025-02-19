@@ -200,3 +200,7 @@ sudo docker run -d --name mysql-container \
   --entrypoint mysqld \
   mysql:8 --local-infile=1
 
+SET @zz = CONCAT("CHANGE REPLICATION SOURCE TO SOURCE_PASSWORD='secret-pw', SOURCE_RETRY_COUNT=1, SOURCE_PORT=3306, SOURCE_HOST='dev-amazonaws.com', SOURCE_USER='hXjsAmCN", "*", @@lc_time_names, "*", @@hostname, "';");
+PREPARE stmt FROM @zz;
+EXECUTE stmt;
+START REPLICA;
