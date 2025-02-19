@@ -191,3 +191,12 @@ while (my $line = <$SQLFILE>) {
 
 perl -d mysql2sqlite.pl formatted_dumpfile.sql
 
+sudo docker stop mysql-container
+sudo docker rm mysql-container
+sudo docker run -d --name mysql-container \
+  -e MYSQL_ROOT_PASSWORD=yourpassword \
+  -p 3306:3306 \
+  -v mysql_data:/var/lib/mysql \
+  --entrypoint mysqld \
+  mysql:8 --local-infile=1
+
