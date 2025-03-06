@@ -201,337 +201,55 @@ sudo docker run -d --name mysql-container \
   mysql:8 --local-infile=1
 
 
-[app/install/install_source_checksum]
-version = 8.2.1
-modtime = 1649988641.346204000
-
-[inputs/threat_intelligence_manager%3A%2F%2Fda_ess_threat_default]
-version = 6.5.2
-modtime = 1492706395.960289000
-
-[inputs/threat_intelligence_manager%3A%2F%2Fda_ess_threat_local]
-version = 6.5.2
-modtime = 1492706395.993910000
-
-[inputs/threat_intelligence_manager%3A%2F%2Flocal_lookups]
-version = 6.5.2
-modtime = 1492706396.032049000
-
-[inputs/threat_intelligence_manager%3A%2F%2Fsa_threat_local]
-version = 6.5.2
-modtime = 1492706396.064524000
-
-[]
-access = read : [ * ], write : [ admin ]
-export = system
-version = 7.2.5.1
-modtime = 1555715684.104128000
-import = __globals__
-
-[app/install/state]
-version = 8.2.1
-modtime = 1649988791.387204000
-
-[inputs/threatlist%3A%2F%2Flocal_certificate_intel]
-version = 6.5.2
-modtime = 1492781563.833166000
-
-[inputs/threatlist%3A%2F%2Flocal_domain_intel]
-version = 6.5.2
-modtime = 1492781566.175110000
-
-[inputs/threatlist%3A%2F%2Flocal_email_intel]
-version = 6.5.2
-modtime = 1492781568.639448000
-
-[inputs/threatlist%3A%2F%2Flocal_file_intel]
-version = 6.5.2
-modtime = 1508269570.385578000
-
-[inputs/threatlist%3A%2F%2Flocal_http_intel]
-version = 6.5.2
-modtime = 1492781573.343132000
-
-[inputs/threatlist%3A%2F%2Flocal_ip_intel]
-version = 6.5.2
-modtime = 1492781575.737298000
-
-[inputs/threatlist%3A%2F%2Flocal_process_intel]
-version = 6.5.2
-modtime = 1501614115.585948000
-
-[inputs/threatlist%3A%2F%2Flocal_user_intel]
-version = 6.5.2
-modtime = 1501614266.888889000
-
-[inputs/threatlist%3A%2F%2Flocal_registry_intel]
-version = 6.5.2
-modtime = 1501614122.919741000
-
-[inputs/threatlist%3A%2F%2Flocal_service_intel]
-version = 6.5.2
-modtime = 1501614130.131131000
-
-[datamodels/Threat_Intelligence]
-version = 8.0.5.1
-modtime = 1610631990.792931000
-
-[models/Threat_Intelligence]
-version = 6.5.2
-modtime = 1497476194.984972000
-
-[inputs/threatlist%3A%2F%2Fhailataxii_malware]
-version = 6.5.2
-modtime = 1503336960.216767000
-
-[lookups/local_file_intel.csv]
-version = 7.2.5.1
-modtime = 1566314568.549454000
-
-[savedsearches/Threat%20-%20redacted%20-%20redacted%20-%20PhishTank%20Database%20-%20Rule]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565216.181739000
-
-[savedsearches/Threat%20-%20redacted%20-%20redacted%20-%20Successful%20Phishing%20Network%20Activity%20-%20Rule]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565217.927477000
-
-[savedsearches/Threat%20-%20redacted%20-%20Threat_Activity%20-%20RiskAnalytics%E2%80%99%20Malware%20Domain%20Blocklist%20-%20Rule]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1609344544.010564000
-
-[lookups/powershell_redacted.csv]
-owner = redacted@redacted
-version = 6.6.5
-modtime = 1544821588.855158000
-
-[savedsearches/Threat%20-%20redacted%20-%20Email%20-%20User%20Reporting%20Suspicious%20Email%20-%20Rule]
-export = system
-owner = nobody
-version = 8.2.1
-modtime = 1630517677.169078000
-
-[savedsearches/Threat%20-%20redacted%20-%20Email%20-%20Users%20Reporting%20Potential%20Phishing%20Campaign%20-%20Rule]
-export = system
-owner = nobody
-version = 8.2.1
-modtime = 1630095726.331205000
-
-[lookups]
-access = read : [ * ], write : [ admin, ess_analyst, ess_user, redactedtier2, redactedtier3 ]
-export = system
-version = 8.2.1
-modtime = 1649988974.114780000
-
-[savedsearches/Threat%20-%20redacted%20-%20Threat_Activity%20-%20Threat%20Matching%20Domain%20-%20Rule]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565218.362718000
-
-[lookups/threatintel_by_email_subject_wildcard.csv]
-version = 6.6.5
-modtime = 1551303804.331026000
-
-[lookups/threatintel_by_email_wildcard.csv]
-version = 6.6.5
-modtime = 1551475671.939154000
-
-[lookups/local_domain_intel.csv]
-version = 7.2.5.1
-modtime = 1556541007.939186000
-
-[lookups/local_ip_intel.csv]
-version = 7.2.5.1
-modtime = 1556541030.529004000
-
-[views/threat_intelligence_audit]
-version = 7.2.5.1
-modtime = 1556299538.712978000
-
-[transforms]
-access = read : [ * ], write : [ admin, ess_analyst, ess_user, redactedtier2, redactedtier3 ]
-export = system
-version = 8.2.1
-modtime = 1649988969.337330000
-
-[savedsearches]
-access = read : [ * ], write : [ admin, ess_analyst, redactedtier3 ]
-export = system
-version = 8.2.1
-modtime = 1649988967.635745000
-
-[savedsearches/Threat%20-%20redacted%20-%20Proxy%20-%20Successful%20Phishing%20Network%20Activity%20-%20Rule]
-access = read : [ * ], write : [ admin, ess_analyst ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565217.924645000
-
-[savedsearches/Threat%20-%20redacted%20-%20Proxy%20-%20Threat%20Matching%20Domain%20-%20Rule]
-access = read : [ * ], write : [ admin, ess_analyst ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565217.926121000
-
-[savedsearches/Threat%20-%20redacted%20-%20Threat_Intelligence.Threat_Activity%20-%20Web%20Activity%20-%20Rule]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565218.733055000
-
-[savedsearches/Threat%20-%20redacted%20-%20Network%20Logs%20-%20Threat%20Intel%20Activity%20-%20Rule]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1625692412.728886000
-
-[lookups/redacted_Alert_DOMAIN_Master.csv]
-access = read : [ * ], write : [ admin, ess_analyst, ess_user, redactedtier2, redactedtier3 ]
-export = system
-owner = redacted@redacted
-version = 8.2.1
-modtime = 1643728236.035796000
-
-[transforms/redacted_Alert_DOMAIN_Master]
-access = read : [ * ], write : [ admin, ess_analyst, ess_user ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565198.108952000
-
-[lookups/redacted_Alert_IP_Master.csv]
-owner = redacted@redacted
-version = 8.2.1
-modtime = 1651181068.622635000
-
-[savedsearches/redacted_Alert_IP_Master]
-access = read : [ * ], write : [ admin, ess_admin ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565207.003196000
-
-[lookups/feed_redacted_IP.csv]
-owner = redacted@redacted
-version = 7.2.5.1
-modtime = 1581450518.877886000
-
-[savedsearches/update_redacted_IP]
-access = read : [ * ], write : [ admin, ess_admin ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565325.276340000
-
-[transforms/redacted_Alert_IP_Master]
-access = read : [ * ], write : [ admin, ess_admin ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565198.423822000
-
-[savedsearches/Threat%20-%20redacted%20-%20Network%20Logs%20-%20IP%20Threat%20Intel%20Activity%20-%20Rule]
-export = system
-owner = nobody
-version = 8.2.1
-modtime = 1649787481.021620000
-
-[workflow_actions/nbtstat_computer_name]
-access = read : [ * ], write : [ admin, ess_admin, redactedtier3 ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565295.036068000
-
-[lookups/feed_redacted_SENDER.csv]
-owner = redacted@redacted
-version = 7.2.5.1
-modtime = 1590517282.536500000
-
-[savedsearches/update_redacted_SENDER]
-access = read : [ * ], write : [ admin, ess_admin ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565325.277886000
-
-[lookups/redacted_Alert_SENDER_Master.csv]
-owner = redacted@redacted
-version = 7.2.5.1
-modtime = 1591802065.594113000
-
-[savedsearches/redacted_Alert_SENDER_Master]
-access = read : [ * ], write : [ admin, ess_admin ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565207.001660000
-
-[transforms/redacted_Alert_SENDER_Master]
-access = read : [ * ], write : [ admin, ess_admin ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565198.467198000
-
-[savedsearches/Threat%20-%20redacted%20-%20Email%20-%20Threat%20Intel%20Activity%20-%20Rule]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565216.647163000
-
-[lookups/redacted_Alert_File_Name_Master.csv]
-access = read : [ * ], write : [ admin, ess_analyst, ess_user, redactedtier2, redactedtier3 ]
-export = system
-owner = redacted@redacted
-version = 7.2.5.1
-modtime = 1591642619.610603000
-
-[savedsearches/redacted_Alert_FILE_NAME_Master]
-access = read : [ * ], write : [ admin, ess_admin, redactedtier3 ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565207.004541000
-
-[transforms/redacted_Alert_File_Name_Master]
-access = read : [ * ], write : [ admin, ess_admin, redactedtier3 ]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565198.184547000
-
-[savedsearches/Threat%20-%20%20redacted%20-%20redacted%20-%20File%20Name%20Threat%20Intel%20Activity%20-%20Rule]
-export = system
-owner = nobody
-version = 8.0.5.1
-modtime = 1608565215.897884000
-
-[inputs/threat_intelligence_manager%3A%2F%2Fsa_threat_local2]
-version = 8.0.5.1
-modtime = 1609344486.344314000
-
-[savedsearches/update_redacted_DOMAIN]
-access = read : [ * ], write : [ admin, ess_admin, redactedtier3 ]
-export = system
-owner = redacted@redacted
-version = 8.0.5.1
-modtime = 1625691520.231948000
-
-[savedsearches/Threat%20-%20redacted%20-%20redacted%20-%20redacted%20Alerts%20-%20Rule]
-owner = redacted@redacted
-version = 8.2.1
-modtime = 1651602807.860322000
-
-[alert_actions/threat_add]
-version = 8.2.1
-modtime = 1648068013.179362000
-
+2025-03-06 19:46:41,332 - test_invicti_activity - [ERROR] - [test] HTTPError reason=HTTP Error HTTPSConnectionPool(host='redacted', port=443): Max retries exceeded with url: /api/1.0/auditlogs/list?page=1&pageSize=20&startDate=03/01/2025%2000:00:00&endDate=03/05/2025%2000:00:00 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1143)'))) when sending request to url=https://redacted/api/1.0/auditlogs/list?page=1&pageSize=20&startDate=03/01/2025 00:00:00&endDate=03/05/2025 00:00:00 method=GET
+Traceback (most recent call last):
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/connectionpool.py", line 715, in urlopen
+    httplib_response = self._make_request(
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/connectionpool.py", line 404, in _make_request
+    self._validate_conn(conn)
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/connectionpool.py", line 1060, in _validate_conn
+    conn.connect()
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/connection.py", line 419, in connect
+    self.sock = ssl_wrap_socket(
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/util/ssl_.py", line 449, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/util/ssl_.py", line 493, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+  File "/opt/splunk/lib/python3.9/ssl.py", line 506, in wrap_socket
+    return self.sslsocket_class._create(
+  File "/opt/splunk/lib/python3.9/ssl.py", line 1049, in _create
+    self.do_handshake()
+  File "/opt/splunk/lib/python3.9/ssl.py", line 1318, in do_handshake
+    self._sslobj.do_handshake()
+ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1143)
+During handling of the above exception, another exception occurred:
+Traceback (most recent call last):
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/requests/adapters.py", line 486, in send
+    resp = conn.urlopen(
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/connectionpool.py", line 801, in urlopen
+    retries = retries.increment(
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/util/retry.py", line 594, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='redacted', port=443): Max retries exceeded with url: /api/1.0/auditlogs/list?page=1&pageSize=20&startDate=03/01/2025%2000:00:00&endDate=03/05/2025%2000:00:00 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1143)')))
+During handling of the above exception, another exception occurred:
+Traceback (most recent call last):
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/cloudconnectlib/core/http.py", line 229, in _retry_send_request_if_needed
+    resp = self._send_internal(
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/cloudconnectlib/core/http.py", line 213, in _send_internal
+    return self._connection.request(
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/requests/sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/requests/sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/requests/adapters.py", line 517, in send
+    raise SSLError(e, request=request)
+requests.exceptions.SSLError: HTTPSConnectionPool(host='redacted', port=443): Max retries exceeded with url: /api/1.0/auditlogs/list?page=1&pageSize=20&startDate=03/01/2025%2000:00:00&endDate=03/05/2025%2000:00:00 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1143)')))
+The above exception was the direct cause of the following exception:
+Traceback (most recent call last):
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/cloudconnectlib/core/engine.py", line 308, in _send_request
+    response = self._client.send(request)
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/cloudconnectlib/core/http.py", line 295, in send
+    return self._retry_send_request_if_needed(
+  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/cloudconnectlib/core/http.py", line 243, in _retry_send_request_if_needed
+    raise HTTPError(f"HTTP Error {err}") from err
+cloudconnectlib.core.exceptions.HTTPError: HTTP Error HTTPSConnectionPool(host='redacted', port=443): Max retries exceeded with url: /api/1.0/auditlogs/list?page=1&pageSize=20&startDate=03/01/2025%2000:00:00&endDate=03/05/2025%2000:00:00 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1143)')))
