@@ -452,15 +452,18 @@ def collect_events(helper, ew):
 
 events     self.collect_events(ew)   File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/activitylogstest_1741375220_147.py", line 72, in collect_events     input_module.collect_events(self, ew)   File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/input_module_activitylogstest_1741375220_147.py", line 134, in collect_events     start_date = datetime.strptime(   File "/opt/splunk/lib/python3.9/_strptime.py", line 568, in _strptime_datetime     tt, fraction, gmtoff_fraction = _strptime(data_string, format)   File "/opt/splunk/lib/python3.9/_strptime.py", line 349, in _strptime     raise ValueError("time data %r does not match format %r" % ValueError: time data '2025-03-03T14:16:34.3152395-05:00' does not match format '%Y-%m-%dT%H:%M:%S.%f%z'  During handling of the above exception, another exception occurred:  Traceback (most recent call last):   File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/splunklib/modularinput/script.py", line 67, in run_script     self.stream_events(self._input_definition, event_writer)   File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/modinput_wrapper/base_modinput.py", line 134, in stream_events     raise RuntimeError(str(e)) RuntimeError: time data '2025-03-03T14:16:34.3152395-05:00' does not match format '%Y-%m-%dT%H:%M:%S.%f%z' 
 
-
-from datetime import datetime
-import re
-
 def parse_timestamp(timestamp):
     # Truncate microseconds to 6 digits
     timestamp = re.sub(r'(\.\d{6})\d+', r'\1', timestamp)
-    # Remove colon from timezone offset
-    timestamp = timestamp.replace(':', '')
+    # Remove colon from timezone offset (the last occurrence)
+    if '+' in timestamp:
+        parts = timestamp.rsplit('+', 1)
+        parts[1] = parts[1].replace(':', '')
+        timestamp = '+'.join(parts)
+    elif '-' in timestamp:
+        parts = timestamp.rsplit('-', 1)
+        parts[1] = parts[1].replace(':', '')
+        timestamp = '-'.join(parts)
     # Parse the adjusted timestamp
     return datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S.%f%z')
 
@@ -468,3 +471,6 @@ def parse_timestamp(timestamp):
 timestamp = '2025-03-03T14:16:34.3152395-05:00'
 parsed_datetime = parse_timestamp(timestamp)
 print(parsed_datetime)
+
+start_date = datetime.strftime(parsed_datetime, "%m/%d/%Y %H:%M:%S")
+print(start_date)
