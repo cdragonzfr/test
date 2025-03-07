@@ -256,140 +256,36 @@ cloudconnectlib.core.exceptions.HTTPError: HTTP Error HTTPSConnectionPool(host='
 
 
 
-import os
-import sys
-import time
-import datetime
-
-'''
-    IMPORTANT
-    Edit only the validate_input and collect_events functions.
-    Do not edit any other part in this file.
-    This file is generated only once when creating the modular input.
-'''
-
-# For advanced users, if you want to create single instance mod input, uncomment this method.
-#def use_single_instance_mode():
-#    return True
-
-
-def validate_input(helper, definition):
-    """Implement your own validation logic to validate the input stanza configurations"""
-    # This example accesses the modular input variable
-    userid = definition.parameters.get('userid', None)
-    api_key = definition.parameters.get('api_key', None)
-    pass
+import urllib.parse
+from datetime import datetime
+import json
 
 def collect_events(helper, ew):
-    # Implement your data collection logic here
-
-    # The following examples get the arguments of this input.
-    # Note, for single instance mod input, args will be returned as a dict.
-    # For multi instance mod input, args will be returned as a single value.
-    #opt_userid = helper.get_arg('userid')
-    #opt_api_key = helper.get_arg('api_key')
-    # In single instance mode, to get arguments of a particular input, use
-    #opt_userid = helper.get_arg('userid', stanza_name)
-    #opt_api_key = helper.get_arg('api_key', stanza_name)
-    
-    opt_userid = 'xyz'
-    opt_api_key = 'xyz='
-    
-    
-    # get input type
-    helper.get_input_type()
-
-    # The following examples get input stanzas.
-    # get all detailed input stanzas
-    helper.get_input_stanza()
-    # get specific input stanza with stanza name
-    helper.get_input_stanza(stanza_name)
-    # get all stanza names
-    helper.get_input_stanza_names()
-
-    # The following examples get options from setup page configuration.
-    # get the loglevel from the setup page
-    loglevel = helper.get_log_level()
-    # get proxy setting configuration
-    proxy_settings = helper.get_proxy()
-    # get account credentials as dictionary
-    account = helper.get_user_credential_by_username("username")
-    account = helper.get_user_credential_by_id("account id")
-    # get global variable configuration
-    global_userdefined_global_var = helper.get_global_setting("userdefined_global_var")
-
-    # The following examples show usage of logging related helper functions.
-    # write to the log for this modular input using configured global log level or INFO as default
-    helper.log("log message")
-    # write to the log using specified log level
-    helper.log_debug("log message")
-    helper.log_info("log message")
-    helper.log_warning("log message")
-    helper.log_error("log message")
-    helper.log_critical("log message")
-    # set the log level for this modular input
-    # (log_level can be "debug", "info", "warning", "error" or "critical", case insensitive)
-    helper.set_log_level(log_level)
-
-    # The following examples send rest requests to some endpoint.
-    response = helper.send_http_request(url, method, parameters=None, payload=None,
-                                        headers=None, cookies=None, verify=True, cert=None,
-                                        timeout=None, use_proxy=True)
-    # get the response headers
-    r_headers = response.headers
-    # get the response body as text
-    r_text = response.text
-    # get response body as json. If the body text is not a json string, raise a ValueError
-    r_json = response.json()
-    # get response cookies
-    r_cookies = response.cookies
-    # get redirect history
-    historical_responses = response.history
-    # get response status code
-    r_status = response.status_code
-    # check the response status, if the status is not sucessful, raise requests.HTTPError
-    response.raise_for_status()
-
-    # The following examples show usage of check pointing related helper functions.
-    # save checkpoint
-    helper.save_check_point(key, state)
-    # delete checkpoint
-    helper.delete_check_point(key)
-    # get checkpoint
-    state = helper.get_check_point(key)
-
-    # To create a splunk event
-    helper.new_event(data, time=None, host=None, index=None, source=None, sourcetype=None, done=True, unbroken=True)
-
-def collect_events(helper, ew):
-    import urllib.parse
-    from datetime import datetime
-    import json
-
     # Define the checkpoint key
     checkpoint_key = "audit_logs_last_run"
 
     # Retrieve the last checkpoint
     last_run_data = helper.get_check_point(checkpoint_key)
 
-    # Determine startDate and endDate
+    # Determine startDate
     if last_run_data:
         start_date = last_run_data
     else:
         # Retrieve user-defined initial startDate
         start_date = helper.get_arg('startDate')
 
+    # URL-encode the startDate
+    start_date_encoded = urllib.parse.quote(start_date)
+
     # Set endDate to the current date and time
     end_date = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
-
-    # URL-encode the dates
-    start_date_encoded = urllib.parse.quote(start_date)
     end_date_encoded = urllib.parse.quote(end_date)
 
     # Initialize pagination variables
     page = 1
-    pagesize = 20
+    pagesize = 200
     has_more_data = True
+    most_recent_created_at = None
 
     while has_more_data:
         # Construct the API URL with pagination
@@ -417,9 +313,23 @@ def collect_events(helper, ew):
 
             # Process and index the data
             for record in records:
+                created_at_str = record['CreatedAt']
+                created_at = datetime.strptime(created_at_str, "%Y-%m-%dT%H:%M:%S.%f%z")
+
+                # Set the most recent CreatedAt timestamp
+                if most_recent_created_at is None:
+                    most_recent_created_at = created_at
+
+                # Check if the current record's CreatedAt matches the checkpoint start_date
+                if created_at.strftime("%m/%d/%Y %H:%M:%S") == start_date:
+                    # Reached previously collected data
+                    has_more_data = False
+                    break
+
+                # Create a Splunk event
                 event = helper.new_event(
                     data=json.dumps(record),
-                    time=None,
+                    time=created_at.timestamp(),
                     host="your_host",
                     index="your_index",
                     source="your_source",
@@ -429,15 +339,6 @@ def collect_events(helper, ew):
                 )
                 ew.write_event(event)
 
-            # Update the start_date to the 'CreatedAt' of the last processed record
-            last_record = records[-1]
-            start_date = datetime.strptime(
-                last_record['CreatedAt'], "%Y-%m-%dT%H:%M:%S.%f%z"
-            ).strftime("%m/%d/%Y %H:%M:%S")
-
-            # URL-encode the new start_date
-            start_date_encoded = urllib.parse.quote(start_date)
-
             # Increment the page number for the next iteration
             page += 1
 
@@ -445,32 +346,7 @@ def collect_events(helper, ew):
             helper.log_error(f"API request failed with status code {response.status_code}")
             has_more_data = False
 
-    # Save the new checkpoint with the last processed 'CreatedAt' timestamp
-    if 'start_date' in locals():
-        helper.save_check_point(checkpoint_key, start_date)
-
-
-events     self.collect_events(ew)   File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/activitylogstest_1741375220_147.py", line 72, in collect_events     input_module.collect_events(self, ew)   File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/input_module_activitylogstest_1741375220_147.py", line 134, in collect_events     start_date = datetime.strptime(   File "/opt/splunk/lib/python3.9/_strptime.py", line 568, in _strptime_datetime     tt, fraction, gmtoff_fraction = _strptime(data_string, format)   File "/opt/splunk/lib/python3.9/_strptime.py", line 349, in _strptime     raise ValueError("time data %r does not match format %r" % ValueError: time data '2025-03-03T14:16:34.3152395-05:00' does not match format '%Y-%m-%dT%H:%M:%S.%f%z'  During handling of the above exception, another exception occurred:  Traceback (most recent call last):   File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/splunklib/modularinput/script.py", line 67, in run_script     self.stream_events(self._input_definition, event_writer)   File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/modinput_wrapper/base_modinput.py", line 134, in stream_events     raise RuntimeError(str(e)) RuntimeError: time data '2025-03-03T14:16:34.3152395-05:00' does not match format '%Y-%m-%dT%H:%M:%S.%f%z' 
-
-def parse_timestamp(timestamp):
-    # Truncate microseconds to 6 digits
-    timestamp = re.sub(r'(\.\d{6})\d+', r'\1', timestamp)
-    # Remove colon from timezone offset (the last occurrence)
-    if '+' in timestamp:
-        parts = timestamp.rsplit('+', 1)
-        parts[1] = parts[1].replace(':', '')
-        timestamp = '+'.join(parts)
-    elif '-' in timestamp:
-        parts = timestamp.rsplit('-', 1)
-        parts[1] = parts[1].replace(':', '')
-        timestamp = '-'.join(parts)
-    # Parse the adjusted timestamp
-    return datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S.%f%z')
-
-# Example usage
-timestamp = '2025-03-03T14:16:34.3152395-05:00'
-parsed_datetime = parse_timestamp(timestamp)
-print(parsed_datetime)
-
-start_date = datetime.strftime(parsed_datetime, "%m/%d/%Y %H:%M:%S")
-print(start_date)
+    # Save the new checkpoint with the most recent 'CreatedAt' timestamp
+    if most_recent_created_at:
+        new_checkpoint = most_recent_created_at.strftime("%m/%d/%Y %H:%M:%S")
+        helper.save_check_point(checkpoint_key, new_checkpoint)
