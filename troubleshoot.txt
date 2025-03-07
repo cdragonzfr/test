@@ -361,3 +361,17 @@ def collect_events(helper, ew):
     # To create a splunk event
     helper.new_event(data, time=None, host=None, index=None, source=None, sourcetype=None, done=True, unbroken=True)
     
+Traceback (most recent call last):
+  File "/opt/splunk/etc/apps/TA-redacted-invicti_activity/bin/ta_redacted_invicti_activity/aob_py3/modinput_wrapper/base_modinput.py", line 128, in stream_events
+    self.collect_events(ew)
+  File "/opt/splunk/etc/apps/TA-redacted-invicti_activity/bin/invictitest_1741356581_605.py", line 68, in collect_events
+    input_module.collect_events(self, ew)
+  File "/opt/splunk/etc/apps/TA-redacted-invicti_activity/bin/input_module_invictitest_1741356581_605.py", line 70, in collect_events
+    helper.log("log message")
+  File "/opt/splunk/etc/apps/TA-redacted-invicti_activity/bin/ta_redacted_invicti_activity/aob_py3/modinput_wrapper/base_modinput.py", line 281, in log
+    self.logger.log(level=self.log_level, msg=msg)
+  File "/opt/splunk/lib/python3.9/logging/__init__.py", line 1528, in log
+    raise TypeError("level must be an integer")
+TypeError: level must be an integer
+
+ERROR level must be an integer - Traceback (most recent call last):   File "/opt/splunk/etc/apps/TA-redacted-invicti_activity/bin/ta_redacted_invicti_activity/aob_py3/modinput_wrapper/base_modinput.py", line 128, in stream_events     self.collect_events(ew)   File "/opt/splunk/etc/apps/TA-redacted-invicti_activity/bin/invictitest_1741356581_605.py", line 68, in collect_events     input_module.collect_events(self, ew)   File "/opt/splunk/etc/apps/TA-redacted-invicti_activity/bin/input_module_invictitest_1741356581_605.py", line 70, in collect_events     helper.log("log message")   File "/opt/splunk/etc/apps/TA-redacted-invicti_activity/bin/ta_redacted_invicti_activity/aob_py3/modinput_wrapper/base_modinput.py", line 281, in log     self.logger.log(level=self.log_level, msg=msg)   File "/opt/splunk/lib/python3.9/logging/__init__.py", line 1528, in log     raise TypeError("level must be an integer") TypeError: level must be an integer  During handling of the above exception, another exception occurred:  Traceback (most recent call last):   File "/opt/splunk/etc/apps/TA-redacted-invicti_activity/bin/ta_redacted_invicti_activity/aob_py3/splunklib/modularinput/script.py", line 67, in run_script     self.stream_events(self._input_definition, event_writer)   File "/opt/splunk/etc/apps/TA-redacted-invicti_activity/bin/ta_redacted_invicti_activity/aob_py3/modinput_wrapper/base_modinput.py", line 134, in stream_events     raise RuntimeError(str(e)) RuntimeError: level must be an integer 
