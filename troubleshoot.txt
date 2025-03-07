@@ -360,5 +360,91 @@ def collect_events(helper, ew):
 
     # To create a splunk event
     helper.new_event(data, time=None, host=None, index=None, source=None, sourcetype=None, done=True, unbroken=True)
-    
-{'FirstItemOnPage': 1, 'HasNextPage': True, 'HasPreviousPage': False, 'IsFirstPage': True, 'IsLastPage': False, 'LastItemOnPage': 20, 'List': [{'AccountId': '51d6a6c9-25c2-4c27-0012-b0f204228c4f', 'CreatedAt': '2025-03-04T15:58:31.948096-05:00', 'EndpointType': 'Web', 'Id': '136156df-4b65-44c0-0f5e-b2960480388c', 'Type': 'Signin', 'UserEmail': 'redacted@redacted', 'UserId': '453d1793-36ee-4a6f-03f3-b15b03237951', 'UserName': 'redacted', 'Message': None, 'RequestData': 'Http Method: POST\r\nRequested URL: xxx://xxx.xxx/account/assertionconsumerservice/?spId=zYM0XlBXZpolI8G1MuojSiC2DrxsmZb6PanmIjiG%2FuXaW3qGTliXH2kvuY6yMMeR\r\nReferrer: https://login.microsoftonline.com/\r\nIP Address: 10.168.xxx.xxx\r\nAuthenticated: True\r\nUser Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36\r\n'}, {'AccountId': '51d6a6c9-25c2-4c27-0012-b0f204228c4f', 'CreatedAt': '2025-03-04T15:07:01.2081662-05:00', 'EndpointType': 'Web', 'Id': 'ea3cf372-2271-4d6b-0d72-b29604510f58', 'Type': 'Signin', 'UserEmail': 'redacted@redacted', 'UserId': 'b41e070e-f8ea-42d5-ab6c-b137036a471c', 'UserName': 'redacted', 'Message': None, 'RequestData': 'Http Method: POST\r\nRequested URL: xxx://xxx.xxx/account/assertionconsumerservice/?spId=zYM0XlBXZpolI8G1MuojSiC2DrxsmZb6PanmIjiG%2FuXaW3qGTliXH2kvuY6yMMeR\r\nReferrer: https://login.microsoftonline.com/\r\nIP Address: 10.168.xxx.xxx\r\nAuthenticated: True\r\nUser Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36\r\n'}, {'AccountId': '51d6a6c9-25c2-4c27-0012-b0f204228c4f', 'CreatedAt': '2025-03-04T15:07:00.7550428-05:00', 'EndpointType': 'Web', 'Id': 'c63ce94d-00a9-4be7-0d71-b29604510d93', 'Type': 'Signin', 'UserEmail': 'redacted@redacted', 'UserId': '4d189116-a881-4e85-4824-b0f40414fdb5', 'UserName': 'redacted', 'Message': None, 'RequestData': 'Http Method: POST\r\nRequested URL: xxx://xxx.xxx/account/assertionconsumerservice/?spId=zYM0XlBXZpolI8G1MuojSiC2DrxsmZb6PanmIjiG%2FuXaW3qGTliXH2kvuY6yMMeR\r\nReferrer: https://login.microsoftonline.com/\r\nIP Address: 10.168.xxx.xxx\r\nAuthenticated: True\r\nUser Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36\r\n'}, {'AccountId': '51d6a6c9-25c2-4c27-0012-b0f204228c4f', 'CreatedAt': '2025-03-04T14:44:25.4834744-05:00', 'EndpointType': 'Web', 'Id': '24b7451d-d09d-4cd3-0cd0-b296043c5f8b', 'Type': 'Signin', 'UserEmail': 'redacted@redacted', 'UserId': '3e440b05-0.0 Safari/537.36 Edg/133.0.0.0\r\n'}, {'AccountId': '51d6a6c9-25c2-4c27-0012-b0f204228c4f', 'CreatedAt': '2025-03-04T13:37:22.2928077-05:00', 'EndpointType': 'Web', 'Id': 'bf66f51b-cc14-432a-0929-b29603fefbf4', 'Type': 'Signin', 'UserEmail': 'redacted@redacted', 'UserId': '453d1793-36ee-4a6f-03f3-b15b03237951', 'UserName': 'redacted', 'Message': None, 'RequestData': 'Http Method: POST\r\nRequested URL: xxx://xxx.xxx/account/assertionconsumerservice/?spId=zYM0XlBXZpolI8G1MuojSiC2DrxsmZb6PanmIjiG%2FuXaW3qGTliXH2kvuY6yMMeR\r\nReferrer: https://login.microsoftonline.com/\r\nIP Address: 10.168.xxx.xxx\r\nAuthenticated: True\r\nUser Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36\r\n'}, {'AccountId': '51d6a6c9-25c2-4c27-0012-b0f204228c4f', 'CreatedAt': '2025-03-04T13:32:03.1059244-05:00', 'EndpointType': 'Web', 'Id': '044b2f76-d059-4918-08a3-b29603fa1d21', 'Type': 'Signin', 'UserEmail': 'redacted@redacted', 'UserId': '8731c3ef-2d80-467c-3b1f-b1a403bf640e', 'UserName': 'redacted', 'Message': None, 'RequestData': 'Http Method: POST\r\nRequested URL: xxx://xxx.xxx/account/assertionconsumerservice/?spId=zYM0XlBXZpolI8G1MuojSiC2DrxsmZb6PanmIjiG%2FuXaW3qGTliXH2kvuY6yMMeR\r\nReferrer: https://login.microsoftonline.com/\r\nIP Address: 10.168.xxx.xxx\r\nAuthenticated: True\r\nUser Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0\r\n'}, {'AccountId': '51d6a6c9-25c2-4c27-0012-b0f204228c4f', 'CreatedAt': '2025-03-04T13:24:40.6965545-05:00', 'EndpointType': 'Web', 'Id': '78db2d77-8c27-4232-07ce-b29603f35cf8', 'Type': 'Signin', 'UserEmail': 'redacted@redacted', 'UserId': 'e0fc4bd5-6815-4f0b-07c6-b1af02c79ae2', 'UserName': 'redacted', 'Message': None, 'RequestData': 'Http Method: POST\r\nRequested URL: xxx://xxx.xxx/account/assertionconsumerservice/?spId=zYM0XlBXZpolI8G1MuojSiC2DrxsmZb6PanmIjiG%2FuXaW3qGTliXH2kvuY6yMMeR\r\nReferrer: https://login.microsoftonline.com/\r\nIP Address: 10.168.xxx.xxx\r\nAuthenticated: True\r\nUser Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0\r\n'}], 'PageCount': 4, 'PageNumber': 1, 'PageSize': 20, 'TotalItemCount': 65}
+
+def collect_events(helper, ew):
+    import urllib.parse
+    from datetime import datetime
+    import json
+
+    # Define the checkpoint key
+    checkpoint_key = "audit_logs_last_run"
+
+    # Retrieve the last checkpoint
+    last_run_data = helper.get_check_point(checkpoint_key)
+
+    # Determine startDate and endDate
+    if last_run_data:
+        start_date = last_run_data
+    else:
+        # Retrieve user-defined initial startDate
+        start_date = helper.get_arg('startDate')
+
+    # Set endDate to the current date and time
+    end_date = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
+
+    # URL-encode the dates
+    start_date_encoded = urllib.parse.quote(start_date)
+    end_date_encoded = urllib.parse.quote(end_date)
+
+    # Initialize pagination variables
+    page = 1
+    pagesize = 20
+    has_more_data = True
+
+    while has_more_data:
+        # Construct the API URL with pagination
+        url = (
+            f"https://servername/api/1.0/auditlogs/list?"
+            f"page={page}&pagesize={pagesize}&startDate={start_date_encoded}&endDate={end_date_encoded}"
+        )
+
+        # Set up headers if needed (e.g., for authentication)
+        headers = {
+            "Authorization": "Bearer your_access_token"
+        }
+
+        # Send the HTTP request
+        response = helper.send_http_request(url, method="GET", headers=headers, verify=True)
+
+        if response.status_code == 200:
+            data = response.json()
+            records = data.get("List", [])
+
+            if not records:
+                # No more records to process
+                has_more_data = False
+                break
+
+            # Process and index the data
+            for record in records:
+                event = helper.new_event(
+                    data=json.dumps(record),
+                    time=None,
+                    host="your_host",
+                    index="your_index",
+                    source="your_source",
+                    sourcetype="your_sourcetype",
+                    done=True,
+                    unbroken=True
+                )
+                ew.write_event(event)
+
+            # Update the start_date to the 'CreatedAt' of the last processed record
+            last_record = records[-1]
+            start_date = datetime.strptime(
+                last_record['CreatedAt'], "%Y-%m-%dT%H:%M:%S.%f%z"
+            ).strftime("%m/%d/%Y %H:%M:%S")
+
+            # URL-encode the new start_date
+            start_date_encoded = urllib.parse.quote(start_date)
+
+            # Increment the page number for the next iteration
+            page += 1
+
+        else:
+            helper.log_error(f"API request failed with status code {response.status_code}")
+            has_more_data = False
+
+    # Save the new checkpoint with the last processed 'CreatedAt' timestamp
+    if 'start_date' in locals():
+        helper.save_check_point(checkpoint_key, start_date)
