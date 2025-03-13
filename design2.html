@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBM Cognos Analytics Login</title>
+</head>
+<body style="
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: #1f1f1f;
+    position: relative;
+    overflow: hidden;
+">
+
+    <!-- Background Image with Overlay -->
+    <div style="
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url('https://source.unsplash.com/1600x900/?technology,data') no-repeat center center fixed;
+        background-size: cover;
+        opacity: 0.3; /* Adjust opacity for translucency */
+        z-index: -1;
+    "></div>
+
+    <!-- Big Blue Title -->
+    <h1 style="
+        color: #0057b7;
+        font-size: 60px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    ">IBM Cognos Analytics</h1>
+
+    <!-- Login Box -->
+    <div style="
+        background: rgba(255, 255, 255, 0.9); /* Slight transparency for contrast */
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        max-width: 350px;
+        width: 100%;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 1;
+    ">
+        <p style="font-size: 14px; margin-bottom: 20px;">
+            Sign in with your <a href="#" style="color: #0057b7; text-decoration: none;">OpenLDAP ID</a>
+        </p>
+
+        <form>
+            <!-- User ID Field -->
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <span style="
+                    font-size: 18px;
+                    color: #555;
+                    margin-right: 10px;
+                ">👤</span>
+                <input type="text" placeholder="User ID" style="
+                    flex: 1;
+                    padding: 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    box-sizing: border-box;
+                ">
+            </div>
+
+            <!-- Password Field -->
+            <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                <span style="
+                    font-size: 18px;
+                    color: #555;
+                    margin-right: 10px;
+                ">🔒</span>
+                <input type="password" placeholder="Password" style="
+                    flex: 1;
+                    padding: 12px;
+                    border: 1px solid #ccc;
+                    border-radius: 5px;
+                    font-size: 14px;
+                    box-sizing: border-box;
+                ">
+            </div>
+
+            <!-- Sign In Button -->
+            <button type="submit" style="
+                width: 100%;
+                padding: 12px;
+                background-color: #0057b7;
+                color: white;
+                font-size: 14px;
+                font-weight: bold;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: 0.3s;
+            ">Sign In</button>
+        </form>
+
+        <p style="margin-top: 15px; font-size: 11px; color: #666;">
+            Licensed Materials - Property of IBM Corp. © 2024. IBM, the IBM logo, and Cognos are trademarks of IBM Corporation.
+        </p>
+    </div>
+
+</body>
+</html>
+
+background: url('background.jpg') no-repeat center center fixed;
