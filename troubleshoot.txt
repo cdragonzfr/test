@@ -1,352 +1,52 @@
-ERROR: Could not find a version that satisfies the requirement pyinstaller-hooks-contrib>=2024.9 (from pyinstaller) (from versions: 0.0.0, 2020.4, 2020.5, 2020.6, 2020.7, 2020.8, 2020.9, 2020.10, 2020.11, 2021.1, 2021.2, 2021.3, 2021.4, 2021.5, 2022.0)
-ERROR: No matching distribution found for pyinstaller-hooks-contrib>=2024.9
-
-ERROR: Could not find a version that satisfies the requirement packaging>=22.0 (from pyinstaller) (from versions: 14.0, 14.1, 14.2, 14.3, 14.4, 14.5, 15.0, 15.1, 15.2, 15.3, 16.0, 16.1, 16.2, 16.3, 16.4, 16.5, 16.6, 16.7, 16.8, 17.0, 17.1, 18.0,
-19.0, 19.1, 19.2, 20.0, 20.1, 20.2, 20.3, 20.4, 20.5, 20.6, 20.7, 20.8, 20.9, 21.0, 21.1, 21.2, 21.3)
-ERROR: No matching distribution found for packaging>=22.0
 
-        linux-vdso.so.1 (0x00007ffdfbcd7000)
-        libdl.so.2 => /lib64/libdl.so.2 (0x00007f80f64db000)
-        libz.so.1 => /lib64/libz.so.1 (0x00007f80f62c3000)
-        libpthread.so.0 => /lib64/libpthread.so.0 (0x00007f80f60a3000)
-        libc.so.6 => /lib64/libc.so.6 (0x00007f80f5ccd000)
-        /lib64/ld-linux-x86-64.so.2 (0x00007f80f66df000)
-
-openat(AT_FDCWD, "/tmp/_MEIZwgFyu/libcrypto.so.1.1", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 3
-
-usage: pyinstaller [-h] [-v] [-D] [-F] [--specpath DIR] [-n NAME]
-                   [--add-data <SRC;DEST or SRC:DEST>]
-                   [--add-binary <SRC;DEST or SRC:DEST>] [-p DIR]
-                   [--hidden-import MODULENAME]
-                   [--collect-submodules MODULENAME]
-                   [--collect-data MODULENAME] [--collect-binaries MODULENAME]
-                   [--collect-all MODULENAME] [--copy-metadata PACKAGENAME]
-                   [--recursive-copy-metadata PACKAGENAME]
-                   [--additional-hooks-dir HOOKSPATH]
-                   [--runtime-hook RUNTIME_HOOKS] [--exclude-module EXCLUDES]
-                   [--key KEY] [--splash IMAGE_FILE]
-                   [-d {all,imports,bootloader,noarchive}]
-                   [--python-option PYTHON_OPTION] [-s] [--noupx]
-                   [--upx-exclude FILE] [-c] [-w]
-                   [-i <FILE.ico or FILE.exe,ID or FILE.icns or "NONE">]
-                   [--disable-windowed-traceback] [--version-file FILE]
-                   [-m <FILE or XML>] [--no-embed-manifest] [-r RESOURCE]
-                   [--uac-admin] [--uac-uiaccess] [--win-private-assemblies]
-                   [--win-no-prefer-redirects]
-                   [--osx-bundle-identifier BUNDLE_IDENTIFIER]
-                   [--target-architecture ARCH] [--codesign-identity IDENTITY]
-                   [--osx-entitlements-file FILENAME] [--runtime-tmpdir PATH]
-                   [--bootloader-ignore-signals] [--distpath DIR]
-                   [--workpath WORKPATH] [-y] [--upx-dir UPX_DIR] [-a]
-                   [--clean] [--log-level LEVEL]
-                   scriptname [scriptname ...]
 
+* Researchers had 10 real-world cybersecurity pros (like red teamers and pentesters) simulate hacking into a network using a tool called **Bloodhound** (used to map out paths in a company’s network).
+* First, participants were told nothing about traps.
+* Then, halfway through, they were told, “There are deception traps in this network. If you trigger one, you’ll get caught.”
 
-Psuedo Flow
+They observed how this changed the attackers' behavior.
 
-	Detect Tar GZ File in current directory (Tanium's Download Action ID Folder) and extract name
-	
-	Untar Tar File in current directory
-	
-		Make sure untar was successful, if not drop out of the script and fail
-	
-	Check existence of CSV needed to perform placement and permission changes
-		If exists continue if it does not exist…. Exit script and fail
-		
-	Use CSV file to iterate through each line.  Each line will have the first column that contains where the token will be placed (linux directory path), second column that contains the name of the token, third column containing the owner permission that the token will have on the operation system, fourth column containing the file system permissions for owner:group:everyone for that token. 
-	
-	Each iteration will perform the chown on the token based on the third column first, then perform chmod on the token based on the fourth column file system permissions.  Lastly the token will then be moved out of the current directory to the linux directory path in the first column.   Lastly, it will need to perform a check to verify that the token is in the location it was moved to and show the owner and permissions it has.  
-	
-All of these operations will be logged and will be placed in the /tmp folder.  Pull back with Tanium the log file for review 
+---
 
+### 📊 **Key Findings**
 
+1. **Attackers got nervous.**
 
-Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t nat -D PREROUTING -m addrtype --dst-type LOCAL -j DOCKER' failed: iptables: Bad rule (does a matching rule exist in that chain?).
-Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t nat -D OUTPUT -m addrtype --dst-type LOCAL ! --dst 127.0.0.0/8 -j DOCKER' failed: iptables: Bad rule (does a matching rule exist in that chain?>
-Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t nat -D OUTPUT -m addrtype --dst-type LOCAL -j DOCKER' failed: iptables: Bad rule (does a matching rule exist in that chain?).
-Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t nat -D PREROUTING' failed: iptables: Bad rule (does a matching rule exist in that chain?).
-Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t nat -D OUTPUT' failed: iptables: Bad rule (does a matching rule exist in that chain?).
-Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t filter -F DOCKER-ISOLATION' failed: iptables: No chain/target/match by that name.
-Feb 06 12:51:54 hostname firewalld[42434]: WARNING: COMMAND_FAILED: '/usr/sbin/iptables -w10 -t filter -X DOCKER-ISOLATION' failed: iptables: No chain/target/match by that name.
-Feb 06 12:51:54 hostname dockerd[228419]: time="2025-02-06T12:51:54.713457722-05:00" level=info msg="Default bridge (docker0) is assigned with an IP address 172.17.0.0/16. Daemon option --bip can be used to set a preferred IP address"
-Feb 06 12:51:54 hostname firewalld[42434]: ERROR: 'python-nftables' failed: internal:0:0-0: Error: Could not process rule: No such file or directory
+   * Just *knowing* about traps made them anxious and more cautious.
+   * Some wanted to give up or find easier targets.
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+   > “Honeytokens scare the \*\*\*\* out of me.” – Participant
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+2. **Attack paths became longer.**
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+   * After the warning, attackers took longer, more complicated paths.
+   * They avoided anything that looked “too good to be true” (like a super-easy admin account).
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+   > “If it looks too good to be true, it probably is a trap.”
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+3. **Some attackers couldn’t even continue.**
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+   * 4 out of 10 participants couldn’t find a second path once they were told about the traps — decision paralysis set in.
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+4. **Decoys don’t always need to be hidden.**
 
+   * Obvious decoys can still be useful — they either scare off attackers or act as bait.
+   * Think of a cheese trap that says “Free Cheese” — some mice still try it.
 
-                                                 JSON blob:
-                                                 {"nftables": [{"metainfo": {"json_schema_version": 1}}, {"insert": {"rule": {"family": "inet", "table": "firewalld", "chain": "filter_INPUT_ZONES", "expr": [{"match": {"left": {"meta": {"key": "ii>
-Feb 06 12:51:54 hostname firewalld[42434]: ERROR: COMMAND_FAILED: 'python-nftables' failed: internal:0:0-0: Error: Could not process rule: No such file or directory
+5. **Even talking about deception works.**
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+   * Posting on LinkedIn that your company uses deception can make attackers more cautious — before they even touch the network.
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+6. **Attackers research you.**
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+   * They’ll check employee profiles, job listings, and tech stack to assess how likely it is that traps exist.
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+---
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+### 📌 Takeaway for Cyber Defenders
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
+* **Just *announcing* you use deception may deter attackers** — even if you haven’t set up the traps yet.
+* **Attackers are human too** — they have fears, assumptions, and limited time.
+* **Overt deception tactics** can create hesitation, confusion, or even make them walk away.
+* **Deception can mess with their decision-making**, and that’s a win.
 
-                                                 internal:0:0-0: Error: Could not process rule: No such file or directory
-
-
-                                                 JSON blob:
-                                                 {"nftables": [{"metainfo": {"json_schema_version": 1}}, {"insert": {"rule": {"family": "inet", "table": "firewalld", "chain": "filter_INPUT_ZONES", "expr": [{"match": {"left": {"meta": {"key": "ii>
-Feb 06 12:51:54 hostname dockerd[228419]: time="2025-02-06T12:51:54.791760799-05:00" level=info msg="stopping event stream following graceful shutdown" error="<nil>" module=libcontainerd namespace=moby
-Feb 06 12:51:54 hostname dockerd[228419]: time="2025-02-06T12:51:54.792104743-05:00" level=info msg="stopping event stream following graceful shutdown" error="context canceled" module=libcontainerd namespace=plugins.moby
-Feb 06 12:51:54 hostname dockerd[228419]: failed to start daemon: Error initializing network controller: error creating default "bridge" network: Failed to program NAT chain: COMMAND_FAILED: 'python-nftables' failed: internal:0:0-0: Error:>
-Feb 06 12:51:54 hostname dockerd[228419]: internal:0:0-0: Error: Could not process rule: No such file or directory
-Feb 06 12:51:54 hostname dockerd[228419]: JSON blob:
-Feb 06 12:51:54 hostname dockerd[228419]: {"nftables": [{"metainfo": {"json_schema_version": 1}}, {"insert": {"rule": {"family": "inet", "table": "firewalld", "chain": "filter_INPUT_ZONES", "expr": [{"match": {"left": {"meta": {
-
-
-
-AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836678750390000.sqlaudit
-AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836691443240000.sqlaudit
-AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836702058330000.sqlaudit
-AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836712261190000.sqlaudit
-AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836725105720000.sqlaudit
-AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836736850170000.sqlaudit
-AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836746723070000.sqlaudit
-AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836758767370000.sqlaudit
-AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836767600630000.sqlaudit
-AUDIT_2FDF7345-BC49-4140-BB1F-196D7EDBB87D_0_133836780643770000.sqlaudit
-
-#!/bin/bash
-
-# Define the path to the master list file
-masterListPath="master_list.csv"
-
-# Define the path for the output CSV file
-outputCsvPath="/tmp/output.csv"
-
-# Check if the output CSV file already exists and remove it if it does
-if [ -f "$outputCsvPath" ]; then
-    rm "$outputCsvPath"
-fi
-
-# Get the current system's hostname and strip the domain if present, then convert to uppercase
-currentHostname=$(hostname | cut -d. -f1 | tr '[:lower:]' '[:upper:]')
-
-# Read the master list file and filter the records
-# Assuming the CSV file has headers with 'Hostname' and 'DirectoryPath'
-filteredRecords=$(awk -F, -v host="$currentHostname" 'toupper($1) == host {print $0}' "$masterListPath")
-
-# Initialize the output CSV file and write the headers
-echo "Hostname,FilePath,Presence" > "$outputCsvPath"
-
-# Set IFS to comma and newline
-IFS=$',\n'
-
-# Iterate through each filtered record
-echo "$filteredRecords" | while read -r line; do
-    # Read hostname and directoryPath from the line
-    hostname=$(echo "$line" | cut -d, -f1)
-    directoryPath=$(echo "$line" | cut -d, -f2)
-
-    # Remove potential carriage return characters
-    directoryPath=$(echo "$directoryPath" | tr -d '\r')
-
-    presence=0
-
-    # Check if the file exists (using -f for files)
-    if [ -f "$directoryPath" ]; then
-        presence=1
-    fi
-
-    # Write the data to the output CSV file
-    echo "$currentHostname,$directoryPath,$presence" >> "$outputCsvPath"
-done
-
-# Reset IFS to default
-unset IFS
-
-# Optional: Display a message when done
-echo "Output written to $outputCsvPath"
-
-
-sed 's/),(/);\nINSERT INTO/g' dumpfile.sql > formatted_dumpfile.sql
-
-iconv -f ASCII -t UTF-8 formatted_dumpfile.sql -o dumpfile_utf8.sql
-
-while (<$SQLFILE>) {
-while (my $line = <$SQLFILE>) {
-    $line =~ s/\n/ /g;  # Replace newlines with spaces
-    $line =~ s/  +/ /g; # Remove excessive spaces
-
-perl -d mysql2sqlite.pl formatted_dumpfile.sql
-
-sudo docker stop mysql-container
-sudo docker rm mysql-container
-sudo docker run -d --name mysql-container \
-  -e MYSQL_ROOT_PASSWORD=yourpassword \
-  -p 3306:3306 \
-  -v mysql_data:/var/lib/mysql \
-  --entrypoint mysqld \
-  mysql:8 --local-infile=1
-
-
-2025-03-06 19:46:41,332 - test_invicti_activity - [ERROR] - [test] HTTPError reason=HTTP Error HTTPSConnectionPool(host='redacted', port=443): Max retries exceeded with url: /api/1.0/auditlogs/list?page=1&pageSize=20&startDate=03/01/2025%2000:00:00&endDate=03/05/2025%2000:00:00 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1143)'))) when sending request to url=https://redacted/api/1.0/auditlogs/list?page=1&pageSize=20&startDate=03/01/2025 00:00:00&endDate=03/05/2025 00:00:00 method=GET
-Traceback (most recent call last):
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/connectionpool.py", line 715, in urlopen
-    httplib_response = self._make_request(
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/connectionpool.py", line 404, in _make_request
-    self._validate_conn(conn)
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/connectionpool.py", line 1060, in _validate_conn
-    conn.connect()
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/connection.py", line 419, in connect
-    self.sock = ssl_wrap_socket(
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/util/ssl_.py", line 449, in ssl_wrap_socket
-    ssl_sock = _ssl_wrap_socket_impl(
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/util/ssl_.py", line 493, in _ssl_wrap_socket_impl
-    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
-  File "/opt/splunk/lib/python3.9/ssl.py", line 506, in wrap_socket
-    return self.sslsocket_class._create(
-  File "/opt/splunk/lib/python3.9/ssl.py", line 1049, in _create
-    self.do_handshake()
-  File "/opt/splunk/lib/python3.9/ssl.py", line 1318, in do_handshake
-    self._sslobj.do_handshake()
-ssl.SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1143)
-During handling of the above exception, another exception occurred:
-Traceback (most recent call last):
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/requests/adapters.py", line 486, in send
-    resp = conn.urlopen(
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/connectionpool.py", line 801, in urlopen
-    retries = retries.increment(
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/urllib3/util/retry.py", line 594, in increment
-    raise MaxRetryError(_pool, url, error or ResponseError(cause))
-urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='redacted', port=443): Max retries exceeded with url: /api/1.0/auditlogs/list?page=1&pageSize=20&startDate=03/01/2025%2000:00:00&endDate=03/05/2025%2000:00:00 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1143)')))
-During handling of the above exception, another exception occurred:
-Traceback (most recent call last):
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/cloudconnectlib/core/http.py", line 229, in _retry_send_request_if_needed
-    resp = self._send_internal(
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/cloudconnectlib/core/http.py", line 213, in _send_internal
-    return self._connection.request(
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/requests/sessions.py", line 589, in request
-    resp = self.send(prep, **send_kwargs)
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/requests/sessions.py", line 703, in send
-    r = adapter.send(request, **kwargs)
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/requests/adapters.py", line 517, in send
-    raise SSLError(e, request=request)
-requests.exceptions.SSLError: HTTPSConnectionPool(host='redacted', port=443): Max retries exceeded with url: /api/1.0/auditlogs/list?page=1&pageSize=20&startDate=03/01/2025%2000:00:00&endDate=03/05/2025%2000:00:00 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1143)')))
-The above exception was the direct cause of the following exception:
-Traceback (most recent call last):
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/cloudconnectlib/core/engine.py", line 308, in _send_request
-    response = self._client.send(request)
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/cloudconnectlib/core/http.py", line 295, in send
-    return self._retry_send_request_if_needed(
-  File "/opt/splunk/etc/apps/TA-redacted-invicti-activity/bin/ta_redacted_invicti_activity/aob_py3/cloudconnectlib/core/http.py", line 243, in _retry_send_request_if_needed
-    raise HTTPError(f"HTTP Error {err}") from err
-cloudconnectlib.core.exceptions.HTTPError: HTTP Error HTTPSConnectionPool(host='redacted', port=443): Max retries exceeded with url: /api/1.0/auditlogs/list?page=1&pageSize=20&startDate=03/01/2025%2000:00:00&endDate=03/05/2025%2000:00:00 (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1143)')))
-
-
-
-import urllib.parse
-from datetime import datetime
-import json
-
-def collect_events(helper, ew):
-    # Define the checkpoint key
-    checkpoint_key = "audit_logs_last_run"
-
-    # Retrieve the last checkpoint
-    last_run_data = helper.get_check_point(checkpoint_key)
-
-    # Determine startDate
-    if last_run_data:
-        start_date = last_run_data
-    else:
-        # Retrieve user-defined initial startDate
-        start_date = helper.get_arg('startDate')
-
-    # URL-encode the startDate
-    start_date_encoded = urllib.parse.quote(start_date)
-
-    # Set endDate to the current date and time
-    end_date = datetime.now().strftime("%m/%d/%Y %H:%M:%S")
-    end_date_encoded = urllib.parse.quote(end_date)
-
-    # Initialize pagination variables
-    page = 1
-    pagesize = 200
-    has_more_data = True
-    most_recent_created_at = None
-
-    while has_more_data:
-        # Construct the API URL with pagination
-        url = (
-            f"https://servername/api/1.0/auditlogs/list?"
-            f"page={page}&pagesize={pagesize}&startDate={start_date_encoded}&endDate={end_date_encoded}"
-        )
-
-        # Set up headers if needed (e.g., for authentication)
-        headers = {
-            "Authorization": "Bearer your_access_token"
-        }
-
-        # Send the HTTP request
-        response = helper.send_http_request(url, method="GET", headers=headers, verify=True)
-
-        if response.status_code == 200:
-            data = response.json()
-            records = data.get("List", [])
-
-            if not records:
-                # No more records to process
-                has_more_data = False
-                break
-
-            # Process and index the data
-            for record in records:
-                created_at_str = record['CreatedAt']
-                created_at = datetime.strptime(created_at_str, "%Y-%m-%dT%H:%M:%S.%f%z")
-
-                # Set the most recent CreatedAt timestamp
-                if most_recent_created_at is None:
-                    most_recent_created_at = created_at
-
-                # Check if the current record's CreatedAt matches the checkpoint start_date
-                if created_at.strftime("%m/%d/%Y %H:%M:%S") == start_date:
-                    # Reached previously collected data
-                    has_more_data = False
-                    break
-
-                # Create a Splunk event
-                event = helper.new_event(
-                    data=json.dumps(record),
-                    time=created_at.timestamp(),
-                    host="your_host",
-                    index="your_index",
-                    source="your_source",
-                    sourcetype="your_sourcetype",
-                    done=True,
-                    unbroken=True
-                )
-                ew.write_event(event)
-
-            # Increment the page number for the next iteration
-            page += 1
-
-        else:
-            helper.log_error(f"API request failed with status code {response.status_code}")
-            has_more_data = False
-
-    # Save the new checkpoint with the most recent 'CreatedAt' timestamp
-    if most_recent_created_at:
-        new_checkpoint = most_recent_created_at.strftime("%m/%d/%Y %H:%M:%S")
-        helper.save_check_point(checkpoint_key, new_checkpoint)
