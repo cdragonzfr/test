@@ -1,1 +1,12 @@
 
+e3-20ed-569b-90b6-2f363128dd8f", phase="fetch_key" | message="Failed to get object." key="prd/AWSLogs/462651244922/CloudTrail/us-east-1/2025/05/07/262681233733_CloudTrail_us-east-1_20250507T1150Z_GfS1GX1CChMQXxd2.json.gz"
+Traceback (most recent call last):
+  File "/opt/splunk/etc/apps/Splunk_TA_aws/bin/splunk_ta_aws/modinputs/generic_s3/aws_s3_data_loader.py", line 404, in _fetch_key
+    key = s3common.get_key(s3_conn, self._config[asc.bucket_name], key_name)
+  File "/opt/splunk/etc/apps/Splunk_TA_aws/bin/splunk_ta_aws/modinputs/generic_s3/aws_s3_common.py", line 290, in get_key
+    res = s3_conn.get_object(Bucket=bucket, Key=key)
+  File "/opt/splunk/etc/apps/Splunk_TA_aws/lib/botocore/client.py", line 512, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+  File "/opt/splunk/etc/apps/Splunk_TA_aws/lib/botocore/client.py", line 919, in _make_api_call
+    raise error_class(parsed_response, operation_name)
+botocore.exceptions.ClientError: An error occurred (AccessDenied) when calling the GetObject operation: User: arn:aws-us-east:sts::555409170469:assumed-role/sRole/splunk_ta_aws is not authorized to perform: kms:Decrypt on the resource associated with this ciphertext because the resource does not exist in this Region, no resource-based policies allow access, or a resource-based policy explicitly denies access
