@@ -1,5 +1,58 @@
-(Get-ADUser -Identity username -Properties MemberOf).MemberOf |
-ForEach-Object {
-    if ($_ -match '^CN=([^,]+)') { $matches[1] }
-} | 
-Join-String -Separator ', '
+# Process the CSV file, removing any Windows-style carriage returns
+while IFS=',' read -r target_path token_name owner group permissions; do
+    # Remove potential carriage return characters (\r)
+    target_path=$(echo "$target_path" | tr -d '\r')
+    token_name=$(echo "$token_name" | tr -d '\r')
+    owner=$(echo "$owner" | tr -d '\r')
+    group=$(echo "$group" | tr -d '\r')
+    permissions=$(echo "$permissions" | tr -d '\r')
+
+    log "Processing token: $token_name"
+
+    # Check if token exists
+    if [[ ! -f "$token_name" ]]; then
+        log "ERROR: Token $token_name not found in the current directory."
+        continue
+    fi
+
+    # Ensure directory exists
+    ensure_directory_exists "$target_path" "$owner:$group" "$permissions"
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Failed to prepare directory for $token_name"
+        continue
+    fi
+
+    # Set owner and group
+    log "Setting owner:group = $owner:$group for $token_name"
+    chown "$owner:$group" "$token_name"
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Failed to change owner/group for $token_name"
+        continue
+    fi
+
+    # Set permissions
+    log "Setting permissions: $permissions for $token_name"
+    chmod "$permissions" "$token_name"
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Failed to change permissions for $token_name"
+        continue
+    fi
+
+    # Move token
+    log "Moving $token_name to $target_path"
+    mv -f "$token_name" "$target_path"
+    if [[ $? -ne 0 ]]; then
+        log "ERROR: Failed to move $token_name to $target_path"
+        continue
+    fi
+
+    # Verify placement
+    dest="$target_path/$token_name"
+    if [[ -f "$dest" ]]; then
+        log "Verification successful: $token_name is in $target_path"
+        ls -l "$dest" >> "$LOG_FILE"
+    else
+        log "ERROR: Verification failed for $token_name"
+    fi
+
+done < <(tr -d '\r' < "$CSV_FILE")
