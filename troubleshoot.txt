@@ -56,3 +56,42 @@ while IFS=',' read -r target_path token_name owner group permissions; do
     fi
 
 done < <(tr -d '\r' < "$CSV_FILE")
+
+
+
+
+
+# Group rows by hostname
+host_groups = df.groupby('hostname')
+
+for hostname, group_df in host_groups:
+    records = []
+    is_windows = False
+
+    for _, row in group_df.iterrows():
+        tokenpath = str(row['tokenpath']).rstrip('/\\').strip()
+        token_name = str(row['token_name']).strip()
+        owner = str(row['owner']).strip()
+        permission = str(row['permission']).strip()
+        group = str(row['group']).strip() if 'group' in row else ''  # Safely get group
+
+        if '\\' in tokenpath or ':' in tokenpath:
+            is_windows = True
+
+        if is_windows:
+            records.append([tokenpath, token_name, owner])
+        else:
+            records.append([tokenpath, token_name, owner, group, permission])
+
+    # Define output filename
+    filename = f"{hostname.strip()}_token_place.xlsx"
+
+    # Write DataFrame
+    if is_windows:
+        df_out = pd.DataFrame(records, columns=['target_path', 'token_name', 'owner'])
+        df_out.to_excel(filename, index=False)
+    else:
+        df_out = pd.DataFrame(records)
+        df_out.to_excel(filename, index=False, header=False)
+
+    print(f"✅ Wrote {filename} with {len(records)} rows.")
