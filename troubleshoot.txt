@@ -12,31 +12,37 @@
         <!-- CPU Sampling -->
         <EventCollector Id="Cpu" Name="CPUSampling">
           <PerformanceCounterProvider Id="SampledProfile" />
+          <LoggingMode>Circular</LoggingMode>
         </EventCollector>
 
         <!-- Disk I/O -->
         <EventCollector Id="DiskIO" Name="DiskIO">
           <EventProvider Id="DiskIoProvider" Name="Microsoft-Windows-Kernel-Disk" Level="5" Keywords="0x10" />
+          <LoggingMode>Circular</LoggingMode>
         </EventCollector>
 
         <!-- File I/O -->
         <EventCollector Id="FileIO" Name="FileIO">
           <EventProvider Id="FileIoProvider" Name="Microsoft-Windows-Kernel-File" Level="5" Keywords="0x14" />
+          <LoggingMode>Circular</LoggingMode>
         </EventCollector>
 
         <!-- Handle Tracking -->
         <EventCollector Id="Handle" Name="HandleOperations">
           <EventProvider Id="HandleProvider" Name="Microsoft-Windows-Kernel-Handle" Level="5" Keywords="0x10" />
+          <LoggingMode>Circular</LoggingMode>
         </EventCollector>
 
         <!-- Network -->
         <EventCollector Id="Network" Name="NetworkIO">
           <EventProvider Id="NetworkProvider" Name="Microsoft-Windows-Kernel-Network" Level="5" Keywords="0x10" />
+          <LoggingMode>Circular</LoggingMode>
         </EventCollector>
 
         <!-- Process Lifetime -->
         <EventCollector Id="Process" Name="ProcessLifetime">
           <EventProvider Id="ProcessProvider" Name="Microsoft-Windows-Kernel-Process" Level="5" Keywords="0x10" />
+          <LoggingMode>Circular</LoggingMode>
         </EventCollector>
 
       </Collectors>
