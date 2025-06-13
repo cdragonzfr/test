@@ -1,97 +1,50 @@
-# Process the CSV file, removing any Windows-style carriage returns
-while IFS=',' read -r target_path token_name owner group permissions; do
-    # Remove potential carriage return characters (\r)
-    target_path=$(echo "$target_path" | tr -d '\r')
-    token_name=$(echo "$token_name" | tr -d '\r')
-    owner=$(echo "$owner" | tr -d '\r')
-    group=$(echo "$group" | tr -d '\r')
-    permissions=$(echo "$permissions" | tr -d '\r')
+<?xml version="1.0" encoding="utf-8"?>
+<WindowsPerformanceRecorder Version="1.0" Author="Splunk">
+  <Profiles>
+    <SystemResourceProfile
+      Id="SplunkUFDeepProfile"
+      Name="Splunk UF Deep Performance Profile"
+      Description="Deep profile for Splunk UF - includes CPU, DiskIO, FileIO, Network, and Handle tracking.">
 
-    log "Processing token: $token_name"
+      <Collectors>
 
-    # Check if token exists
-    if [[ ! -f "$token_name" ]]; then
-        log "ERROR: Token $token_name not found in the current directory."
-        continue
-    fi
+        <!-- CPU Sampling -->
+        <EventCollector Id="Cpu" Name="CPU Sampling">
+          <PerformanceCounter Provider="SampledProfile" Counter="*"/>
+        </EventCollector>
 
-    # Ensure directory exists
-    ensure_directory_exists "$target_path" "$owner:$group" "$permissions"
-    if [[ $? -ne 0 ]]; then
-        log "ERROR: Failed to prepare directory for $token_name"
-        continue
-    fi
+        <!-- Disk I/O -->
+        <EventCollector Id="DiskIO" Name="Disk IO">
+          <EventProvider Id="DiskIoProvider" Name="Microsoft-Windows-Kernel-Disk" Level="5" Keywords="0x10"/>
+        </EventCollector>
 
-    # Set owner and group
-    log "Setting owner:group = $owner:$group for $token_name"
-    chown "$owner:$group" "$token_name"
-    if [[ $? -ne 0 ]]; then
-        log "ERROR: Failed to change owner/group for $token_name"
-        continue
-    fi
+        <!-- File I/O -->
+        <EventCollector Id="FileIO" Name="File IO">
+          <EventProvider Id="FileIoProvider" Name="Microsoft-Windows-Kernel-File" Level="5" Keywords="0x14"/>
+        </EventCollector>
 
-    # Set permissions
-    log "Setting permissions: $permissions for $token_name"
-    chmod "$permissions" "$token_name"
-    if [[ $? -ne 0 ]]; then
-        log "ERROR: Failed to change permissions for $token_name"
-        continue
-    fi
+        <!-- Handle Tracking -->
+        <EventCollector Id="Handle" Name="Handle Operations">
+          <EventProvider Id="HandleProvider" Name="Microsoft-Windows-Kernel-Handle" Level="5" Keywords="0x10"/>
+        </EventCollector>
 
-    # Move token
-    log "Moving $token_name to $target_path"
-    mv -f "$token_name" "$target_path"
-    if [[ $? -ne 0 ]]; then
-        log "ERROR: Failed to move $token_name to $target_path"
-        continue
-    fi
+        <!-- Network -->
+        <EventCollector Id="Network" Name="Network">
+          <EventProvider Id="NetworkProvider" Name="Microsoft-Windows-Kernel-Network" Level="5" Keywords="0x10"/>
+        </EventCollector>
 
-    # Verify placement
-    dest="$target_path/$token_name"
-    if [[ -f "$dest" ]]; then
-        log "Verification successful: $token_name is in $target_path"
-        ls -l "$dest" >> "$LOG_FILE"
-    else
-        log "ERROR: Verification failed for $token_name"
-    fi
+        <!-- Process Lifetime -->
+        <EventCollector Id="Process" Name="Process Lifetime">
+          <EventProvider Id="ProcessProvider" Name="Microsoft-Windows-Kernel-Process" Level="5" Keywords="0x10"/>
+        </EventCollector>
 
-done < <(tr -d '\r' < "$CSV_FILE")
+      </Collectors>
 
+      <SystemConfiguration>
+        <BufferSizeInMB>256</BufferSizeInMB>
+        <Buffers>512</Buffers>
+      </SystemConfiguration>
 
-
-
-
-# Group rows by hostname
-host_groups = df.groupby('hostname')
-
-for hostname, group_df in host_groups:
-    records = []
-    is_windows = False
-
-    for _, row in group_df.iterrows():
-        tokenpath = str(row['tokenpath']).rstrip('/\\').strip()
-        token_name = str(row['token_name']).strip()
-        owner = str(row['owner']).strip()
-        permission = str(row['permission']).strip()
-        group = str(row['group']).strip() if 'group' in row else ''  # Safely get group
-
-        if '\\' in tokenpath or ':' in tokenpath:
-            is_windows = True
-
-        if is_windows:
-            records.append([tokenpath, token_name, owner])
-        else:
-            records.append([tokenpath, token_name, owner, group, permission])
-
-    # Define output filename
-    filename = f"{hostname.strip()}_token_place.xlsx"
-
-    # Write DataFrame
-    if is_windows:
-        df_out = pd.DataFrame(records, columns=['target_path', 'token_name', 'owner'])
-        df_out.to_excel(filename, index=False)
-    else:
-        df_out = pd.DataFrame(records)
-        df_out.to_excel(filename, index=False, header=False)
-
-    print(f"✅ Wrote {filename} with {len(records)} rows.")
+    </SystemResourceProfile>
+  </Profiles>
+</WindowsPerformanceRecorder>
