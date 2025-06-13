@@ -9,9 +9,10 @@
 
       <Collectors>
 
-        <!-- CPU Sampling (NO LoggingMode here) -->
+        <!-- CPU Sampling (now with LoggingMode: Memory) -->
         <EventCollector Id="Cpu" Name="CPUSampling">
           <PerformanceCounterProvider Id="SampledProfile" />
+          <LoggingMode>Memory</LoggingMode>
         </EventCollector>
 
         <!-- Disk I/O -->
