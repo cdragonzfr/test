@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<WindowsPerformanceRecorder Version="1.0" Author="SplunkGPT">
+<WindowsPerformanceRecorder Version="1.0" Author="Splunk">
   <Profiles>
 
     <Profile 
-      Id="SplunkUFDeepProfile"
-      Name="Splunk UF Deep Performance Profile"
+      Id="SplunkUFDeep"
+      Name="SplunkUFDeep"
       Description="Deep profile for Splunk UF - includes CPU, DiskIO, FileIO, Network, and Handle tracking.">
 
       <Collectors>
 
         <!-- CPU Sampling -->
-        <EventCollector Id="Cpu" Name="CPU Sampling">
+        <EventCollector Id="Cpu" Name="CPUSampling">
           <PerformanceCounterProvider Id="SampledProfile" />
         </EventCollector>
 
         <!-- Disk I/O -->
-        <EventCollector Id="DiskIO" Name="Disk IO">
+        <EventCollector Id="DiskIO" Name="DiskIO">
           <EventProvider Id="DiskIoProvider" Name="Microsoft-Windows-Kernel-Disk" Level="5" Keywords="0x10" />
         </EventCollector>
 
         <!-- File I/O -->
-        <EventCollector Id="FileIO" Name="File IO">
+        <EventCollector Id="FileIO" Name="FileIO">
           <EventProvider Id="FileIoProvider" Name="Microsoft-Windows-Kernel-File" Level="5" Keywords="0x14" />
         </EventCollector>
 
         <!-- Handle Tracking -->
-        <EventCollector Id="Handle" Name="Handle Operations">
+        <EventCollector Id="Handle" Name="HandleOperations">
           <EventProvider Id="HandleProvider" Name="Microsoft-Windows-Kernel-Handle" Level="5" Keywords="0x10" />
         </EventCollector>
 
         <!-- Network -->
-        <EventCollector Id="Network" Name="Network">
+        <EventCollector Id="Network" Name="NetworkIO">
           <EventProvider Id="NetworkProvider" Name="Microsoft-Windows-Kernel-Network" Level="5" Keywords="0x10" />
         </EventCollector>
 
         <!-- Process Lifetime -->
-        <EventCollector Id="Process" Name="Process Lifetime">
+        <EventCollector Id="Process" Name="ProcessLifetime">
           <EventProvider Id="ProcessProvider" Name="Microsoft-Windows-Kernel-Process" Level="5" Keywords="0x10" />
         </EventCollector>
 
