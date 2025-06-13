@@ -9,10 +9,9 @@
 
       <Collectors>
 
-        <!-- CPU Sampling -->
+        <!-- CPU Sampling (NO LoggingMode here) -->
         <EventCollector Id="Cpu" Name="CPUSampling">
           <PerformanceCounterProvider Id="SampledProfile" />
-          <LoggingMode>Circular</LoggingMode>
         </EventCollector>
 
         <!-- Disk I/O -->
