@@ -9,11 +9,10 @@
 
       <Collectors>
 
-        <!-- CPU Sampling (now with LoggingMode: Memory) -->
-        <EventCollector Id="Cpu" Name="CPUSampling">
-          <PerformanceCounterProvider Id="SampledProfile" />
+        <!-- CPU Sampling -->
+        <ProfileCollector Id="Cpu" Name="CPUSampling" Source="SampledProfile">
           <LoggingMode>Memory</LoggingMode>
-        </EventCollector>
+        </ProfileCollector>
 
         <!-- Disk I/O -->
         <EventCollector Id="DiskIO" Name="DiskIO">
