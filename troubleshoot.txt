@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WindowsPerformanceRecorder Version="1.0" Author="Splunk">
   <Profiles>
-    <SystemResourceProfile
+
+    <Profile 
       Id="SplunkUFDeepProfile"
       Name="Splunk UF Deep Performance Profile"
       Description="Deep profile for Splunk UF - includes CPU, DiskIO, FileIO, Network, and Handle tracking.">
@@ -10,41 +11,41 @@
 
         <!-- CPU Sampling -->
         <EventCollector Id="Cpu" Name="CPU Sampling">
-          <PerformanceCounter Provider="SampledProfile" Counter="*"/>
+          <PerformanceCounterProvider Id="SampledProfile" />
         </EventCollector>
 
         <!-- Disk I/O -->
         <EventCollector Id="DiskIO" Name="Disk IO">
-          <EventProvider Id="DiskIoProvider" Name="Microsoft-Windows-Kernel-Disk" Level="5" Keywords="0x10"/>
+          <EventProvider Id="DiskIoProvider" Name="Microsoft-Windows-Kernel-Disk" Level="5" Keywords="0x10" />
         </EventCollector>
 
         <!-- File I/O -->
         <EventCollector Id="FileIO" Name="File IO">
-          <EventProvider Id="FileIoProvider" Name="Microsoft-Windows-Kernel-File" Level="5" Keywords="0x14"/>
+          <EventProvider Id="FileIoProvider" Name="Microsoft-Windows-Kernel-File" Level="5" Keywords="0x14" />
         </EventCollector>
 
         <!-- Handle Tracking -->
         <EventCollector Id="Handle" Name="Handle Operations">
-          <EventProvider Id="HandleProvider" Name="Microsoft-Windows-Kernel-Handle" Level="5" Keywords="0x10"/>
+          <EventProvider Id="HandleProvider" Name="Microsoft-Windows-Kernel-Handle" Level="5" Keywords="0x10" />
         </EventCollector>
 
         <!-- Network -->
         <EventCollector Id="Network" Name="Network">
-          <EventProvider Id="NetworkProvider" Name="Microsoft-Windows-Kernel-Network" Level="5" Keywords="0x10"/>
+          <EventProvider Id="NetworkProvider" Name="Microsoft-Windows-Kernel-Network" Level="5" Keywords="0x10" />
         </EventCollector>
 
         <!-- Process Lifetime -->
         <EventCollector Id="Process" Name="Process Lifetime">
-          <EventProvider Id="ProcessProvider" Name="Microsoft-Windows-Kernel-Process" Level="5" Keywords="0x10"/>
+          <EventProvider Id="ProcessProvider" Name="Microsoft-Windows-Kernel-Process" Level="5" Keywords="0x10" />
         </EventCollector>
 
       </Collectors>
 
-      <SystemConfiguration>
+      <SystemResourceConfiguration>
         <BufferSizeInMB>256</BufferSizeInMB>
         <Buffers>512</Buffers>
-      </SystemConfiguration>
+      </SystemResourceConfiguration>
 
-    </SystemResourceProfile>
+    </Profile>
   </Profiles>
 </WindowsPerformanceRecorder>
