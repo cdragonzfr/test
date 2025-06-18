@@ -1,10 +1,4 @@
-index=_internal sourcetype=mongod earliest=-30d@d latest=now
-| eval error_type=case(
-     like(_raw, "%Drop-pending ident is still in use%"),                "Drop-pending ident is still in use",
-     like(_raw, "%Failed to check socket connectivity%"),              "Failed to check socket connectivity",
-     like(_raw, "%Heartbeat failed after max retries%"),               "Heartbeat failed after max retries",
-     like(_raw, "%Host failed in replica set%"),                       "Host failed in replica set",
-     like(_raw, "%RSM received error response%"),                      "RSM received error response"
-   )
-| where isnotnull(error_type)
-| timechart span=1d count by error_type
+… 
+| where NOT match(device,
+    "^(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)" .
+    "(?:\\.(?:25[0-5]|2[0-4]\\d|[01]?\\d?\\d)){3}$")
