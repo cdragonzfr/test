@@ -1,0 +1,57 @@
+Headline Value
+
+Modernizes SOC workflows with Mission Control, detection versioning, and AI-assisted triage/reporting (cloud-only for AI).
+
+Improves reliability & performance (search ID reuse, fixed AQ filtering/pagination issues).
+
+Expands integrations: hybrid SOAR pairing and TAXII 2.0/2.1 threat-intel feeds.
+
+Maintains compliance posture (FedRAMP High / FIPS 199 High for ES 8.x).
+
+Key Risks & Breaking Changes
+
+One-way upgrade – investigations, workbench, and sequence data ≤ 7.3.2 are not migrated; back up KV Store and export before upgrade.
+
+Removed features: Investigation Workbench, Sequence Templates, Adaptive Response Actions, SLAs, row expansion → use Mission Control + SOAR playbooks instead.
+
+Windows SHC no longer supported (Linux-only for search-head clustering).
+
+Post-upgrade recheck: RIR detections, suppression views, saved views, drilldowns/time tokens, TAXII datasets (_time/sourcetype/host/source).
+
+Readiness Checklist (Pre-Upgrade)
+
+Snapshot & backup: $SPLUNK_HOME, KV Store, indexes, app local/*.conf.
+
+Remove legacy Workbench/sequence views/macros; upgrade CIM → 6.2.0; enable all DA/SA add-ons.
+
+Confirm SOAR pairing plan (cloud/on-prem) and playbook tests; review risk modifiers in custom detections.
+
+Plan CLI-based install for future Splunk 10.x (since UI upload blocked).
+
+Cutover Plan (High-Level)
+
+1️⃣ Start change window → disable scheduled searches & bundle replication; capture baselines.
+2️⃣ Install ES 8.2.3 via CLI; verify add-ons & cleanup temporary tokens; restart tier.
+3️⃣ Smoke tests: Mission Control, Analyst Queue, Content Mgmt, Risk dashboards, SOAR actions.
+4️⃣ Re-enable schedules; monitor search latency; tune AQ max_time=0 and “Hide Findings.”
+5️⃣ Validate RBA outputs, notables, suppression, UBA / ITSI integration, TAXII feeds.
+
+Post-Upgrade Validation (Day 0–2)
+
+Content: Detection versioning & audit trail function correctly; no risk overwrite.
+
+Dashboards: Security Posture, Risk Analysis, AQ filters/pagination, drilldowns render cleanly.
+
+Integrations: SOAR runbooks, notes API, UBA notable ingestion, ITSI KPIs (CIM).
+
+KV Store: Retention policy enabled and monitored; confirm search reuse performance gains.
+
+Decision & Next Steps
+
+✅ Approve upgrade to ES 8.2.3 in next maintenance window.
+
+📦 Execute pre-upgrade backup/export and content cleanup.
+
+🧪 Run UAT for 3–5 days; then promote to production with rollback snapshot retained.
+
+🤖 Optionally evaluate AI Assistant (Cloud) and Threat Intelligence Management regional eligibility.
