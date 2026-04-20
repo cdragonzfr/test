@@ -1,0 +1,75 @@
+import base64
+import gzip
+import json
+
+def lambda_handler(event, context):
+    output = []
+
+    for record in event['records']:
+        try:
+            # Step 1: Base64 decode
+            raw_data = base64.b64decode(record['data'])
+
+            # Step 2: Try decompress (fallback if already plain)
+            try:
+                decompressed = gzip.decompress(raw_data)
+                payload = decompressed.decode()
+            except:
+                payload = raw_data.decode()
+
+            # Step 3: Parse JSON
+            cw_data = json.loads(payload)
+
+            print("MESSAGE TYPE:", cw_data.get("messageType"))
+
+            # FIX 1: Drop control messages (no passthrough)
+            if cw_data.get('messageType') != 'DATA_MESSAGE':
+                output.append({
+                    'recordId': record['recordId'],
+                    'result': 'Dropped'
+                })
+                continue
+
+            combined_events = []
+
+            # Step 4: Transform each log event
+            for log_event in cw_data.get('logEvents', []):
+                new_event = {
+                    "timestamp": log_event.get('timestamp'),
+                    "message": log_event.get('message'),
+                    "logGroup": cw_data.get('logGroup'),
+                    "logStream": cw_data.get('logStream'),
+                    "owner": cw_data.get('owner')
+                }
+
+                combined_events.append(json.dumps(new_event))
+
+            # FIX 2: Drop empty records (no passthrough)
+            if not combined_events:
+                output.append({
+                    'recordId': record['recordId'],
+                    'result': 'Dropped'
+                })
+                continue
+
+            # Step 5: Join into newline-delimited JSON
+            final_payload = "\n".join(combined_events) + "\n"
+
+            # Step 6: Return transformed record
+            output.append({
+                'recordId': record['recordId'],
+                'result': 'Ok',
+                'data': base64.b64encode(final_payload.encode()).decode()
+            })
+
+        except Exception as e:
+            print("ERROR:", str(e))
+
+            # Only use ProcessingFailed for real failures
+            output.append({
+                'recordId': record['recordId'],
+                'result': 'ProcessingFailed',
+                'data': record['data']
+            })
+
+    return {'records': output}
