@@ -1,0 +1,125 @@
+Important Clarification
+The app registration does not “use” the private endpoint by itself.
+
+Access has two separate parts:
+
+Identity/RBAC: Can this Splunk app read from the Event Hub?
+Network: Can the Splunk heavy forwarder reach the Event Hub private endpoint?
+Both must be true.
+
+Cloud Team Must Build
+For Azure SQL audit logs to Event Hub:
+
+Azure SQL auditing enabled on the SQL server.
+Diagnostic setting on the SQL master database resource.
+Diagnostic category:
+SQLSecurityAuditEvents
+Destination:
+Event Hub
+Event Hub namespace and Event Hub.
+Event Hub private endpoint if public access is disabled.
+Private DNS for the Event Hub namespace.
+RBAC for the Splunk app registration/service principal.
+Event Hub Requirements
+If using private endpoint, the Event Hub namespace cannot be Basic. Private endpoint is not supported on Basic Event Hubs. Use at least:
+
+Event Hubs Standard
+The Event Hub should be in the same region as the monitored SQL resource.
+
+The diagnostic setting also needs Azure Monitor to be able to write to the Event Hub. If the Event Hub has network restrictions/private endpoint, enable:
+
+Allow trusted Microsoft services to bypass this firewall
+Otherwise Azure Monitor diagnostic settings may not be able to deliver logs.
+
+Permissions Needed
+For Splunk to read from Event Hub, grant the Splunk service principal:
+
+Azure Event Hubs Data Receiver
+Scope options:
+
+Event Hub
+Event Hub namespace
+Resource group
+Subscription
+For enterprise scale, namespace, resource group, or subscription scope is often easier than assigning every Event Hub individually.
+
+What Splunk Team Provides
+To the cloud team:
+
+Tenant ID
+Client ID / Application ID
+Service principal object ID
+App registration display name
+Splunk heavy forwarder network location
+Required consumer group name, if not using $Default
+Preferred index and sourcetype
+Expected volume, if known
+The most important RBAC value is:
+
+Service principal object ID
+The cloud team should not need the client secret unless they are configuring Splunk.
+
+What Cloud Team Provides Back
+To the Splunk team:
+
+Tenant ID
+Event Hub namespace name
+Event Hub namespace FQDN
+Event Hub name
+Consumer group name
+Subscription ID
+Resource group
+RBAC scope where Azure Event Hubs Data Receiver was assigned
+Private endpoint IP address
+Private DNS zone details
+Network path confirmation from Splunk HF to private endpoint
+Whether public network access is disabled
+Whether trusted Microsoft services bypass is enabled
+Event Hub FQDN looks like:
+
+<namespace>.servicebus.windows.net
+With private endpoint DNS, that should resolve from the Splunk network to a private IP via:
+
+privatelink.servicebus.windows.net
+Network Requirements
+The Splunk heavy forwarder must be able to reach the Event Hub namespace privately.
+
+They need one of:
+
+Splunk HF in same VNet
+VNet peering
+VPN
+ExpressRoute
+Private endpoint reachable from Splunk network
+Ports depend on Splunk/Event Hub configuration:
+
+5671 / 5672 for AMQP
+443 for AMQP over WebSockets
+For locked-down networks, 443 is usually easier.
+
+Suggested Request Text
+You can send this:
+
+Please configure Azure SQL auditing for SQLSecurityAuditEvents and route the diagnostic setting to an Event Hub.
+
+The Event Hub namespace should support private endpoint access, so use Standard tier or higher. If public access is disabled or networking is restricted, enable trusted Microsoft services bypass so Azure Monitor diagnostic settings can write to the Event Hub.
+
+Please grant the existing Splunk service principal Azure Event Hubs Data Receiver at the Event Hub namespace, resource group, or subscription scope.
+
+Splunk service principal object ID:
+<value>
+
+Please provide back:
+- Event Hub namespace
+- Event Hub name
+- Consumer group
+- Namespace FQDN
+- Private endpoint IP
+- Private DNS zone details
+- RBAC assignment scope
+- Subscription ID and resource group
+Sources:
+
+Azure Monitor diagnostic settings to Event Hub: https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/diagnostic-settings
+Stream Azure monitoring data to Event Hub: https://learn.microsoft.com/en-us/azure/azure-monitor/essentials/stream-monitoring-data-event-hubs
+Event Hubs private endpoint notes: https://learn.microsoft.com/en-us/azure/event-hubs/private-link-service
