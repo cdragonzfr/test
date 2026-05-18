@@ -1,0 +1,80 @@
+For getting the existing CloudWatch Log Group data into Splunk, the recommended setup is:
+
+CloudWatch Log Group -> Kinesis Data Firehose -> Lambda transform -> S3 bucket -> Splunk S3 input
+
+This gives us a reliable AWS-native path where CloudWatch forwards log events to Firehose, Firehose invokes a Lambda function to decompress and normalize the CloudWatch payload, and the transformed events are delivered to S3 as GZIP files. Splunk can then ingest from the S3 bucket using its AWS S3 input.
+
+The Lambda transform is useful because CloudWatch subscription data arrives as a compressed CloudWatch envelope. The Lambda function decompresses the payload, removes CloudWatch control messages, and outputs newline-delimited JSON with fields such as timestamp, message, log group, log stream, and owner. That format is much easier for Splunk to parse and search.
+
+The main IAM roles needed are:
+
+CloudWatch Logs to Firehose role
+This role is assumed by CloudWatch Logs and allows the log group subscription filter to send records into the Firehose delivery stream.
+
+Trust policy principal:
+
+{
+  "Service": "logs.amazonaws.com"
+}
+Required permissions:
+
+{
+  "Effect": "Allow",
+  "Action": [
+    "firehose:PutRecord",
+    "firehose:PutRecordBatch",
+    "firehose:DescribeDeliveryStream"
+  ],
+  "Resource": "<firehose-delivery-stream-arn>"
+}
+Firehose delivery role
+This role is assumed by Kinesis Data Firehose. It allows Firehose to write transformed records into S3 and invoke the Lambda transform.
+
+Trust policy principal:
+
+{
+  "Service": "firehose.amazonaws.com"
+}
+Required S3 permissions:
+
+{
+  "Effect": "Allow",
+  "Action": [
+    "s3:PutObject",
+    "s3:ListBucket",
+    "s3:GetBucketLocation"
+  ],
+  "Resource": [
+    "<s3-bucket-arn>",
+    "<s3-bucket-arn>/*"
+  ]
+}
+Required Lambda permissions:
+
+{
+  "Effect": "Allow",
+  "Action": [
+    "lambda:InvokeFunction",
+    "lambda:GetFunctionConfiguration"
+  ],
+  "Resource": "<lambda-function-arn>"
+}
+Lambda execution role
+This role is assumed by Lambda and allows the transform function to write execution logs to CloudWatch Logs.
+
+Trust policy principal:
+
+{
+  "Service": "lambda.amazonaws.com"
+}
+Required permissions can usually be covered by the AWS-managed policy:
+
+AWSLambdaBasicExecutionRole
+Lambda resource permission for Firehose
+In addition to the Firehose role IAM policy, the Lambda function itself needs a resource-based permission allowing Firehose to invoke it:
+
+{
+  "Principal": "firehose.amazonaws.com",
+  "Action": "lambda:InvokeFunction",
+  "FunctionName": "<lambda-function-name>"
+}
